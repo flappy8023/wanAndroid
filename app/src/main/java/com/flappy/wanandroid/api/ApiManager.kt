@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.model.api
+package com.flappy.wanandroid.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -1,4 +1,11 @@
-package com.flappy.wanandroid.model.bean
+package com.flappy.wanandroid.vo
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import com.flappy.wanandroid.util.JsonUtil
+import com.google.gson.reflect.TypeToken
 
 /**
  * @Author: luweiming
@@ -15,6 +22,11 @@ data class ArticleListData(
     var total: Long
 )
 
+@Entity(tableName = "article_key")
+data class ArticleKey(@PrimaryKey var category: String, var nextKey: String?)
+
+@TypeConverters(TagConverter::class)
+@Entity(tableName = "article")
 data class Article(
     var adminAdd: Boolean,
     var apkLink: String,
@@ -30,8 +42,7 @@ data class Article(
     var envelopePic: String,
     var fresh: Boolean,
     var host: String,
-    var id: Long,
-//    var isAdminAdd:Boolean,
+    @PrimaryKey var id: Long,
     var link: String,
     var niceDate: String,
     var niceShareDate: String,
@@ -45,7 +56,7 @@ data class Article(
     var shareUser: String,
     var superChapterId: Long,
     var superChapterName: String,
-    var tag: List<ArticleTag>,
+    var tag: List<ArticleTag>?,
     var title: String,
     var type: Int,
     var userId: Long,
@@ -53,8 +64,24 @@ data class Article(
     var zan: Long
 )
 
+/**
+ * 转化器，用于存储article中自定义tag类型数据
+ */
+class TagConverter {
+    @TypeConverter
+    fun tagToString(tag: List<ArticleTag>?): String {
+        return if(null==tag) "" else JsonUtil.toJsonString(tag)
+    }
+
+    @TypeConverter
+    fun stringToTag(str: String): List<ArticleTag>? {
+        return JsonUtil.fromJsonString(str, object : TypeToken<List<ArticleTag>>() {})
+    }
+}
+
 data class ArticleTag(var url: String, var name: String)
 
+@Entity
 data class Banner(
     var desc: String,
     var id: Long,

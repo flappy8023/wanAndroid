@@ -13,6 +13,7 @@
         android:theme="@style/Theme.Splash">
         <activity
             android:name=".ui.main.MainActivity"
+            android:theme="@style/Theme.WanAndroid"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

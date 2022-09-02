@@ -13,8 +13,8 @@ import java.lang.reflect.ParameterizedType
  * @Date: Created in 12:48 2022/8/21
  */
 abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
-    lateinit var mViewBinding: VB
-    lateinit var mViewModel: VM
+    lateinit var binding: VB
+    lateinit var viewModel: VM
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
@@ -29,16 +29,16 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
      * 初始化viewBinding
      */
     private fun initViewBinding() {
-        mViewBinding = DataBindingUtil.setContentView(this, getLayoutId())
-        mViewBinding.lifecycleOwner = this
+        binding = DataBindingUtil.setContentView(this, getLayoutId())
+        binding.lifecycleOwner = this
     }
 
     /**
      * 初始化viewModel
      */
     private fun initViewModel() {
-        mViewModel =
-            ViewModelProvider(this).get((mViewModel.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<VM>)
+        viewModel =
+            ViewModelProvider(this).get((this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>)
     }
 
     /**

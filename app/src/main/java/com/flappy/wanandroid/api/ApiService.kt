@@ -1,6 +1,6 @@
-package com.flappy.wanandroid.model.api
+package com.flappy.wanandroid.api
 
-import com.flappy.wanandroid.model.bean.*
+import com.flappy.wanandroid.vo.*
 import retrofit2.http.*
 
 /**
@@ -18,10 +18,10 @@ interface ApiService {
      * @param pageNo Int
      * @param pageSize Int
      */
-    @GET("article/list/{pageNo}/json?page_size={pageSize}")
+    @GET("article/list/{pageNo}/json")
     suspend fun getHomeArticleList(
         @Path("pageNo") pageNo: Int,
-        @Path("pageSize") pageSize: Int
+        @Query("pageSize") pageSize: Int
     ): Response<ArticleListData>
 
 

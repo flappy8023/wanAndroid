@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.model.api
+package com.flappy.wanandroid.api
 
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey

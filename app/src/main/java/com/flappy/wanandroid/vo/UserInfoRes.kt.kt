@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.model.bean
+package com.flappy.wanandroid.vo
 
 /**
  * @Author: luweiming
