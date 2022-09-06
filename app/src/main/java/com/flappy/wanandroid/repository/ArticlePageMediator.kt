@@ -32,24 +32,33 @@ class ArticlePageMediator(private val api: ApiService, private val db: MyDB) :
     ): MediatorResult {
         val page = when (loadType) {
             //
-            LoadType.REFRESH -> 1
+            LoadType.REFRESH -> 0
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
             LoadType.APPEND -> {
                 val remoteKey = db.withTransaction { keyDao.getByCategory("home") }
-                if (remoteKey.nextKey.isNullOrEmpty() ) {
+                if (remoteKey.nextKey.isNullOrEmpty()) {
                     return MediatorResult.Success(endOfPaginationReached = true)
                 }
                 remoteKey.nextKey!!.toInt()
             }
 
         }
+        val list = mutableListOf<Article>()
+        //首次请求首页文章列表前，拼接置顶文章
+        if (page == 0) {
+            val topList = api.getTopArticles().data
+            topList?.let { list.addAll(it) }
+        }
         //刷新时默认请求三页
-        val list = api.getHomeArticleList(
-            page!!, when (loadType) {
+        val articleList = api.getHomeArticleList(
+            page, when (loadType) {
                 LoadType.REFRESH -> state.config.initialLoadSize
                 else -> state.config.pageSize
             }
-        ).data.datas
+        ).data?.datas
+        articleList?.let {
+            list.addAll(articleList)
+        }
         db.withTransaction {
             if (loadType == LoadType.REFRESH) {
                 articleDao.deleteAll()

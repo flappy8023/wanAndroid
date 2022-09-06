@@ -12,15 +12,6 @@ import com.google.gson.reflect.TypeToken
  * @Description:首页相关接口响应数据定义
  * @Date: Created in 17:00 2022/8/22
  */
-data class ArticleListData(
-    var curPage: Long,
-    var datas: List<Article>,
-    var offset: Long,
-    var over: Boolean,
-    var pageCount: Long,
-    var size: Int,
-    var total: Long
-)
 
 @Entity(tableName = "article_key")
 data class ArticleKey(@PrimaryKey var category: String, var nextKey: String?)
@@ -42,7 +33,7 @@ data class Article(
     var envelopePic: String,
     var fresh: Boolean,
     var host: String,
-    @PrimaryKey var id: Long,
+    var id: Long,
     var link: String,
     var niceDate: String,
     var niceShareDate: String,
@@ -61,7 +52,10 @@ data class Article(
     var type: Int,
     var userId: Long,
     var visible: Int,
-    var zan: Long
+    var zan: Long,
+    var indexInResponse:Int = -1,
+    @PrimaryKey(autoGenerate = true)
+    var aId:Int = 0
 )
 
 /**
@@ -82,7 +76,7 @@ class TagConverter {
 data class ArticleTag(var url: String, var name: String)
 
 @Entity
-data class Banner(
+data class BannerItem(
     var desc: String,
     var id: Long,
     var imagePath: String,

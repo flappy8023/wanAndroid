@@ -15,7 +15,7 @@ import com.flappy.wanandroid.vo.Article
  * @Description:
  * @Date: Created in 15:48 2022/9/1
  */
-class ArticleAdapter : PagingDataAdapter<Article, ArticleAdapter.ArticleHolder>(DIFF_CALLBACK) {
+class HomeArticleAdapter : PagingDataAdapter<Article, HomeArticleAdapter.ArticleHolder>(DIFF_CALLBACK) {
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Article>() {
             override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {

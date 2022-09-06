@@ -10,7 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://s01.oss.sonatype.org/content/groups/public" }
     }
 }
 rootProject.name = "wanAndroid"
 include ':app'
+include ':lib_widget'

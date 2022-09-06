@@ -1,13 +1,11 @@
 package com.flappy.wanandroid.repository
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.flappy.wanandroid.api.ApiService
-import com.flappy.wanandroid.vo.Article
 import com.flappy.wanandroid.db.MyDB
-import kotlinx.coroutines.flow.Flow
+import com.flappy.wanandroid.paging.ArticlePagingSource
+import com.flappy.wanandroid.util.apiCall
+import com.flappy.wanandroid.vo.Article
+import com.flappy.wanandroid.vo.BannerItem
 
 /**
  * @Author: luweiming
@@ -16,10 +14,21 @@ import kotlinx.coroutines.flow.Flow
  */
 class ArticleRepository(val api: ApiService, val db: MyDB) {
 
-    @OptIn(ExperimentalPagingApi::class)
-    fun getArticles(pageSize: Int): Flow<PagingData<Article>> =
-        Pager(
-            config = PagingConfig(pageSize),
-            remoteMediator = ArticlePageMediator(api, db)
-        ) { db.articleDao().getArticles() }.flow
+    fun articlePagingSource() = ArticlePagingSource(api)
+
+    /**
+     * 获取置顶内容
+     * @return Result<List<Article>>
+     */
+    suspend fun getTops(): Result<List<Article>> {
+        return apiCall { api.getTopArticles() }
+    }
+
+    /**
+     * 获取轮播内容
+     * @return Result<List<BannerItem>>
+     */
+    suspend fun getBanners(): Result<List<BannerItem>> {
+        return apiCall { api.getBanners() }
+    }
 }

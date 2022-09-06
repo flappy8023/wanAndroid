@@ -22,7 +22,7 @@ interface ApiService {
     suspend fun getHomeArticleList(
         @Path("pageNo") pageNo: Int,
         @Query("pageSize") pageSize: Int
-    ): Response<ArticleListData>
+    ): Response<PagedData<Article>>
 
 
     /**
@@ -30,7 +30,7 @@ interface ApiService {
      * @return Response<List<Banner>>
      */
     @GET("banner/json")
-    suspend fun getBanners(): Response<List<Banner>>
+    suspend fun getBanners(): Response<List<BannerItem>>
 
     /**
      * 1.3 常用网站
@@ -69,14 +69,14 @@ interface ApiService {
     suspend fun getArticlesOfTree(
         @Path("cid") cid: Long,
         @Path("pageSize") pageSize: Int
-    ): Response<ArticleListData>
+    ): Response<PagedData<Article>>
 
     /**
      * 2.3 按照作者昵称搜索文章
      * @param author String
      */
     @GET("article/list/0/json?author={author}")
-    suspend fun getArticlesByAuthor(@Path("author") author: String): Response<ArticleListData>
+    suspend fun getArticlesByAuthor(@Path("author") author: String): Response<PagedData<Article>>
 
     /**
      * 3.1 导航数据
@@ -103,7 +103,7 @@ interface ApiService {
         @Path("page") page: Int,
         @Path("cid") cid: Long,
         @Path("pageSize") pageSize: Int
-    ): Response<ArticleListData>
+    ): Response<PagedData<Article>>
 
 
     /**
@@ -145,7 +145,7 @@ interface ApiService {
     suspend fun getCollectList(
         @Path("pageNo") pageNo: Int,
         @Path("pageSize") pageSize: Int
-    ): Response<ArticleListData>
+    ): Response<PagedData<Article>>
 
     /**
      * 6.2 收藏站内文章
@@ -409,7 +409,7 @@ interface ApiService {
     suspend fun getWendaList(
         @Path("pageNo") pageNo: Int,
         @Query("page_size") pageSize: Int = 30
-    ): Response<ArticleListData>
+    ): Response<PagedData<Article>>
 
 
     /**

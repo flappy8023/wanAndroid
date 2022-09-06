@@ -8,7 +8,7 @@ import com.flappy.wanandroid.ui.home.HomeFragment
 
 /**
  * @Author: luweiming
- * @Description:
+ * @Description:首页viewpager adapter
  * @Date: Created in 22:30 2022/8/31
  */
 class MainPagerAdapter(
@@ -20,6 +20,9 @@ class MainPagerAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        return HomeFragment()
+        return when (position) {
+            0 -> HomeFragment()
+            else -> HomeFragment()
+        }
     }
 }

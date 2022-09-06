@@ -18,7 +18,7 @@ interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(articles: List<Article>)
 
-    @Query("SELECT * FROM article ORDER BY publishTime")
+    @Query("SELECT * FROM article ORDER BY aId ASC")
     fun getArticles(): PagingSource<Int, Article>
 
     @Query("delete from article")
