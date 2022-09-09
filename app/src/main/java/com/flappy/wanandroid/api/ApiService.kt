@@ -22,7 +22,7 @@ interface ApiService {
     suspend fun getHomeArticleList(
         @Path("pageNo") pageNo: Int,
         @Query("pageSize") pageSize: Int
-    ): Response<PagedData<Article>>
+    ): ApiResponse<PagedData<Article>>
 
 
     /**
@@ -30,35 +30,35 @@ interface ApiService {
      * @return Response<List<Banner>>
      */
     @GET("banner/json")
-    suspend fun getBanners(): Response<List<BannerItem>>
+    suspend fun getBanners(): ApiResponse<List<BannerItem>>
 
     /**
      * 1.3 常用网站
      * @return Response<List<CommonWebSite>>
      */
     @GET("friend/json")
-    suspend fun getCommonlyUsedWebsites(): Response<List<CommonWebSite>>
+    suspend fun getCommonlyUsedWebsites(): ApiResponse<List<CommonWebSite>>
 
     /**
      * 1.4 搜索热词
      * @return Response<List<HotKey>>
      */
     @GET("hotkey/json")
-    suspend fun getHotKey(): Response<List<HotKey>>
+    suspend fun getHotKey(): ApiResponse<List<HotKey>>
 
     /**
      * 1.5 置顶文章
      * @return Response<List<Article>>
      */
     @GET("article/top/json")
-    suspend fun getTopArticles(): Response<List<Article>>
+    suspend fun getTopArticles(): ApiResponse<List<Article>>
 
     /**
      * 2.1 体系数据
      * @return Response<List<TreeItem>>
      */
     @GET("tree/json")
-    suspend fun getTrees(): Response<List<TreeItem>>
+    suspend fun getTrees(): ApiResponse<List<TreeItem>>
 
     /**
      * 2.2 知识体系下的文章
@@ -69,28 +69,28 @@ interface ApiService {
     suspend fun getArticlesOfTree(
         @Path("cid") cid: Long,
         @Path("pageSize") pageSize: Int
-    ): Response<PagedData<Article>>
+    ): ApiResponse<PagedData<Article>>
 
     /**
      * 2.3 按照作者昵称搜索文章
      * @param author String
      */
     @GET("article/list/0/json?author={author}")
-    suspend fun getArticlesByAuthor(@Path("author") author: String): Response<PagedData<Article>>
+    suspend fun getArticlesByAuthor(@Path("author") author: String): ApiResponse<PagedData<Article>>
 
     /**
      * 3.1 导航数据
      * @return Response<List<NaviBean>>
      */
     @GET("navi/json")
-    suspend fun getNaviData(): Response<List<NaviBean>>
+    suspend fun getNaviData(): ApiResponse<List<NaviBean>>
 
     /**
      * 4.1 项目分类
      * @return Response<List<TreeItem>>
      */
     @GET("project/tree/json")
-    suspend fun getProjectCategory(): Response<List<TreeItem>>
+    suspend fun getProjectCategory(): ApiResponse<List<TreeItem>>
 
     /**
      * 4.2 项目列表数据
@@ -103,7 +103,7 @@ interface ApiService {
         @Path("page") page: Int,
         @Path("cid") cid: Long,
         @Path("pageSize") pageSize: Int
-    ): Response<PagedData<Article>>
+    ): ApiResponse<PagedData<Article>>
 
 
     /**
@@ -113,7 +113,7 @@ interface ApiService {
      */
     @POST("user/login")
     @FormUrlEncoded
-    suspend fun login(@Field("username") name: String, @Field("password") pwd: String): Response<*>
+    suspend fun login(@Field("username") name: String, @Field("password") pwd: String): ApiResponse<*>
 
     /**
      * 5.2 注册
@@ -127,14 +127,14 @@ interface ApiService {
         @Field("username") name: String,
         @Field("password") pwd: String,
         @Field("repassword") repwd: String
-    ): Response<Any>
+    ): ApiResponse<Any>
 
     /**
      * 5.3 退出
      * @return Response<Any>
      */
     @GET("user/logout/json")
-    suspend fun logout(): Response<Any>
+    suspend fun logout(): ApiResponse<Any>
 
     /**
      * 6.1 收藏文章列表
@@ -145,7 +145,7 @@ interface ApiService {
     suspend fun getCollectList(
         @Path("pageNo") pageNo: Int,
         @Path("pageSize") pageSize: Int
-    ): Response<PagedData<Article>>
+    ): ApiResponse<PagedData<Article>>
 
     /**
      * 6.2 收藏站内文章
@@ -204,7 +204,7 @@ interface ApiService {
      * 6.5 收藏网站列表
      */
     @GET("lg/collect/usertools/json")
-    suspend fun getCollectedWebsiteList(): Response<List<WebSiteBean>>
+    suspend fun getCollectedWebsiteList(): ApiResponse<List<WebSiteBean>>
 
     /**
      * 6.6 收藏网址
@@ -331,14 +331,14 @@ interface ApiService {
      * @param pageNo Int
      */
     @GET("coin/rank/{pageNo}/json")
-    suspend fun getCoinRankList(@Path("pageNo") pageNo: Int): Response<PagedData<CoinRankItem>>
+    suspend fun getCoinRankList(@Path("pageNo") pageNo: Int): ApiResponse<PagedData<CoinRankItem>>
 
     /**
      * 9.2 获取个人积分，需要登录
      * @return Response<CoinRankItem>
      */
     @GET("lg/coin/userinfo/json")
-    suspend fun getMyCoin(): Response<CoinRankItem>
+    suspend fun getMyCoin(): ApiResponse<CoinRankItem>
 
 
     /**
@@ -346,7 +346,7 @@ interface ApiService {
      * @param pageNo Int
      */
     @GET("lg/coin/list/{pageNo}/json")
-    suspend fun getCoinRecordList(@Path("pageNo") pageNo: Int): Response<PagedData<CoinRecord>>
+    suspend fun getCoinRecordList(@Path("pageNo") pageNo: Int): ApiResponse<PagedData<CoinRecord>>
 
     /**
      * 10.1 广场列表数据
@@ -357,7 +357,7 @@ interface ApiService {
     suspend fun getSquareArticleList(
         @Path("pageNO") pageNo: Int,
         @Query("page_size") pageSize: Int
-    ): Response<PagedData<SquareArticle>>
+    ): ApiResponse<PagedData<SquareArticle>>
 
 
     /**
@@ -369,7 +369,7 @@ interface ApiService {
     suspend fun getArticlesByUserId(
         @Path("pageNo") pageNo: Int,
         @Path("userId") userId: Long
-    ): Response<UserArticles>
+    ): ApiResponse<UserArticles>
 
 
     /**
@@ -381,7 +381,7 @@ interface ApiService {
     suspend fun getMySharedArticles(
         @Query("page_size") pageSize: Int,
         @Path("pageNo") pageNo: Int
-    ): Response<UserArticles>
+    ): ApiResponse<UserArticles>
 
     /**
      * 10.4 删除自己分享的文章
@@ -409,7 +409,7 @@ interface ApiService {
     suspend fun getWendaList(
         @Path("pageNo") pageNo: Int,
         @Query("page_size") pageSize: Int = 30
-    ): Response<PagedData<Article>>
+    ): ApiResponse<PagedData<Article>>
 
 
     /**
@@ -417,7 +417,7 @@ interface ApiService {
      * @return Response<UserInfoData>
      */
     @GET("user/lg/userinfo/json")
-    suspend fun getUserInfo(): Response<UserInfoData>
+    suspend fun getUserInfo(): ApiResponse<UserInfoData>
 
     /**
      * 13 问答评论列表
@@ -425,13 +425,13 @@ interface ApiService {
      * @return Response<PagedData<Comment>>
      */
     @GET("wenda/comments/{id}/json")
-    suspend fun getCommentsByWendaId(@Path("id") id: Long): Response<PagedData<Comment>>
+    suspend fun getCommentsByWendaId(@Path("id") id: Long): ApiResponse<PagedData<Comment>>
 
     /**
      * 14.1 未读消息数量
      */
     @GET("message/lg/count_unread/json")
-    suspend fun getUnreadMsgCount(): Response<Int>
+    suspend fun getUnreadMsgCount(): ApiResponse<Int>
 
     /**
      * 14.2 已读消息列表
@@ -439,7 +439,7 @@ interface ApiService {
      * @param pageSize Int
      */
     @GET("message/lg/readed_list/{pageNo}/json")
-    suspend fun getReadedMsgList(@Path("pageNo") pageNo: Int, @Query("page_size") pageSize: Int):Response<PagedData<Message>>
+    suspend fun getReadedMsgList(@Path("pageNo") pageNo: Int, @Query("page_size") pageSize: Int):ApiResponse<PagedData<Message>>
 
     /**
      * 14.3 未读消息列表，一旦调用默认已读
@@ -448,7 +448,7 @@ interface ApiService {
      * @return Response<PagedData<Message>>
      */
     @GET("message/lg/unread_list/{pageNo}/json")
-    suspend fun getUnreadMsgList(@Path("pageNo")pageNo: Int,@Query("page_size")pageSize: Int):Response<PagedData<Message>>
+    suspend fun getUnreadMsgList(@Path("pageNo")pageNo: Int,@Query("page_size")pageSize: Int):ApiResponse<PagedData<Message>>
 
 
     /**
@@ -456,7 +456,7 @@ interface ApiService {
      * @return Response<List<WXOfficialAccount>>
      */
     @GET("wxarticle/chapters/json")
-    suspend fun getWXOfficialAccountList():Response<List<WXOfficialAccount>>
+    suspend fun getWXOfficialAccountList():ApiResponse<List<WXOfficialAccount>>
 
     /**
      * 15.2 获取某个公众号历史数据
@@ -464,7 +464,7 @@ interface ApiService {
      * @param pageNo Int
      */
     @GET("wxarticle/list/{id}/{pageNo}/json")
-    suspend fun getWxHistoryArticles(@Path("id")id:Long,@Path("pageNo")pageNo: Int):Response<PagedData<Article>>
+    suspend fun getWxHistoryArticles(@Path("id")id:Long,@Path("pageNo")pageNo: Int):ApiResponse<PagedData<Article>>
 
     /**
      * 15.3 在某个公众号中搜索历史文章
@@ -481,14 +481,14 @@ interface ApiService {
      * @return Response<PagedData<Article>>
      */
     @GET("article/listproject/{pageNo}/json")
-    suspend fun getProjectList(@Path("pageNo")pageNo: Int):Response<PagedData<Article>>
+    suspend fun getProjectList(@Path("pageNo")pageNo: Int):ApiResponse<PagedData<Article>>
 
     /**
      * 18.1 教程列表
      * @return Response<List<Tutorial>>
      */
     @GET("chapter/547/sublist/json")
-    suspend fun getTutorialList():Response<List<Tutorial>>
+    suspend fun getTutorialList():ApiResponse<List<Tutorial>>
 
     /**
      * 18.2 教程下文章列表
@@ -497,6 +497,6 @@ interface ApiService {
      * @return Response<PagedData<Article>>
      */
     @GET("article/list/{pageNo}/json")
-    suspend fun getTutorialArticleList(@Path("pageNo")pageNo: Int,@Query("cid")cid:Long):Response<PagedData<Article>>
+    suspend fun getTutorialArticleList(@Path("pageNo")pageNo: Int,@Query("cid")cid:Long):ApiResponse<PagedData<Article>>
 
 }

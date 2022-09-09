@@ -40,6 +40,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when(item.itemId){
                     R.id.menu_home -> binding.vpMain.currentItem = 0
+                    R.id.menu_wx -> binding.vpMain.currentItem = 1
+                    R.id.menu_collect -> binding.vpMain.currentItem = 1
+                    R.id.menu_mine -> binding.vpMain.currentItem = 1
                 }
                 return true
             }

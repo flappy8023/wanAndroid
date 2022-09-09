@@ -14,8 +14,16 @@ import androidx.recyclerview.widget.RecyclerView
  */
 abstract class BaseRecyclerViewAdapter<T, VB : ViewDataBinding> :
     RecyclerView.Adapter<BaseRecyclerViewAdapter<T, VB>.Holder>() {
+    companion object {
+        const val CLICK_TYPE_ITEM = -1
+    }
+
     private val list: MutableList<T> by lazy { mutableListOf() }
 
+    /**
+     * 点击回调,type用于区分点击区域
+     */
+    private var onItemClick: ((position: Int, type: Int) -> Unit)? = null
     abstract fun getLayoutId(): Int
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -30,6 +38,10 @@ abstract class BaseRecyclerViewAdapter<T, VB : ViewDataBinding> :
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        //为itemView设置通用点击监听
+        onItemClick?.let { onClick ->
+            holder.itemView.setOnClickListener { onClick.invoke(position, CLICK_TYPE_ITEM) }
+        }
         bindView(holder.viewBinding, list[position], holder)
     }
 

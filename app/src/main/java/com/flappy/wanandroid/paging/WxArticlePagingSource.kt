@@ -10,28 +10,22 @@ import com.flappy.wanandroid.vo.Article
 /**
  * @Author: luweiming
  * @Description:
- * @Date: Created in 13:13 2022/9/6
+ * @Date: Created in 23:11 2022/9/9
  */
-class ArticlePagingSource(val api: ApiService) : PagingSource<Int, Article>() {
-    companion object {
-        const val STARTING_KEY = 0
-        const val PAGE_SIZE = 30
-    }
-
+class WxArticlePagingSource(val api: ApiService, val id: Long) : PagingSource<Int, Article>() {
     override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
         return null
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
-        //第一次加载params.key为空
-        val page = params.key ?: STARTING_KEY
-        val result = safeApiCall { api.getHomeArticleList(page, PAGE_SIZE) }
+        val page = params.key ?: 0
+        val result = safeApiCall { api.getWxHistoryArticles(id, page) }
         if (result.isSuccess) {
             val list = result.getOrNull()?.datas
             if (null != list) {
                 return LoadResult.Page(
                     list, prevKey = when (page) {
-                        STARTING_KEY -> null
+                        ArticlePagingSource.STARTING_KEY -> null
                         else -> page - 1
                     }, nextKey = page + 1
                 )

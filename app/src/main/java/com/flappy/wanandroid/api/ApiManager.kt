@@ -1,9 +1,13 @@
 package com.flappy.wanandroid.api
 
+import com.flappy.wanandroid.MyApp
+import com.flappy.wanandroid.config.HttpConfig
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
@@ -16,10 +20,13 @@ object ApiManager {
      * 配置OkHttp客户端
      */
     private val okHttpClient by lazy {
+        val cacheDir = File(MyApp.app.externalCacheDir,HttpConfig.HTTP_CACHE_PATH)
         OkHttpClient.Builder()
+            .cache(Cache(cacheDir,HttpConfig.HTTP_CACHE_SIZE))
             .connectTimeout(10, TimeUnit.SECONDS)
             .callTimeout(10, TimeUnit.SECONDS)
             .addInterceptor(CookieInterceptor())
+            .addInterceptor(CacheInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
             .build()
     }

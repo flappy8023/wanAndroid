@@ -3,7 +3,7 @@ package com.flappy.wanandroid.repository
 import com.flappy.wanandroid.api.ApiService
 import com.flappy.wanandroid.db.MyDB
 import com.flappy.wanandroid.paging.ArticlePagingSource
-import com.flappy.wanandroid.util.apiCall
+import com.flappy.wanandroid.util.safeApiCall
 import com.flappy.wanandroid.vo.Article
 import com.flappy.wanandroid.vo.BannerItem
 
@@ -21,7 +21,7 @@ class ArticleRepository(val api: ApiService, val db: MyDB) {
      * @return Result<List<Article>>
      */
     suspend fun getTops(): Result<List<Article>> {
-        return apiCall { api.getTopArticles() }
+        return safeApiCall { api.getTopArticles() }
     }
 
     /**
@@ -29,6 +29,6 @@ class ArticleRepository(val api: ApiService, val db: MyDB) {
      * @return Result<List<BannerItem>>
      */
     suspend fun getBanners(): Result<List<BannerItem>> {
-        return apiCall { api.getBanners() }
+        return safeApiCall { api.getBanners() }
     }
 }

@@ -1,7 +1,7 @@
 package com.flappy.wanandroid.repository
 
 import com.flappy.wanandroid.api.ApiException
-import com.flappy.wanandroid.api.Response
+import com.flappy.wanandroid.api.ApiResponse
 
 
 /**
@@ -10,7 +10,7 @@ import com.flappy.wanandroid.api.Response
  * @Date: Created in 17:21 2022/9/6
  */
 open class BaseRepository {
-    open suspend fun <T : Any> apiCall(call: suspend () -> Response<T>): Result<T> {
+    open suspend fun <T : Any> apiCall(call: suspend () -> ApiResponse<T>): Result<T> {
         return Result.runCatching {
             val response = call.invoke()
             if (response.isSuccess || null != response.data) {

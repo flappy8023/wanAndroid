@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.flappy.wanandroid.ui.home.HomeFragment
+import com.flappy.wanandroid.ui.wxarticle.WxFragment
 
 /**
  * @Author: luweiming
@@ -16,13 +17,13 @@ class MainPagerAdapter(
     lifeCycle: Lifecycle,
 ) : FragmentStateAdapter(fragmentManager, lifeCycle) {
     override fun getItemCount(): Int {
-        return 1
+        return 4
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> HomeFragment()
-            else -> HomeFragment()
+            else -> WxFragment()
         }
     }
 }
