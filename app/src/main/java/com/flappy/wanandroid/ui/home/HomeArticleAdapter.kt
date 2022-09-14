@@ -16,6 +16,7 @@ import com.flappy.wanandroid.vo.Article
  * @Date: Created in 15:48 2022/9/1
  */
 class HomeArticleAdapter : PagingDataAdapter<Article, HomeArticleAdapter.ArticleHolder>(DIFF_CALLBACK) {
+    var itemClick:(Int,Article) ->Unit = {_Int,_Article->}
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Article>() {
             override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
@@ -32,6 +33,7 @@ class HomeArticleAdapter : PagingDataAdapter<Article, HomeArticleAdapter.Article
         fun bindView(article: Article?) {
             val tvTitle: TextView = view.findViewById(R.id.tv_title)
             tvTitle.text = article?.title
+            view.setOnClickListener { itemClick(bindingAdapterPosition,article!!) }
         }
 
     }

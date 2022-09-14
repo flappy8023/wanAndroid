@@ -18,10 +18,15 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
+        handleArguments()
         initViewBinding()
         initViewModel()
         observe()
         initView()
+    }
+
+    open fun handleArguments() {
+
     }
 
 

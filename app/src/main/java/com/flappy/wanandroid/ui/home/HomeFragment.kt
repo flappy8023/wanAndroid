@@ -1,5 +1,6 @@
 package com.flappy.wanandroid.ui.home
 
+import android.content.Intent
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
@@ -8,6 +9,7 @@ import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadSt
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.FragmentHomeBinding
+import com.flappy.wanandroid.ui.web.WebActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -46,6 +48,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
     }
 
     override fun initView() {
+        articleAdapter.itemClick = { postion, article ->
+            startActivity(Intent(context,WebActivity::class.java).apply {
+                putExtra("title",article.title)
+                putExtra("url",article.link)
+            })
+        }
         binding.apply {
             rvArticles.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

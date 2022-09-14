@@ -16,6 +16,7 @@
         android:theme="@style/Theme.Splash">
         <activity
             android:name=".ui.web.WebActivity"
+            android:theme="@style/Theme.WanAndroid"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
@@ -28,6 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:label="dexopt"
+            android:process=":dexopt" >
+        </service>
     </application>
 
 </manifest>
