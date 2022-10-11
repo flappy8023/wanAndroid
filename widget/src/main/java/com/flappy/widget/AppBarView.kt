@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toolbar
 import com.google.android.material.appbar.AppBarLayout
 
 /**
@@ -14,7 +15,7 @@ import com.google.android.material.appbar.AppBarLayout
  * @Description:
  * @Date: Created in 16:55 2022/9/7
  */
-class AppBarView : AppBarLayout {
+class AppBarView : Toolbar {
     var firstIcon = -1
     var secondIcon = -1
     var navIcon = -1

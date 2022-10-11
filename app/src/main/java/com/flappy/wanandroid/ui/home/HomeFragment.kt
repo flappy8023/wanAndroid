@@ -1,6 +1,10 @@
 package com.flappy.wanandroid.ui.home
 
 import android.content.Intent
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
@@ -9,6 +13,7 @@ import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadSt
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.FragmentHomeBinding
+import com.flappy.wanandroid.ui.search.SearchActivity
 import com.flappy.wanandroid.ui.web.WebActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -35,7 +40,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
         }
         viewModel.tops.observe(this) {
             topAdapter.clear()
-            topAdapter.clear()
+            topAdapter.addAll(it)
         }
         //页面创建后，请求轮播数据、置顶内容、文章列表
         lifecycleScope.launchWhenCreated {
@@ -48,10 +53,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
     }
 
     override fun initView() {
+        setHasOptionsMenu(true)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         articleAdapter.itemClick = { postion, article ->
-            startActivity(Intent(context,WebActivity::class.java).apply {
-                putExtra("title",article.title)
-                putExtra("url",article.link)
+            startActivity(Intent(context, WebActivity::class.java).apply {
+                putExtra("title", article.title)
+                putExtra("url", article.link)
             })
         }
         binding.apply {
@@ -79,4 +86,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
         }
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.home_toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home_search -> startActivity(Intent(requireActivity(), SearchActivity::class.java))
+        }
+        return true
+    }
+
 }

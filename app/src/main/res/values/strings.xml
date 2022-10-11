@@ -4,4 +4,8 @@
     <string name="menu_wx_official_account">公众号</string>
     <string name="menu_collect">收藏</string>
     <string name="menu_mine">我的</string>
+    <string name="menu_search">搜索</string>
+    <string name="cancel">取消</string>
+    <string name="search_hot">热门搜索</string>
+    <string name="search_history">历史搜索</string>
 </resources>

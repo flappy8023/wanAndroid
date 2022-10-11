@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="title_text_color">#FF1D1F24</color>
+    <color name="grey">#BEBEBE</color>
+    <color name="text_blue">#1E90FF</color>
 </resources>

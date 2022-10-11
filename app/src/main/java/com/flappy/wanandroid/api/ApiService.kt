@@ -113,7 +113,10 @@ interface ApiService {
      */
     @POST("user/login")
     @FormUrlEncoded
-    suspend fun login(@Field("username") name: String, @Field("password") pwd: String): ApiResponse<*>
+    suspend fun login(
+        @Field("username") name: String,
+        @Field("password") pwd: String
+    ): ApiResponse<*>
 
     /**
      * 5.2 注册
@@ -244,12 +247,12 @@ interface ApiService {
      * @param keyword String 关键词，多个可以用空格隔开
      */
     @FormUrlEncoded
-    @POST("article/query/{pageNo}/json?page_size={pageSize}")
+    @POST("article/query/{pageNo}/json")
     suspend fun searchArticle(
         @Path("pageNo") pageNo: Int,
-        @Path("pageSize") pageSize: Int,
+        @Query("pageSize") pageSize: Int,
         @Field("k") keyword: String
-    )
+    ): ApiResponse<PagedData<Article>>
 
     /**
      * 8.1 新增一个TODO
@@ -439,7 +442,10 @@ interface ApiService {
      * @param pageSize Int
      */
     @GET("message/lg/readed_list/{pageNo}/json")
-    suspend fun getReadedMsgList(@Path("pageNo") pageNo: Int, @Query("page_size") pageSize: Int):ApiResponse<PagedData<Message>>
+    suspend fun getReadedMsgList(
+        @Path("pageNo") pageNo: Int,
+        @Query("page_size") pageSize: Int
+    ): ApiResponse<PagedData<Message>>
 
     /**
      * 14.3 未读消息列表，一旦调用默认已读
@@ -448,7 +454,10 @@ interface ApiService {
      * @return Response<PagedData<Message>>
      */
     @GET("message/lg/unread_list/{pageNo}/json")
-    suspend fun getUnreadMsgList(@Path("pageNo")pageNo: Int,@Query("page_size")pageSize: Int):ApiResponse<PagedData<Message>>
+    suspend fun getUnreadMsgList(
+        @Path("pageNo") pageNo: Int,
+        @Query("page_size") pageSize: Int
+    ): ApiResponse<PagedData<Message>>
 
 
     /**
@@ -456,7 +465,7 @@ interface ApiService {
      * @return Response<List<WXOfficialAccount>>
      */
     @GET("wxarticle/chapters/json")
-    suspend fun getWXOfficialAccountList():ApiResponse<List<WXOfficialAccount>>
+    suspend fun getWXOfficialAccountList(): ApiResponse<List<WXOfficialAccount>>
 
     /**
      * 15.2 获取某个公众号历史数据
@@ -464,7 +473,10 @@ interface ApiService {
      * @param pageNo Int
      */
     @GET("wxarticle/list/{id}/{pageNo}/json")
-    suspend fun getWxHistoryArticles(@Path("id")id:Long,@Path("pageNo")pageNo: Int):ApiResponse<PagedData<Article>>
+    suspend fun getWxHistoryArticles(
+        @Path("id") id: Long,
+        @Path("pageNo") pageNo: Int
+    ): ApiResponse<PagedData<Article>>
 
     /**
      * 15.3 在某个公众号中搜索历史文章
@@ -473,7 +485,11 @@ interface ApiService {
      * @param keyword String
      */
     @GET("wxarticle/list/{id}/{pageNo}/json?k={keyword}")
-    suspend fun getWxArticleByKeyword(@Path("id")id:Long,@Path("pageNo")pageNo: Int,@Path("keyword")keyword: String)
+    suspend fun getWxArticleByKeyword(
+        @Path("id") id: Long,
+        @Path("pageNo") pageNo: Int,
+        @Path("keyword") keyword: String
+    )
 
     /**
      * 16.1 最新项目tab
@@ -481,14 +497,14 @@ interface ApiService {
      * @return Response<PagedData<Article>>
      */
     @GET("article/listproject/{pageNo}/json")
-    suspend fun getProjectList(@Path("pageNo")pageNo: Int):ApiResponse<PagedData<Article>>
+    suspend fun getProjectList(@Path("pageNo") pageNo: Int): ApiResponse<PagedData<Article>>
 
     /**
      * 18.1 教程列表
      * @return Response<List<Tutorial>>
      */
     @GET("chapter/547/sublist/json")
-    suspend fun getTutorialList():ApiResponse<List<Tutorial>>
+    suspend fun getTutorialList(): ApiResponse<List<Tutorial>>
 
     /**
      * 18.2 教程下文章列表
@@ -497,6 +513,9 @@ interface ApiService {
      * @return Response<PagedData<Article>>
      */
     @GET("article/list/{pageNo}/json")
-    suspend fun getTutorialArticleList(@Path("pageNo")pageNo: Int,@Query("cid")cid:Long):ApiResponse<PagedData<Article>>
+    suspend fun getTutorialArticleList(
+        @Path("pageNo") pageNo: Int,
+        @Query("cid") cid: Long
+    ): ApiResponse<PagedData<Article>>
 
 }

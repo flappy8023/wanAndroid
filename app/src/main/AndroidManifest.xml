@@ -15,9 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Splash">
         <activity
-            android:name=".ui.web.WebActivity"
+            android:name=".ui.search.SearchActivity"
             android:theme="@style/Theme.WanAndroid"
-            android:exported="false" />
+            android:parentActivityName=".ui.main.MainActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".ui.web.WebActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WanAndroid" />
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
@@ -29,11 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
-            android:process=":dexopt" >
-        </service>
+            android:process=":dexopt"></service>
     </application>
 
 </manifest>
