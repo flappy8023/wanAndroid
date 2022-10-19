@@ -14,7 +14,7 @@ import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.FragmentHomeBinding
 import com.flappy.wanandroid.ui.search.SearchActivity
-import com.flappy.wanandroid.ui.web.WebActivity
+import com.flappy.wanandroid.util.goArticleDetail
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -52,15 +52,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
         }
     }
 
+
     override fun initView() {
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        articleAdapter.itemClick = { postion, article ->
-            startActivity(Intent(context, WebActivity::class.java).apply {
-                putExtra("title", article.title)
-                putExtra("url", article.link)
-            })
-        }
+        initListener()
+
+
         binding.apply {
             rvArticles.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -85,6 +83,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
                 .collect { binding.rvArticles.scrollToPosition(0) }
         }
 
+    }
+
+    private fun initListener() {
+        articleAdapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
+        bannerAdapter.itemClick = { _, banner -> goArticleDetail(banner.title, banner.url) }
+        topAdapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

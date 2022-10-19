@@ -11,11 +11,16 @@ import com.flappy.wanandroid.vo.Article
  * @Date: Created in 21:11 2022/9/6
  */
 class HomeTopAdapter:BaseRecyclerViewAdapter<Article,HomeItemArticleBinding>() {
+    var itemClick: ((Int, Article) -> Unit)? = null
+
     override fun getLayoutId(): Int {
         return R.layout.home_item_article
     }
 
     override fun bindView(binding: HomeItemArticleBinding, data: Article, holder: Holder) {
         binding.tvTitle.text = data.title
+        binding.root.setOnClickListener {
+            itemClick?.invoke(holder.bindingAdapterPosition, data)
+        }
     }
 }

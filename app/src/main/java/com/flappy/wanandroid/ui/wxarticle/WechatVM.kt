@@ -16,19 +16,14 @@ class WechatVM : BaseViewModel() {
     val wechatAccounts: MutableLiveData<List<WXOfficialAccount>> by lazy {
         MutableLiveData()
     }
-    init {
-        getWechatAccountList()
-    }
 
     /**
      * 获取公众号列表
      */
-    fun getWechatAccountList() {
-        launch {
-            val result = repository.getWxAccountList()
-            if (result.isSuccess) {
-                wechatAccounts.postValue(result.getOrNull())
-            }
+    suspend fun getWechatAccountList() {
+        val result = repository.getWxAccountList()
+        if (result.isSuccess) {
+            wechatAccounts.postValue(result.getOrNull())
         }
     }
 

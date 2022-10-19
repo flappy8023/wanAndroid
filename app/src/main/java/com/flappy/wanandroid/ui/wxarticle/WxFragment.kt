@@ -1,5 +1,6 @@
 package com.flappy.wanandroid.ui.wxarticle
 
+import androidx.lifecycle.lifecycleScope
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.FragmentWechatBinding
@@ -21,6 +22,9 @@ class WxFragment : BaseFragment<FragmentWechatBinding, WechatVM>() {
     }
 
     override fun initView() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.getWechatAccountList()
+        }
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_wechat

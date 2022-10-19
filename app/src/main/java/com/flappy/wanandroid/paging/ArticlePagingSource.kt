@@ -26,6 +26,7 @@ class ArticlePagingSource(val api: ApiService) : PagingSource<Int, Article>() {
         //第一次加载params.key为空
         val page = params.key ?: STARTING_KEY
         val result = safeApiCall { api.getHomeArticleList(page, PAGE_SIZE) }
+        val nextPage = if (page == result.getOrNull()!!.pageCount - 1) null else page + 1
         if (result.isSuccess) {
             val list = result.getOrNull()?.datas
             if (null != list) {
@@ -33,7 +34,7 @@ class ArticlePagingSource(val api: ApiService) : PagingSource<Int, Article>() {
                     list, prevKey = when (page) {
                         STARTING_KEY -> null
                         else -> page - 1
-                    }, nextKey = page + 1
+                    }, nextKey = nextPage
                 )
             }
             return LoadResult.Error(ApiException(-1, ""))

@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.flappy.wanandroid.ui.home.HomeFragment
+import com.flappy.wanandroid.ui.mine.MineFragment
+import com.flappy.wanandroid.ui.system.SystemFragment
 import com.flappy.wanandroid.ui.wxarticle.WxFragment
 
 /**
@@ -23,7 +25,9 @@ class MainPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> HomeFragment()
-            else -> WxFragment()
+            1 -> SystemFragment()
+            2 -> WxFragment()
+            else -> MineFragment()
         }
     }
 }

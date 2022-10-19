@@ -7,7 +7,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseActivity
 import com.flappy.wanandroid.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.navigation.NavigationBarView
+import com.google.android.material.navigation.NavigationBarView.LabelVisibility
 
 /**
  * @Author: luweiming
@@ -36,17 +38,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 }
             })
         }
-        binding.btmNav.setOnItemSelectedListener(object :NavigationBarView.OnItemSelectedListener{
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                when(item.itemId){
-                    R.id.menu_home -> binding.vpMain.currentItem = 0
-                    R.id.menu_wx -> binding.vpMain.currentItem = 1
-                    R.id.menu_collect -> binding.vpMain.currentItem = 1
-                    R.id.menu_mine -> binding.vpMain.currentItem = 1
+        binding.btmNav.apply {
+            setOnItemSelectedListener(object :NavigationBarView.OnItemSelectedListener{
+                override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                    when(item.itemId){
+                        R.id.menu_home -> binding.vpMain.currentItem = 0
+                        R.id.menu_system -> binding.vpMain.currentItem = 1
+                        R.id.menu_wx -> binding.vpMain.currentItem = 2
+                        R.id.menu_mine -> binding.vpMain.currentItem = 3
+                    }
+                    return true
                 }
-                return true
-            }
-        })
+            })
+            labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
+        }
     }
 
     override fun getLayoutId() = R.layout.activity_main

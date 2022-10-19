@@ -1,14 +1,9 @@
 package com.flappy.wanandroid.ui.home
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseRecyclerViewAdapter
 import com.flappy.wanandroid.databinding.HomeItemBannerBinding
 import com.flappy.wanandroid.vo.BannerItem
-import com.youth.banner.Banner
 import com.youth.banner.indicator.CircleIndicator
 
 /**
@@ -18,10 +13,10 @@ import com.youth.banner.indicator.CircleIndicator
  */
 class HomeBannerAdapter() :BaseRecyclerViewAdapter<BannerItem,HomeItemBannerBinding>(){
 
-
+    var itemClick: ((Int, BannerItem) -> Unit)? = null
     override fun getItemCount(): Int {
         //作为首页的一个item展示
-        return if(getDataList().isNullOrEmpty()) 0 else 1
+        return if (getDataList().isEmpty()) 0 else 1
     }
 
     override fun getLayoutId(): Int {
@@ -35,7 +30,13 @@ class HomeBannerAdapter() :BaseRecyclerViewAdapter<BannerItem,HomeItemBannerBind
     ) {
         binding.banner.apply {
             setAdapter(ImageBannerAdapter(getDataList()))
-            setIndicator(CircleIndicator(holder.itemView.context))
+            indicator = CircleIndicator(holder.itemView.context)
+            setOnBannerListener { data, position ->
+                itemClick?.invoke(
+                    position,
+                    data as BannerItem
+                )
+            }
         }
     }
 }

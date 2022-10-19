@@ -13,7 +13,7 @@ data class TreeItem(
     var courseId: Long,
     var cover: String,
     var desc:String,
-    var id:Int,
+    var id:Long,
     var lisense:String,
     var lisenseLink:String,
     var name:String,

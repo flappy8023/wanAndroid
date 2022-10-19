@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">玩安卓</string>
     <string name="menu_home">首页</string>
-    <string name="menu_wx_official_account">公众号</string>
+    <string name="menu_wx">公众号</string>
+    <string name="menu_system">体系</string>
     <string name="menu_collect">收藏</string>
     <string name="menu_mine">我的</string>
     <string name="menu_search">搜索</string>

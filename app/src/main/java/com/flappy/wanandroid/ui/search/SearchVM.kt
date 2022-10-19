@@ -24,25 +24,21 @@ class SearchVM : BaseViewModel() {
      */
     val hotWords: MutableLiveData<List<String>> = MutableLiveData()
 
-    private val repository: SearchRepository by lazy {
-        SearchRepository()
-    }
-    var keyWord: String = ""
 
 
     /**
      * 搜索结果
      */
-    val articles: Flow<PagingData<Article>> by lazy {
+    fun searchArticles(keyWord: String): Flow<PagingData<Article>> =
         Pager(
             PagingConfig(HomeVM.PAGE_SIZE, enablePlaceholders = false),
-            pagingSourceFactory = { repository.searchArticlePagingSource(keyWord) }
+            pagingSourceFactory = { SearchRepository.searchArticlePagingSource(keyWord) }
         ).flow.cachedIn(viewModelScope)
-    }
+
 
     fun requestHotWords() {
         viewModelScope.launch {
-            val result = SearchRepository().requestHotWords()
+            val result = SearchRepository.requestHotWords()
             if (result.isSuccess) {
                 val list = result.getOrNull()?.map { it.name }
                 hotWords.postValue(list)

@@ -37,9 +37,8 @@ class SearchResultFragment : BaseFragment<SearchResultFragmentBinding, SearchVM>
 
     fun doSearch(keyWords: String) {
         lifecycleScope.launch {
-            viewModel.keyWord = keyWords
             resultAdapter.refresh()
-            viewModel.articles.collectLatest {
+            viewModel.searchArticles(keyWords).collectLatest {
                 resultAdapter.submitData(it)
             }
         }

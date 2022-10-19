@@ -5,16 +5,16 @@
         android:icon="@mipmap/ic_launcher"
         android:title="@string/menu_home" />
     <item
+        android:id="@+id/menu_system"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/menu_system" />
+    <item
         android:id="@+id/menu_wx"
         android:icon="@mipmap/ic_launcher"
-        android:title="@string/menu_home" />
-    <item
-        android:id="@+id/menu_collect"
-        android:icon="@mipmap/ic_launcher"
-        android:title="@string/menu_home" />
+        android:title="@string/menu_wx" />
     <item
         android:id="@+id/menu_mine"
         android:icon="@mipmap/ic_launcher"
-        android:title="@string/menu_home" />
+        android:title="@string/menu_mine" />
 
 </menu>

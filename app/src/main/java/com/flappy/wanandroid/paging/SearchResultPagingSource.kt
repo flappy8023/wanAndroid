@@ -9,7 +9,7 @@ import com.flappy.wanandroid.vo.Article
 
 /**
  * @Author: luweiming
- * @Description:
+ * @Description:搜索结果分页数据
  * @Date: Created in 13:13 2022/9/6
  */
 class SearchResultPagingSource(var keyWord: String) : PagingSource<Int, Article>() {
@@ -28,12 +28,13 @@ class SearchResultPagingSource(var keyWord: String) : PagingSource<Int, Article>
         val result = safeApiCall { ApiManager.service.searchArticle(page, PAGE_SIZE, keyWord) }
         if (result.isSuccess) {
             val list = result.getOrNull()?.datas
+            val nextPage = if (page == result.getOrNull()!!.pageCount - 1) null else page + 1
             if (null != list) {
                 return LoadResult.Page(
                     list, prevKey = when (page) {
                         STARTING_KEY -> null
                         else -> page - 1
-                    }, nextKey = page + 1
+                    }, nextKey = nextPage
                 )
             }
             return LoadResult.Error(ApiException(-1, ""))

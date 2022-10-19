@@ -65,10 +65,11 @@ interface ApiService {
      * @param cid Long
      * @param pageSize Int
      */
-    @GET("article/list/0/json?cid={cid}&page_size={pageSize}")
+    @GET("article/list/{page}/json")
     suspend fun getArticlesOfTree(
-        @Path("cid") cid: Long,
-        @Path("pageSize") pageSize: Int
+        @Path("page")page:Int,
+        @Query("cid") cid: Long,
+        @Query("pageSize") pageSize: Int
     ): ApiResponse<PagedData<Article>>
 
     /**

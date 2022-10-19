@@ -35,6 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.system.SystemArticleListActivity"
+            android:enabled="true"
+            android:exported="false"
+            android:theme="@style/Theme.WanAndroid" />
 
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"

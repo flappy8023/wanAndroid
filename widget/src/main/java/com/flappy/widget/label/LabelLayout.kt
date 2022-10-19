@@ -19,6 +19,7 @@ class LabelLayout : ViewGroup {
     private var labelPaddingV = 8
     private var labelMargin = 20
 
+    var onItemClick: ((Int) -> Unit)? = null
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
         initView()
@@ -70,7 +71,7 @@ class LabelLayout : ViewGroup {
 
 
     fun setLabels(labels: List<String>) {
-        for (label in labels) {
+        for ((index, label) in labels.withIndex()) {
             val textView = TextView(context)
             val param = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             param.marginStart = labelMargin
@@ -81,6 +82,9 @@ class LabelLayout : ViewGroup {
                 setTextColor(labelTextColor)
                 textSize = labelTextSize
                 background = context.getDrawable(labelBgResource)
+            }
+            textView.setOnClickListener {
+                onItemClick?.invoke(index)
             }
             addView(textView, param)
         }
