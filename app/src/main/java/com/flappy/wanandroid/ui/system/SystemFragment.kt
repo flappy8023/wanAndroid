@@ -2,6 +2,7 @@ package com.flappy.wanandroid.ui.system
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.FragmentSystemBinding
@@ -26,7 +27,7 @@ class SystemFragment : BaseFragment<FragmentSystemBinding, SystemVM>() {
 
     override fun initView() {
         adapter.itemClickCallback =
-            { tree -> SystemArticleListActivity.start(requireContext(), tree.id) }
+            { tree -> findNavController().navigate(SystemFragmentDirections.toSystemList(tree.id)) }
         binding.rvTree.adapter = adapter
         lifecycleScope.launchWhenCreated {
             viewModel.getSystemTrees()

@@ -2,8 +2,6 @@ package com.flappy.wanandroid
 
 import android.app.Application
 import android.content.Context
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
 
@@ -25,7 +23,6 @@ class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Logger.addLogAdapter(AndroidLogAdapter())
         //x5内核dex2oat优化方案开启
         val map = mutableMapOf<String,Any>()
         map[TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER] = true

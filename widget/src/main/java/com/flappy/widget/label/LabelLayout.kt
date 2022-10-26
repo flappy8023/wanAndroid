@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.TextView
 import com.flappy.widget.R
+import com.google.android.material.textview.MaterialTextView
 
 /**
  * @Author: luweiming
@@ -71,8 +72,9 @@ class LabelLayout : ViewGroup {
 
 
     fun setLabels(labels: List<String>) {
+        removeAllViews()
         for ((index, label) in labels.withIndex()) {
-            val textView = TextView(context)
+            val textView = MaterialTextView(context)
             val param = MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             param.marginStart = labelMargin
             param.topMargin = labelMargin

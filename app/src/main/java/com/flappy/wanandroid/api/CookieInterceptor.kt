@@ -1,10 +1,10 @@
 package com.flappy.wanandroid.api
 
+import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.flappy.wanandroid.MyApp
 import com.flappy.wanandroid.util.dataStore
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
@@ -57,7 +57,7 @@ class CookieInterceptor : Interceptor {
             runBlocking {
                 cookie = dataStore.data.map { it[stringPreferencesKey(host)] }.first().toString()
             }
-            Logger.d("get cookie from dataStore is $cookie")
+            Log.d("Cookie","get cookie from dataStore is $cookie")
             builder.addHeader(COOKIE_NAME, cookie)
             return chain.proceed(builder.build())
         }

@@ -18,23 +18,20 @@ class CacheInterceptor : Interceptor {
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-        Log.d(TAG, "currentTread:${Thread.currentThread().name}")
+        var request = chain.request()
         if (!NetUtil.isNetworkAvailable(MyApp.app)) {
-            request.newBuilder()
+            request = request.newBuilder()
                 .cacheControl(CacheControl.FORCE_CACHE)
                 .build()
         }
         val response = chain.proceed(request)
         if (!NetUtil.isNetworkAvailable(MyApp.app)) {
-            //一小时
             val maxAge = 60 * 60
             response.newBuilder()
                 .removeHeader("Pragma")
                 .header("Cache-Control", "public, max-age=$maxAge")
                 .build()
         } else {
-            //4周
             val maxStale = 60 * 60 * 24 * 28 // tolerate 4-weeks stale
             response.newBuilder()
                 .removeHeader("Pragma")

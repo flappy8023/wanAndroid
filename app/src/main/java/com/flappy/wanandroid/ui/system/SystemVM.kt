@@ -15,9 +15,9 @@ import com.flappy.wanandroid.vo.TreeItem
  * @Date: Created in 21:50 2022/10/17
  */
 class SystemVM : BaseViewModel() {
-    var cid: Long = 0
     val trees = MutableLiveData<List<TreeItem>>()
-    val treeArticles = Pager(
+
+    fun getArticleByTreeId(cid: Long) = Pager(
         config = PagingConfig(30, enablePlaceholders = false),
         pagingSourceFactory = { SystemRepository.getArticlesOfTree(cid) }
     ).flow.cachedIn(viewModelScope)

@@ -1,9 +1,12 @@
 package com.flappy.wanandroid.util
 
-import android.content.Context
 import android.content.Intent
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.flappy.wanandroid.ui.web.WebActivity
+import androidx.navigation.fragment.findNavController
+import com.flappy.wanandroid.NavMainDirections
+import com.flappy.wanandroid.R
+import com.flappy.wanandroid.ui.web.WebFragment
 import com.flappy.wanandroid.vo.Article
 
 /**
@@ -12,11 +15,7 @@ import com.flappy.wanandroid.vo.Article
  * @Date: Created in 22:39 2022/10/18
  */
 fun Fragment.goArticleDetail(title: String, url: String) {
-    this.startActivity(Intent(this.requireContext(), WebActivity::class.java).apply {
-        putExtra("title", title)
-        putExtra("url", url)
-    })
-}
-fun Fragment.articleClick(p:Int,article: Article){
-    goArticleDetail(article.title,article.link)
+    findNavController().navigate(
+        NavMainDirections.actionHomeFragmentToWebFragment(title, url)
+    )
 }

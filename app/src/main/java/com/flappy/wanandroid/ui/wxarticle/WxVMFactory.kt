@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
  * @Date: Created in 23:38 2022/9/9
  */
 class WxVMFactory(val wechatId:Long):ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(modelClass)){
             return WechatArticleVM(wechatId) as T
         }

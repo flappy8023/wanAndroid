@@ -25,7 +25,7 @@ object ApiManager {
             .cache(Cache(cacheDir,HttpConfig.HTTP_CACHE_SIZE))
             .connectTimeout(10, TimeUnit.SECONDS)
             .callTimeout(10, TimeUnit.SECONDS)
-            .addInterceptor(CookieInterceptor())
+            .addNetworkInterceptor(CookieInterceptor())
             .addInterceptor(CacheInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
             .build()

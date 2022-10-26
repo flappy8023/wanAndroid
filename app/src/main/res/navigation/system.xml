@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/system"
+    app:startDestination="@id/systemFragment">
+
+    <fragment
+        android:id="@+id/systemFragment"
+        android:name="com.flappy.wanandroid.ui.system.SystemFragment"
+        android:label="SystemFragment"
+        tools:layout="@layout/fragment_system">
+        <action
+            android:id="@+id/toSystemList"
+            app:destination="@id/systemArticleListFragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim">
+            <argument
+                android:name="cid"
+                app:argType="long" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/systemArticleListFragment"
+        android:name="com.flappy.wanandroid.ui.system.SystemArticleListFragment"
+        android:label="SystemArticleListFragment"
+        tools:layout="@layout/system_article_list" />
+</navigation>

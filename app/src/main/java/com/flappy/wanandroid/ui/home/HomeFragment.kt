@@ -6,16 +6,17 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
+import com.flappy.wanandroid.NavMainDirections
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.FragmentHomeBinding
 import com.flappy.wanandroid.ui.search.SearchActivity
 import com.flappy.wanandroid.util.goArticleDetail
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -86,7 +87,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
     }
 
     private fun initListener() {
-        articleAdapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
+        articleAdapter.itemClick =
+            { _, article ->
+                goArticleDetail(article.title,article.link)
+            }
         bannerAdapter.itemClick = { _, banner -> goArticleDetail(banner.title, banner.url) }
         topAdapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
     }

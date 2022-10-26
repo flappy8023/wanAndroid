@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:id="@+id/toolbar"
             android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
-            android:background="?attr/colorAccent"
+            android:background="?attr/colorPrimary"
             android:layout_height="?attr/actionBarSize" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

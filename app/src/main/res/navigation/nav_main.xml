@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/home">
+
+    <include app:graph="@navigation/home" />
+    <include app:graph="@navigation/system" />
+    <include app:graph="@navigation/wx" />
+    <include app:graph="@navigation/mine" />
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.flappy.wanandroid.ui.web.WebFragment"
+        android:label="WebFragment"
+        tools:layout="@layout/fragment_web" />
+
+    <action
+        android:id="@+id/action_homeFragment_to_webFragment"
+        app:destination="@id/webFragment">
+        <argument
+            android:name="title"
+            android:defaultValue="玩Android"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="url"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
+    </action>
+
+
+</navigation>

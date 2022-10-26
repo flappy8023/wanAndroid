@@ -11,9 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="80dp">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
+            style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_height="wrap_content"
             android:maxLines="2"
             tools:text="111"

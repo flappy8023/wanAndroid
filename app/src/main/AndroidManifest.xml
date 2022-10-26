@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.flappy.wanandroid">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -21,7 +20,7 @@
             android:exported="false">
         </activity>
         <activity
-            android:name=".ui.web.WebActivity"
+            android:name=".ui.web.WebFragment"
             android:exported="false"
             android:theme="@style/Theme.WanAndroid" />
         <activity
@@ -36,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.system.SystemArticleListActivity"
+            android:name=".ui.system.SystemArticleListFragment"
             android:enabled="true"
             android:exported="false"
             android:theme="@style/Theme.WanAndroid" />
