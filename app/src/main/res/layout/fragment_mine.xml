@@ -10,35 +10,57 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="tv_level,tv_name" />
+
         <ImageView
+            android:id="@+id/iv_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/iv_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            tools:src="@color/black"
-            android:layout_marginStart="20dp"/>
+            android:src="@drawable/default_label_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_name"
-            android:textSize="20sp"
+            android:layout_marginStart="20dp"
             android:textColor="@color/title_text_color"
+            android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/iv_avatar"
             app:layout_constraintTop_toTopOf="@id/iv_avatar"
-            android:layout_marginStart="20dp"
-            tools:text="flappy8023"
-            />
+            tools:text="flappy8023" />
+
         <TextView
+            android:id="@+id/tv_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Lv.62"
             android:layout_marginTop="10dp"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/tv_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_name"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:text="Lv.62" />
+
+        <Button
+            android:id="@+id/bt_go_login"
+            style="@style/ThemeOverlay.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/go_login"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

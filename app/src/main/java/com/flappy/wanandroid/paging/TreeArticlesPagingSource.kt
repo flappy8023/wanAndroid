@@ -2,10 +2,10 @@ package com.flappy.wanandroid.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.flappy.wanandroid.api.ApiException
-import com.flappy.wanandroid.api.ApiManager
+import com.flappy.wanandroid.data.api.ApiException
+import com.flappy.wanandroid.data.api.ApiManager
 import com.flappy.wanandroid.util.safeApiCall
-import com.flappy.wanandroid.vo.Article
+import com.flappy.wanandroid.data.model.Article
 
 /**
  * @Author: luweiming

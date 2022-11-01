@@ -1,11 +1,11 @@
 package com.flappy.wanandroid.repository
 
-import com.flappy.wanandroid.api.ApiService
-import com.flappy.wanandroid.db.MyDB
+import com.flappy.wanandroid.data.api.ApiService
+import com.flappy.wanandroid.data.db.MyDB
 import com.flappy.wanandroid.paging.ArticlePagingSource
 import com.flappy.wanandroid.util.safeApiCall
-import com.flappy.wanandroid.vo.Article
-import com.flappy.wanandroid.vo.BannerItem
+import com.flappy.wanandroid.data.model.Article
+import com.flappy.wanandroid.data.model.BannerItem
 
 /**
  * @Author: luweiming

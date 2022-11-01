@@ -3,7 +3,7 @@ package com.flappy.wanandroid.ui.system
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseRecyclerViewAdapter
 import com.flappy.wanandroid.databinding.SystemItemTreeBinding
-import com.flappy.wanandroid.vo.TreeItem
+import com.flappy.wanandroid.data.model.TreeItem
 
 /**
  * @Author: luweiming

@@ -3,7 +3,7 @@ package com.flappy.wanandroid.ui.home
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseRecyclerViewAdapter
 import com.flappy.wanandroid.databinding.HomeItemBannerBinding
-import com.flappy.wanandroid.vo.BannerItem
+import com.flappy.wanandroid.data.model.BannerItem
 import com.youth.banner.indicator.CircleIndicator
 
 /**

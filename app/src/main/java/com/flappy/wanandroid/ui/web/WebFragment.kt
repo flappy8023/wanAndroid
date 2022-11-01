@@ -1,18 +1,17 @@
 package com.flappy.wanandroid.ui.web
 
+import androidx.navigation.fragment.navArgs
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
-import com.flappy.wanandroid.config.KeyConstant
 import com.flappy.wanandroid.databinding.FragmentWebBinding
 
 class WebFragment : BaseFragment<FragmentWebBinding, WebVM>() {
     private var title: String? = ""
     private var url: String? = ""
+    val args by navArgs<WebFragmentArgs>()
     override fun handleArguments() {
-        arguments?.let {
-            title = it.getString(KeyConstant.KEY_TITLE)
-            url = it.getString(KeyConstant.KEY_URL)
-        }
+        title = args.title
+        url = args.url
     }
 
     override fun initView() {

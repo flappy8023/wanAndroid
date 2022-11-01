@@ -1,7 +1,7 @@
 package com.flappy.wanandroid.util
 
-import com.flappy.wanandroid.api.ApiException
-import com.flappy.wanandroid.api.ApiResponse
+import com.flappy.wanandroid.data.api.ApiException
+import com.flappy.wanandroid.data.api.ApiResponse
 
 /**
  * @Author: luweiming

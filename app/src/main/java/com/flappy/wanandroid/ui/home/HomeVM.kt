@@ -7,13 +7,13 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.flappy.wanandroid.MyApp
-import com.flappy.wanandroid.api.ApiManager
-import com.flappy.wanandroid.api.ApiService
+import com.flappy.wanandroid.data.api.ApiManager
+import com.flappy.wanandroid.data.api.ApiService
 import com.flappy.wanandroid.base.BaseViewModel
-import com.flappy.wanandroid.db.MyDB
+import com.flappy.wanandroid.data.db.MyDB
 import com.flappy.wanandroid.repository.ArticleRepository
-import com.flappy.wanandroid.vo.Article
-import com.flappy.wanandroid.vo.BannerItem
+import com.flappy.wanandroid.data.model.Article
+import com.flappy.wanandroid.data.model.BannerItem
 import kotlinx.coroutines.flow.Flow
 
 /**

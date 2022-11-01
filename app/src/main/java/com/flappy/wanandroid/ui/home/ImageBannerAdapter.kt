@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.vo.BannerItem
+import com.flappy.wanandroid.data.model.BannerItem
 import com.youth.banner.adapter.BannerAdapter
 
 /**

@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:title="@string/menu_system" />
     <item
-        android:id="@+id/wx"
+        android:id="@+id/wechat"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/menu_wx" />
     <item

@@ -7,7 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.util.safeApiCall
-import com.flappy.wanandroid.vo.TreeItem
+import com.flappy.wanandroid.data.model.TreeItem
 
 /**
  * @Author: luweiming

@@ -3,7 +3,7 @@ package com.flappy.wanandroid.ui.home
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseRecyclerViewAdapter
 import com.flappy.wanandroid.databinding.HomeItemArticleBinding
-import com.flappy.wanandroid.vo.Article
+import com.flappy.wanandroid.data.model.Article
 
 /**
  * @Author: luweiming

@@ -8,7 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.vo.Article
+import com.flappy.wanandroid.data.model.Article
 
 /**
  * @Author: luweiming
@@ -16,7 +16,7 @@ import com.flappy.wanandroid.vo.Article
  * @Date: Created in 15:48 2022/9/1
  */
 class HomeArticleAdapter : PagingDataAdapter<Article, HomeArticleAdapter.ArticleHolder>(DIFF_CALLBACK) {
-    var itemClick:(Int,Article) ->Unit = {_Int,_Article->}
+    var itemClick:(Int, Article) ->Unit = { _Int, _Article->}
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Article>() {
             override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {

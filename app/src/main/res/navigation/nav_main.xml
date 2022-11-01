@@ -7,28 +7,29 @@
 
     <include app:graph="@navigation/home" />
     <include app:graph="@navigation/system" />
-    <include app:graph="@navigation/wx" />
+    <include app:graph="@navigation/wechat" />
     <include app:graph="@navigation/mine" />
+    <include app:graph="@navigation/login" />
     <fragment
         android:id="@+id/webFragment"
         android:name="com.flappy.wanandroid.ui.web.WebFragment"
         android:label="WebFragment"
-        tools:layout="@layout/fragment_web" />
+        tools:layout="@layout/fragment_web">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 
     <action
         android:id="@+id/action_homeFragment_to_webFragment"
-        app:destination="@id/webFragment">
-        <argument
-            android:name="title"
-            android:defaultValue="玩Android"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="url"
-            android:defaultValue=""
-            app:argType="string"
-            app:nullable="true" />
-    </action>
+        app:destination="@id/webFragment" />
+    <action
+        android:id="@+id/goLogin"
+        app:destination="@id/login" />
 
 
 </navigation>

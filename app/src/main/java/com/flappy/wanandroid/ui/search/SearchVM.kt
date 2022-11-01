@@ -9,7 +9,7 @@ import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.repository.SearchRepository
 import com.flappy.wanandroid.ui.home.HomeVM
-import com.flappy.wanandroid.vo.Article
+import com.flappy.wanandroid.data.model.Article
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

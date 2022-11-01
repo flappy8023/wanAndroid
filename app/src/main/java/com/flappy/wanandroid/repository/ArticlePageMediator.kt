@@ -5,12 +5,12 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.flappy.wanandroid.api.ApiService
-import com.flappy.wanandroid.db.MyDB
-import com.flappy.wanandroid.db.dao.ArticleDao
-import com.flappy.wanandroid.db.dao.ArticleKeyDao
-import com.flappy.wanandroid.vo.Article
-import com.flappy.wanandroid.vo.ArticleKey
+import com.flappy.wanandroid.data.api.ApiService
+import com.flappy.wanandroid.data.db.MyDB
+import com.flappy.wanandroid.data.db.dao.ArticleDao
+import com.flappy.wanandroid.data.db.dao.ArticleKeyDao
+import com.flappy.wanandroid.data.model.Article
+import com.flappy.wanandroid.data.model.ArticleKey
 
 /**
  * @Author: luweiming
