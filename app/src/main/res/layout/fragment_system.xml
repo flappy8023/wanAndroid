@@ -10,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.flappy.widget.AppBarView
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            app:rightIcon="@drawable/ic_baseline_search_24"
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
             app:layout_constraintTop_toTopOf="parent" />

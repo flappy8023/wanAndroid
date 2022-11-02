@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="AppBarView">
-        <attr name="firstIcon" format="reference" />
-        <attr name="secondIcon" format="reference" />
+        <attr name="rightIcon" format="reference" />
         <attr name="navIcon" format="reference" />
         <attr name="showNavIcon" format="boolean" />
-        <attr name="titleSizeDp" format="integer" />
+        <attr name="titleSize" format="integer" />
         <attr name="titleColor" format="color" />
     </declare-styleable>
 </resources>

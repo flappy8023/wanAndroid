@@ -359,9 +359,9 @@ interface ApiService {
      */
     @GET("user_article/list/{pageNo}/json")
     suspend fun getSquareArticleList(
-        @Path("pageNO") pageNo: Int,
+        @Path("pageNo") pageNo: Int,
         @Query("page_size") pageSize: Int
-    ): ApiResponse<PagedData<SquareArticle>>
+    ): ApiResponse<PagedData<Article>>
 
 
     /**
@@ -410,7 +410,7 @@ interface ApiService {
      * @param pageSize Int
      */
     @GET("wenda/list/{pageNo}/json")
-    suspend fun getWendaList(
+    suspend fun getQAList(
         @Path("pageNo") pageNo: Int,
         @Query("page_size") pageSize: Int = 30
     ): ApiResponse<PagedData<Article>>

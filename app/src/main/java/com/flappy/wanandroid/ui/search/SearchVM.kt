@@ -8,7 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.repository.SearchRepository
-import com.flappy.wanandroid.ui.home.HomeVM
+import com.flappy.wanandroid.ui.home.content.HomeContentVM
 import com.flappy.wanandroid.data.model.Article
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -31,7 +31,7 @@ class SearchVM : BaseViewModel() {
      */
     fun searchArticles(keyWord: String): Flow<PagingData<Article>> =
         Pager(
-            PagingConfig(HomeVM.PAGE_SIZE, enablePlaceholders = false),
+            PagingConfig(HomeContentVM.PAGE_SIZE, enablePlaceholders = false),
             pagingSourceFactory = { SearchRepository.searchArticlePagingSource(keyWord) }
         ).flow.cachedIn(viewModelScope)
 
