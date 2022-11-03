@@ -1,5 +1,7 @@
 package com.flappy.wanandroid.base
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,9 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
         handleArguments()
     }
 
+    /**
+     * 处理传参
+     */
     open fun handleArguments() {
 
     }
@@ -60,4 +65,8 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     abstract fun initView()
 
     abstract fun getLayoutId(): Int
+
+    protected fun setTitle(title: String) {
+        toolbar?.setTitle(title)
+    }
 }

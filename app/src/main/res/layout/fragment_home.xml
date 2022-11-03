@@ -15,6 +15,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:rightIcon="@drawable/default_label_bg"
                 android:background="?attr/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
                 app:layout_scrollFlags="scroll|enterAlways"

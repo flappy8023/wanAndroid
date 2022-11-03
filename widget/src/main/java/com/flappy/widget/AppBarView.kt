@@ -1,6 +1,7 @@
 package com.flappy.widget
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -23,7 +24,7 @@ class AppBarView : Toolbar {
 
     private lateinit var tvTitle: TextView
     private lateinit var ivNav: ImageView
-    private lateinit var ivIcon: ImageView
+    private lateinit var ivIcon: CircleImageView
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
@@ -46,6 +47,7 @@ class AppBarView : Toolbar {
 
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.toolbar_layout, this, true)
+        setContentInsetsAbsolute(0,0)
         tvTitle = findViewById(R.id.tv_title)
         ivIcon = findViewById(R.id.iv_right)
         ivNav = findViewById(R.id.iv_nav)
@@ -65,7 +67,15 @@ class AppBarView : Toolbar {
         tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, titleSize.toFloat())
     }
 
+    fun setLeftIcon(drawable: Drawable) {
+        ivNav.setImageDrawable(drawable)
+    }
+
     fun setTitle(title: String) {
         tvTitle.text = title
+    }
+
+    fun setRightIcon(drawable: Drawable) {
+        ivIcon.setImageDrawable(drawable)
     }
 }
