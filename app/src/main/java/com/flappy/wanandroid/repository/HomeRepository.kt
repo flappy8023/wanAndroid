@@ -14,9 +14,9 @@ import com.flappy.wanandroid.util.safeApiCall
  * @Description:
  * @Date: Created in 9:22 2022/9/1
  */
-class ArticleRepository(val api: ApiService, val db: MyDB? = null) {
+class HomeRepository(val api: ApiService, val db: MyDB? = null) {
 
-    fun articlePagingSource() = ArticlePagingSource(api)
+    fun articlePagingSource() = ArticlePagingSource()
 
     /**
      * 获取置顶内容

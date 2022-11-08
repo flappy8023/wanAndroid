@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
-import com.flappy.wanandroid.databinding.WxArtilcleListBinding
-import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import com.flappy.wanandroid.data.model.WXOfficialAccount
+import com.flappy.wanandroid.databinding.WechatArtilcleListBinding
+import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.filter
  * @Description:微信公账号文章列表页面
  * @Date: Created in 12:53 2022/9/8
  */
-class WechatArticleFragment : BaseFragment<WxArtilcleListBinding, WechatArticleVM>() {
+class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding, WechatArticleVM>() {
     private var wechatId: Long? = null
 
     private val adapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
@@ -72,5 +72,5 @@ class WechatArticleFragment : BaseFragment<WxArtilcleListBinding, WechatArticleV
 
     }
 
-    override fun getLayoutId(): Int = R.layout.wx_artilcle_list
+    override fun getLayoutId(): Int = R.layout.wechat_artilcle_list
 }

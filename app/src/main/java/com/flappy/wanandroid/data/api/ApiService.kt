@@ -466,7 +466,7 @@ interface ApiService {
      * @return Response<List<WXOfficialAccount>>
      */
     @GET("wxarticle/chapters/json")
-    suspend fun getWXOfficialAccountList(): ApiResponse<List<WXOfficialAccount>>
+    suspend fun getWechatAccountList(): ApiResponse<List<WXOfficialAccount>>
 
     /**
      * 15.2 获取某个公众号历史数据
@@ -474,9 +474,10 @@ interface ApiService {
      * @param pageNo Int
      */
     @GET("wxarticle/list/{id}/{pageNo}/json")
-    suspend fun getWxHistoryArticles(
+    suspend fun getWechatHistoryArticles(
         @Path("id") id: Long,
-        @Path("pageNo") pageNo: Int
+        @Path("pageNo") pageNo: Int,
+        @Query("page_size") pageSize: Int
     ): ApiResponse<PagedData<Article>>
 
     /**
@@ -486,7 +487,7 @@ interface ApiService {
      * @param keyword String
      */
     @GET("wxarticle/list/{id}/{pageNo}/json?k={keyword}")
-    suspend fun getWxArticleByKeyword(
+    suspend fun searchWechatArticlesByKeyword(
         @Path("id") id: Long,
         @Path("pageNo") pageNo: Int,
         @Path("keyword") keyword: String
@@ -516,6 +517,7 @@ interface ApiService {
     @GET("article/list/{pageNo}/json")
     suspend fun getTutorialArticleList(
         @Path("pageNo") pageNo: Int,
+        @Query("page_size") pageSize: Int,
         @Query("cid") cid: Long
     ): ApiResponse<PagedData<Article>>
 

@@ -6,7 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.api.ApiManager
-import com.flappy.wanandroid.repository.ArticleRepository
+import com.flappy.wanandroid.repository.HomeRepository
 import com.flappy.wanandroid.ui.home.content.HomeContentVM
 
 /**
@@ -17,7 +17,7 @@ import com.flappy.wanandroid.ui.home.content.HomeContentVM
 class SquareVM : BaseViewModel() {
     fun squareList() = Pager(
         PagingConfig(HomeContentVM.PAGE_SIZE, enablePlaceholders = false),
-        pagingSourceFactory = { ArticleRepository(ApiManager.service).squarePagingSource() }
+        pagingSourceFactory = { HomeRepository(ApiManager.service).squarePagingSource() }
     )
         .flow
         .cachedIn(viewModelScope)

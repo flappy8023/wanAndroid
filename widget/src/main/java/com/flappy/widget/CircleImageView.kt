@@ -32,16 +32,16 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas?) {
-        canvas?.saveLayer(srcRectF,null)
+        canvas?.saveLayer(srcRectF, null)
         super.onDraw(canvas)
         path.reset()
         srcPath.reset()
-        path.addCircle(_width/2,_height/2,_width/2,Path.Direction.CW)
-        paint.isAntiAlias  = true
+        path.addCircle(_width / 2, _height / 2, _width / 2, Path.Direction.CW)
+        paint.isAntiAlias = true
         paint.xfermode = xferMode
-        srcPath.addRect(srcRectF,Path.Direction.CCW)
+        srcPath.addRect(srcRectF, Path.Direction.CW)
         srcPath.op(path, Path.Op.DIFFERENCE)
-        canvas?.drawPath(srcPath,paint)
+        canvas?.drawPath(srcPath, paint)
         //清楚xfermode
         paint.xfermode = null
         canvas?.restore()

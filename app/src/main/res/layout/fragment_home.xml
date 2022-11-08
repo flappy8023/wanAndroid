@@ -15,11 +15,11 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:rightIcon="@drawable/default_label_bg"
-                android:background="?attr/colorPrimary"
+                android:background="@color/white"
+                app:rightIcon="@drawable/ic_round_settings_24"
                 android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:navIcon="@drawable/ic_baseline_search_24" />
+                app:navIcon="@drawable/ic_round_search_24" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_home"
