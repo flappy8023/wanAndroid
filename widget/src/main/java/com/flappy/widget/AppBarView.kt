@@ -47,7 +47,7 @@ class AppBarView : Toolbar {
 
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.toolbar_layout, this, true)
-        setContentInsetsAbsolute(0,0)
+        setContentInsetsAbsolute(0, 0)
         tvTitle = findViewById(R.id.tv_title)
         ivIcon = findViewById(R.id.iv_right)
         ivNav = findViewById(R.id.iv_nav)
@@ -65,6 +65,17 @@ class AppBarView : Toolbar {
         }
         tvTitle.setTextColor(titleColor)
         tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, titleSize.toFloat())
+        ivIcon.setOnClickListener {
+
+        }
+    }
+
+    fun setRightClickListener(listener: (View) -> Unit) {
+        ivIcon.setOnClickListener(listener)
+    }
+
+    fun setLeftClickListener(listener: (View) -> Unit){
+        ivNav.setOnClickListener(listener)
     }
 
     fun setLeftIcon(drawable: Drawable) {

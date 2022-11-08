@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     private fun initBtmNavBarBehavior() {
         //监听页面跳转，离开首页几个页签后隐藏下方导航栏
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.homeFragment || destination.id == R.id.systemFragment || destination.id == R.id.wechatFragment || destination.id == R.id.mineFragment) {
+            if (destination.id == R.id.homeFragment || destination.id == R.id.systemFragment || destination.id == R.id.wechatFragment || destination.id == R.id.todoFragment) {
                 if (btmNavigationView.visibility == View.GONE) {
                     btmNavigationView.visibility = View.VISIBLE
                     btmEnterAnim.start()

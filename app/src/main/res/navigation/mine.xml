@@ -10,4 +10,5 @@
         android:label="MineFragment"
         tools:layout="@layout/fragment_mine" >
     </fragment>
+
 </navigation>

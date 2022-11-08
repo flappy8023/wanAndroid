@@ -3,7 +3,7 @@ package com.flappy.wanandroid.ui.home.square
 import androidx.lifecycle.lifecycleScope
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
-import com.flappy.wanandroid.databinding.HomeContentFragmentBinding
+import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import kotlinx.coroutines.flow.collectLatest
 
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.collectLatest
  * @Description:首页-广场页面
  * @Date: Created in 22:47 2022/11/2
  */
-class SquareFragment : BaseFragment<HomeContentFragmentBinding, SquareVM>() {
+class SquareFragment : BaseFragment<HomeDiscoveryFragmentBinding, SquareVM>() {
     private val adapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
     override fun bindViewModel() {
         lifecycleScope.launchWhenCreated {
@@ -26,5 +26,5 @@ class SquareFragment : BaseFragment<HomeContentFragmentBinding, SquareVM>() {
         binding.rvArticles.adapter = adapter
     }
 
-    override fun getLayoutId() = R.layout.home_content_fragment
+    override fun getLayoutId() = R.layout.home_discovery_fragment
 }

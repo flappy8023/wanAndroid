@@ -10,6 +10,7 @@
     <include app:graph="@navigation/wechat" />
     <include app:graph="@navigation/mine" />
     <include app:graph="@navigation/login" />
+    <include app:graph="@navigation/todo" />
     <fragment
         android:id="@+id/webFragment"
         android:name="com.flappy.wanandroid.ui.web.WebFragment"
@@ -30,6 +31,9 @@
     <action
         android:id="@+id/goLogin"
         app:destination="@id/login" />
+    <action
+        android:id="@+id/action_global_mine"
+        app:destination="@id/mine" />
 
 
 </navigation>

@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.ui.home.content
+package com.flappy.wanandroid.ui.home.discovery
 
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
-import com.flappy.wanandroid.databinding.HomeContentFragmentBinding
+import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import com.flappy.wanandroid.ui.home.HomeBannerAdapter
 import com.flappy.wanandroid.ui.home.HomeTopAdapter
@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.filter
  * @Description:首页-第一个子页面
  * @Date: Created in 22:47 2022/11/2
  */
-class HomeContentFragment : BaseFragment<HomeContentFragmentBinding, HomeContentVM>() {
+class DiscoveryFragment : BaseFragment<HomeDiscoveryFragmentBinding, DiscoveryVM>() {
     private val articleAdapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
     private val bannerAdapter: HomeBannerAdapter by lazy { HomeBannerAdapter() }
     private val topAdapter: HomeTopAdapter by lazy { HomeTopAdapter() }
@@ -72,7 +72,7 @@ class HomeContentFragment : BaseFragment<HomeContentFragmentBinding, HomeContent
 
     }
 
-    override fun getLayoutId() = R.layout.home_content_fragment
+    override fun getLayoutId() = R.layout.home_discovery_fragment
 
     private fun initListener() {
         articleAdapter.itemClick =

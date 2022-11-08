@@ -9,7 +9,7 @@ import com.flappy.wanandroid.databinding.FragmentSystemBinding
 
 /**
  * @Author: luweiming
- * @Description:
+ * @Description:一级页面 体系
  * @Date: Created in 21:29 2022/10/17
  */
 class SystemFragment : BaseFragment<FragmentSystemBinding, SystemVM>() {

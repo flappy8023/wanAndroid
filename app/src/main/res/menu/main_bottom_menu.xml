@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_round_home_24"
         android:title="@string/menu_home" />
     <item
         android:id="@+id/system"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_round_account_tree_24"
         android:title="@string/menu_system" />
     <item
         android:id="@+id/wechat"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_wechat_account"
         android:title="@string/menu_wx" />
     <item
-        android:id="@+id/mine"
-        android:icon="@mipmap/ic_launcher"
-        android:title="@string/menu_mine" />
+        android:id="@+id/todo"
+        android:icon="@drawable/icon_todo"
+        android:title="@string/menu_todo" />
 
 </menu>

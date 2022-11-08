@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.ui.home.content
+package com.flappy.wanandroid.ui.home.discovery
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.Flow
  * @Description:首页对应viewmodel
  * @Date: Created in 17:07 2022/8/30
  */
-class HomeContentVM : BaseViewModel() {
+class DiscoveryVM : BaseViewModel() {
     companion object {
         const val PAGE_SIZE = 30
     }

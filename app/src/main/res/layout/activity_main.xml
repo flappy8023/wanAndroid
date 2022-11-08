@@ -28,6 +28,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/home_bottom_menu" />
+            app:menu="@menu/main_bottom_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,7 +7,7 @@ import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.api.ApiManager
 import com.flappy.wanandroid.repository.HomeRepository
-import com.flappy.wanandroid.ui.home.content.HomeContentVM
+import com.flappy.wanandroid.ui.home.discovery.DiscoveryVM
 
 /**
  * @Author: luweiming
@@ -16,7 +16,7 @@ import com.flappy.wanandroid.ui.home.content.HomeContentVM
  */
 class HomeQAVM : BaseViewModel() {
     fun getQAList() = Pager(
-        PagingConfig(HomeContentVM.PAGE_SIZE, enablePlaceholders = false),
+        PagingConfig(DiscoveryVM.PAGE_SIZE, enablePlaceholders = false),
         pagingSourceFactory = { HomeRepository(ApiManager.service).qaPagingSource() }
     )
         .flow

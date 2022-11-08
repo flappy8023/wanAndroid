@@ -7,7 +7,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 /**
  * @Author: luweiming
- * @Description:
+ * @Description:一级页面首页
  * @Date: Created in 17:06 2022/8/30
  */
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
@@ -27,7 +27,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
         binding.vpHome.adapter = pageAdapter
         TabLayoutMediator(binding.tabHome, binding.vpHome) { tab, position ->
             tab.text = when (position) {
-                0 -> getString(R.string.home)
+                0 -> getString(R.string.discovery)
                 1 -> getString(R.string.qa)
                 else -> getString(R.string.square)
             }

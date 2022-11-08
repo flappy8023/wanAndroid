@@ -1,7 +1,6 @@
 package com.flappy.wanandroid.base
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.flappy.wanandroid.NavMainDirections
 import com.flappy.wanandroid.R
+import com.flappy.wanandroid.ui.search.SearchActivity
+import com.flappy.wanandroid.util.LoginHelper
 import com.flappy.widget.AppBarView
 import java.lang.reflect.ParameterizedType
 
@@ -52,6 +55,16 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     private fun initToolbar() {
         toolbar = binding.root.findViewById(R.id.toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        //根据登录状态显示头像
+        if (LoginHelper.isLogin()) {
+
+        }
+        toolbar?.setRightClickListener {
+            findNavController().navigate(NavMainDirections.actionGlobalMine())
+        }
+        toolbar?.setLeftClickListener {
+            requireContext().startActivity(Intent(requireContext(),SearchActivity::class.java))
+        }
     }
 
     open fun initViewModel() {

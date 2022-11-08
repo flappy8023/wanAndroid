@@ -16,7 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/white"
-                app:rightIcon="@drawable/ic_round_settings_24"
+                app:rightIcon="@drawable/icon_user_default"
                 android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:navIcon="@drawable/ic_round_search_24" />
