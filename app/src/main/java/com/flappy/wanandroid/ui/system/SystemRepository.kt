@@ -1,7 +1,6 @@
 package com.flappy.wanandroid.ui.system
 
 import com.flappy.wanandroid.data.api.ApiManager
-import com.flappy.wanandroid.paging.TreeArticlesPagingSource
 
 /**
  * @Author: luweiming

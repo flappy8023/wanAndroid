@@ -6,7 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
-import com.flappy.wanandroid.repository.WechatArticleRepository
+import com.flappy.wanandroid.data.repository.WechatArticleRepository
 import com.flappy.wanandroid.data.model.Article
 import kotlinx.coroutines.flow.Flow
 

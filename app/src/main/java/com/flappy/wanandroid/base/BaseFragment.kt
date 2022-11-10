@@ -55,6 +55,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     private fun initToolbar() {
         toolbar = binding.root.findViewById(R.id.toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        toolbar?.setTitle("玩Android")
         //根据登录状态显示头像
         if (LoginHelper.isLogin()) {
 
@@ -63,7 +64,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
             findNavController().navigate(NavMainDirections.actionGlobalMine())
         }
         toolbar?.setLeftClickListener {
-            requireContext().startActivity(Intent(requireContext(),SearchActivity::class.java))
+            requireContext().startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
     }
 

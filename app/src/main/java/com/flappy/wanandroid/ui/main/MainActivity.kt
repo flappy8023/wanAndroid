@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.flappy.wanandroid.R
+import com.flappy.wanandroid.ext.switchStatusBarLightMode
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContentView(R.layout.activity_main)
+        switchStatusBarLightMode(true)
         val navFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navFragment.navController

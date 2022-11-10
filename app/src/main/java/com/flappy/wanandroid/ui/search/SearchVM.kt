@@ -7,7 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
-import com.flappy.wanandroid.repository.SearchRepository
+import com.flappy.wanandroid.data.repository.SearchRepository
 import com.flappy.wanandroid.ui.home.discovery.DiscoveryVM
 import com.flappy.wanandroid.data.model.Article
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +22,7 @@ class SearchVM : BaseViewModel() {
     /**
      * 热门搜索
      */
-    val hotWords: MutableLiveData<List<String>> = MutableLiveData()
+    val hotWords: MutableLiveData<List<String>?> = MutableLiveData()
 
 
 

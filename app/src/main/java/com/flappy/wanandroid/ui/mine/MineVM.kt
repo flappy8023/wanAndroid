@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.model.UserInfoData
-import com.flappy.wanandroid.repository.MineRepository
+import com.flappy.wanandroid.data.repository.MineRepository
 import com.flappy.wanandroid.util.UserManager
 
 /**

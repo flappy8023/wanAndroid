@@ -2,7 +2,7 @@ package com.flappy.wanandroid.ui.wechat
 
 import androidx.lifecycle.MutableLiveData
 import com.flappy.wanandroid.base.BaseViewModel
-import com.flappy.wanandroid.repository.WechatArticleRepository
+import com.flappy.wanandroid.data.repository.WechatArticleRepository
 import com.flappy.wanandroid.data.model.WXOfficialAccount
 
 /**

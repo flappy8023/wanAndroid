@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.repository
+package com.flappy.wanandroid.data.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType

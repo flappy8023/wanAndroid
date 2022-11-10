@@ -3,7 +3,7 @@ package com.flappy.wanandroid.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.flappy.wanandroid.base.BaseViewModel
-import com.flappy.wanandroid.repository.LoginRepository
+import com.flappy.wanandroid.data.repository.LoginRepository
 
 /**
  * @Author: luweiming

@@ -316,9 +316,9 @@ interface ApiService {
     /**
      * 8.5 TODO列表
      * @param pageNo Int 从1开始
-     * @param status Int?
-     * @param type Int?
-     * @param priority Int
+     * @param status Int? 状态， 1-完成；0未完成; 默认全部展示；
+     * @param type Int? 创建时传入的类型, 默认全部展示
+     * @param priority Int 创建时传入的优先级；默认全部展示
      * @param orderby Int 1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)；
      */
     @GET("lg/todo/v2/list/{pageNo}/json")
@@ -326,9 +326,9 @@ interface ApiService {
         @Path("pageNo") pageNo: Int,
         @Query("status") status: Int?,
         @Query("type") type: Int?,
-        @Query("priority") priority: Int,
-        @Query("orderby") orderby: Int = 4
-    )
+        @Query("priority") priority: Int?,
+        @Query("orderby") orderby: Int? = 4
+    ):ApiResponse<PagedData<Todo>>
 
     /**
      * 9.1 积分排行榜

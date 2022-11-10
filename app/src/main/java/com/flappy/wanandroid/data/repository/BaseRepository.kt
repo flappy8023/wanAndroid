@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.repository
+package com.flappy.wanandroid.data.repository
 
 import com.flappy.wanandroid.data.api.ApiException
 import com.flappy.wanandroid.data.api.ApiResponse

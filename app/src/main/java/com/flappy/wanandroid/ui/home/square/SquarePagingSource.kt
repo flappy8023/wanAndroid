@@ -1,13 +1,8 @@
-package com.flappy.wanandroid.paging
+package com.flappy.wanandroid.ui.home.square
 
-import androidx.paging.PagingSource
-import androidx.paging.PagingState
-import com.flappy.wanandroid.data.api.ApiException
+import com.flappy.wanandroid.base.BasePagingSource
 import com.flappy.wanandroid.data.api.ApiManager
-import com.flappy.wanandroid.data.api.ApiResponse
 import com.flappy.wanandroid.data.model.Article
-import com.flappy.wanandroid.data.model.PagedData
-import com.flappy.wanandroid.util.safeApiCall
 
 /**
  * @Author: luweiming

@@ -1,12 +1,12 @@
-package com.flappy.wanandroid.repository
+package com.flappy.wanandroid.data.repository
 
 import com.flappy.wanandroid.data.api.ApiService
 import com.flappy.wanandroid.data.db.MyDB
 import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.model.BannerItem
-import com.flappy.wanandroid.paging.ArticlePagingSource
-import com.flappy.wanandroid.paging.QAPagingSource
-import com.flappy.wanandroid.paging.SquarePagingSource
+import com.flappy.wanandroid.ui.home.ArticlePagingSource
+import com.flappy.wanandroid.ui.home.qa.QAPagingSource
+import com.flappy.wanandroid.ui.home.square.SquarePagingSource
 import com.flappy.wanandroid.util.safeApiCall
 
 /**

@@ -1,5 +1,6 @@
-package com.flappy.wanandroid.paging
+package com.flappy.wanandroid.ui.system
 
+import com.flappy.wanandroid.base.BasePagingSource
 import com.flappy.wanandroid.data.api.ApiManager
 import com.flappy.wanandroid.data.model.Article
 

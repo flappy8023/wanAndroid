@@ -19,4 +19,8 @@
     <string name="discovery">发现</string>
     <string name="qa">问答</string>
     <string name="square">广场</string>
+    <string name="todo_type_just_one">只用这一个</string>
+    <string name="todo_type_work">工作</string>
+    <string name="todo_type_study">学习</string>
+    <string name="todo_type_life">生活</string>
 </resources>

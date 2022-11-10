@@ -11,7 +11,7 @@ import com.flappy.wanandroid.data.api.ApiManager
 import com.flappy.wanandroid.data.api.ApiService
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.db.MyDB
-import com.flappy.wanandroid.repository.HomeRepository
+import com.flappy.wanandroid.data.repository.HomeRepository
 import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.model.BannerItem
 import kotlinx.coroutines.flow.Flow
