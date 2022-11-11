@@ -5,6 +5,12 @@ plugins {
 }
 apply plugin: 'kotlin-kapt'
 
+Properties properties = new Properties()
+File file = rootProject.file("local.properties")
+properties.load(file.newDataInputStream())
+String buglyAppid = properties.getProperty("bugly.appid", "")
+
+println("buglyAppid = ${buglyAppid}")
 android {
     compileSdk 31
 
@@ -24,6 +30,13 @@ android {
                         "room.expandProjection": "true"]
             }
         }
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi', 'arm64-v8a' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+
+        buildConfigField "String", "BUGLY_APPID", "\"${buglyAppid}\""
+
     }
 
     buildTypes {
@@ -103,4 +116,6 @@ dependencies {
 
     implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
     implementation 'io.github.jeremyliao:live-event-bus-x:1.8.0'
+    //bugly
+    implementation 'com.tencent.bugly:crashreport:4.1.9'
 }

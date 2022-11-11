@@ -2,6 +2,7 @@ package com.flappy.wanandroid
 
 import android.app.Application
 import android.content.Context
+import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
 
@@ -24,17 +25,20 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         //x5内核dex2oat优化方案开启
-        val map = mutableMapOf<String,Any>()
+        val map = mutableMapOf<String, Any>()
         map[TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER] = true
         map[TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE] = true
         QbSdk.initTbsSettings(map)
-        QbSdk.initX5Environment(app,object :QbSdk.PreInitCallback{
+        QbSdk.initX5Environment(app, object : QbSdk.PreInitCallback {
             override fun onCoreInitFinished() {
 
             }
+
             //x5内核，依赖动态下发，下发完成前使用系统内核
             override fun onViewInitFinished(isX5: Boolean) {
             }
         })
+        //初始化Bugly
+        CrashReport.initCrashReport(this, BuildConfig.BUGLY_APPID, BuildConfig.DEBUG)
     }
 }
