@@ -40,6 +40,7 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     /**
      * 初始化viewModel
      */
+    @Suppress("UNCHECKED_CAST")
     private fun initViewModel() {
         viewModel =
             ViewModelProvider(this).get((this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>)

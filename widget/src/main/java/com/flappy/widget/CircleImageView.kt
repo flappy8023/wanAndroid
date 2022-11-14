@@ -23,6 +23,17 @@ class CircleImageView @JvmOverloads constructor(
     private var paint: Paint = Paint()
     private lateinit var srcRectF: RectF
     private var xferMode: Xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
+    private var letter: String? = null
+    private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val rect = Rect()
+
+    init {
+        textPaint.apply {
+            color = Color.WHITE
+            strokeWidth = 3f
+        }
+
+    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -44,10 +55,26 @@ class CircleImageView @JvmOverloads constructor(
         canvas?.drawPath(srcPath, paint)
         //清楚xfermode
         paint.xfermode = null
+
+        letter?.let {
+
+            //绘制文字
+            textPaint.textSize = _width / 2
+            textPaint.getTextBounds(letter, 0, 1, rect)
+            val fontMetrics = textPaint.fontMetricsInt
+            val baseLine = (_height - fontMetrics.top - fontMetrics.bottom) / 2
+            textPaint.textAlign = Paint.Align.CENTER
+            canvas?.drawText(it, _width / 2, baseLine, textPaint)
+        }
         canvas?.restore()
 
 
     }
 
+    fun setLetter(text: String?) {
+        if (text.isNullOrEmpty()) return
+        letter = text.toCharArray()[0].toString().uppercase()
+        invalidate()
+    }
 
 }

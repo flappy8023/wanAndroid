@@ -2,7 +2,7 @@ package com.flappy.wanandroid.ext
 
 import android.app.Activity
 import android.os.Build
-import android.view.View
+import androidx.core.view.WindowCompat
 
 /**
  * @Author: luweiming
@@ -16,7 +16,9 @@ import android.view.View
  * @param isLight
  */
 fun Activity.switchStatusBarLightMode(isLight: Boolean){
-    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-        this.window.decorView.systemUiVisibility = if(isLight)View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR else View.SYSTEM_UI_FLAG_VISIBLE
+    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = isLight
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.flappy.wanandroid.base
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +15,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.NavMainDirections
 import com.flappy.wanandroid.R
+import com.flappy.wanandroid.data.model.UserInfo
 import com.flappy.wanandroid.ui.search.SearchActivity
-import com.flappy.wanandroid.util.LoginHelper
+import com.flappy.wanandroid.util.UserManager
 import com.flappy.widget.AppBarView
+import com.jeremyliao.liveeventbus.LiveEventBus
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -55,10 +59,11 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     private fun initToolbar() {
         toolbar = binding.root.findViewById(R.id.toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        toolbar?.setTitle("玩Android")
-        //根据登录状态显示头像
-        if (LoginHelper.isLogin()) {
+        toolbar?.setTitle(getString(R.string.app_name))
 
+        //展示用户头像
+        if (null != UserManager.getCurUser()?.userInfo) {
+            showUserAvatar(UserManager.getCurUser()?.userInfo!!)
         }
         toolbar?.setRightClickListener {
             findNavController().navigate(NavMainDirections.actionGlobalMine())
@@ -66,8 +71,17 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
         toolbar?.setLeftClickListener {
             requireContext().startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
+        //触发登录后刷新头像
+        LiveEventBus.get<UserInfo>(UserManager.KEY_USER_INFO).observe(this) {
+            showUserAvatar(it)
+        }
     }
 
+    private fun showUserAvatar(userInfo: UserInfo) {
+        toolbar?.setRightIconLetter(ColorDrawable(Color.CYAN), userInfo.nickname)
+    }
+
+    @Suppress("UNCHECKED_CAST")
     open fun initViewModel() {
         val model =
             (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
  */
 class WechatVMFactory(val wechatId:Long):ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(modelClass)){
+        if (modelClass.isAssignableFrom(WechatArticleVM::class.java)) {
             return WechatArticleVM(wechatId) as T
         }
         throw IllegalArgumentException("unSupport model class")

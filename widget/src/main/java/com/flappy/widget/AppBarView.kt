@@ -86,7 +86,8 @@ class AppBarView : Toolbar {
         tvTitle.text = title
     }
 
-    fun setRightIcon(drawable: Drawable) {
+    fun setRightIconLetter(drawable: Drawable, letter: String? = null) {
         ivIcon.setImageDrawable(drawable)
+        ivIcon.setLetter(letter)
     }
 }

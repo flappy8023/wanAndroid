@@ -16,6 +16,7 @@ import kotlinx.coroutines.runBlocking
 object UserManager {
     private const val KEY_CUR_USER = "cur_user"
     const val KEY_LOGIN = "login"
+    const val KEY_USER_INFO = "userInfo"
     private val dataStore by lazy { MyApp.app.dataStore }
 
     /**
@@ -36,8 +37,9 @@ object UserManager {
         return curUser
     }
 
-    fun saveUserInfo(userInfo: UserInfoData) {
+    fun saveUserInfo(userInfo: UserInfoData?) {
         curUser = userInfo
+        if (null == userInfo) return
         runBlocking {
             dataStore.edit {
                 it[stringPreferencesKey(KEY_CUR_USER)] = JsonUtil.toJsonString(userInfo)

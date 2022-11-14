@@ -3,7 +3,11 @@ package com.flappy.wanandroid.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.flappy.wanandroid.base.BaseViewModel
+import com.flappy.wanandroid.data.model.UserInfo
 import com.flappy.wanandroid.data.repository.LoginRepository
+import com.flappy.wanandroid.data.repository.MineRepository
+import com.flappy.wanandroid.util.UserManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 
 /**
  * @Author: luweiming
@@ -23,6 +27,22 @@ class LoginVM : BaseViewModel() {
         launch {
             val loginResult = LoginRepository.login(username, pwd)
             _loginState.value = loginResult.isSuccess
+            //登录成功后请求并缓存用户信息
+            if (loginResult.isSuccess) {
+                getAndCacheUser()
+            }
+        }
+    }
+
+    private fun getAndCacheUser() {
+        launch {
+            val result = MineRepository.getUserInfo()
+            if (result.isSuccess) {
+                //缓存用户信息
+                UserManager.saveUserInfo(result.getOrNull())
+                LiveEventBus.get<UserInfo>(UserManager.KEY_USER_INFO)
+                    .post(result.getOrNull()?.userInfo)
+            }
         }
     }
 }

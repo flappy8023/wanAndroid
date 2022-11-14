@@ -5,8 +5,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.flappy.wanandroid.MyApp
 import com.flappy.wanandroid.util.dataStore
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -27,7 +27,6 @@ class CookieInterceptor : Interceptor {
     private val URL_LOGIN = "user/login"
     private val URL_REGISTER = "user/register"
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val builder = request.newBuilder()
@@ -43,7 +42,7 @@ class CookieInterceptor : Interceptor {
                 val cookies = response.headers(SET_COOKIE_KEY)
                 val cookie = encodeCookie(cookies)
                 //dataStore存储cookie
-                GlobalScope.launch {
+                CoroutineScope(Dispatchers.Main).launch {
                     dataStore.edit {
                         it[stringPreferencesKey(host)] = cookie
                         it[stringPreferencesKey(url)] = cookie

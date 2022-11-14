@@ -1,25 +1,12 @@
 package com.android.example.paging.pagingwithnetwork.reddit.paging
 
-import androidx.annotation.VisibleForTesting
-import androidx.paging.CombinedLoadStates
-import androidx.paging.LoadState
-import androidx.paging.LoadState.NotLoading
+import androidx.paging.*
 import androidx.paging.LoadState.Loading
-import androidx.paging.LoadStates
-import androidx.paging.PagingSource.LoadResult.Error
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import androidx.paging.LoadState.NotLoading
+import androidx.paging.LoadType.REFRESH
+import com.android.example.paging.pagingwithnetwork.reddit.paging.MergedState.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.scan
-import androidx.paging.PagingDataAdapter
-import androidx.paging.RemoteMediator
-import androidx.paging.PagingSource
-import androidx.paging.LoadType.REFRESH
-import androidx.paging.LoadType
-import com.android.example.paging.pagingwithnetwork.reddit.paging.MergedState.NOT_LOADING
-import com.android.example.paging.pagingwithnetwork.reddit.paging.MergedState.REMOTE_STARTED
-import com.android.example.paging.pagingwithnetwork.reddit.paging.MergedState.REMOTE_ERROR
-import com.android.example.paging.pagingwithnetwork.reddit.paging.MergedState.SOURCE_ERROR
-import com.android.example.paging.pagingwithnetwork.reddit.paging.MergedState.SOURCE_LOADING
 
 /**
  * Converts the raw [CombinedLoadStates] [Flow] from [PagingDataAdapter.loadStateFlow] into a new
@@ -34,7 +21,6 @@ import com.android.example.paging.pagingwithnetwork.reddit.paging.MergedState.SO
  * [Loading] in cases where invalidation doesn't happen because the fetched network data represents
  * exactly what is already cached in DB.
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 fun Flow<CombinedLoadStates>.asMergedLoadStates(): Flow<LoadStates> {
     val syncRemoteState = LoadStatesMerger()
     return scan(syncRemoteState.toLoadStates()) { _, combinedLoadStates ->
@@ -116,30 +102,15 @@ private class LoadStatesMerger {
         return when (currentMergedState) {
             NOT_LOADING -> when (remoteState) {
                 is Loading -> Loading to REMOTE_STARTED
-                is Error<*, *> -> remoteState to REMOTE_ERROR
-                else -> NotLoading(remoteState.endOfPaginationReached) to NOT_LOADING
+                else -> remoteState to REMOTE_ERROR
             }
-            REMOTE_STARTED -> when {
-                remoteState is Error<*, *> -> remoteState to REMOTE_ERROR
-                sourceRefreshState is Loading -> Loading to SOURCE_LOADING
-                else -> Loading to REMOTE_STARTED
-            }
-            REMOTE_ERROR -> when (remoteState) {
-                is Error<*, *> -> remoteState to REMOTE_ERROR
-                else -> Loading to REMOTE_STARTED
-            }
-            SOURCE_LOADING -> when {
-                sourceRefreshState is Error<*, *> -> sourceRefreshState to SOURCE_ERROR
-                remoteState is Error<*, *> -> remoteState to REMOTE_ERROR
-                sourceRefreshState is NotLoading -> {
-                    NotLoading(remoteState.endOfPaginationReached) to NOT_LOADING
-                }
-                else -> Loading to SOURCE_LOADING
-            }
-            SOURCE_ERROR -> when (sourceRefreshState) {
-                is Error<*, *> -> sourceRefreshState to SOURCE_ERROR
-                else -> sourceRefreshState to SOURCE_LOADING
-            }
+            REMOTE_STARTED -> remoteState to REMOTE_ERROR
+            REMOTE_ERROR ->
+                remoteState to REMOTE_ERROR
+
+            SOURCE_LOADING -> sourceRefreshState to SOURCE_ERROR
+            SOURCE_ERROR -> sourceRefreshState to SOURCE_ERROR
+
         }
     }
 }

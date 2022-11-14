@@ -22,7 +22,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
 
 
     override fun initView() {
-        setTitle("玩Android")
         pageAdapter = HomePageAdapter(childFragmentManager, lifecycle)
         binding.vpHome.adapter = pageAdapter
         TabLayoutMediator(binding.tabHome, binding.vpHome) { tab, position ->
