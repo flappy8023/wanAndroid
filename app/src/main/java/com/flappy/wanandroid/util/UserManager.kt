@@ -4,6 +4,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.flappy.wanandroid.MyApp
 import com.flappy.wanandroid.data.model.UserInfoData
+import com.flappy.wanandroid.ext.dataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking

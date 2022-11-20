@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.util
+package com.flappy.wanandroid.ext
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -11,6 +11,6 @@ import com.flappy.wanandroid.NavMainDirections
  */
 fun Fragment.goArticleDetail(title: String, url: String) {
     findNavController().navigate(
-        NavMainDirections.actionHomeFragmentToWebFragment(title,url)
+        NavMainDirections.actionHomeFragmentToWebFragment(title, url)
     )
 }

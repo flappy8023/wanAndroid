@@ -8,10 +8,10 @@ import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadSt
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
+import com.flappy.wanandroid.ext.goArticleDetail
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import com.flappy.wanandroid.ui.home.HomeBannerAdapter
 import com.flappy.wanandroid.ui.home.HomeTopAdapter
-import com.flappy.wanandroid.util.goArticleDetail
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter

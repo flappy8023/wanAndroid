@@ -15,7 +15,7 @@ import com.flappy.wanandroid.ui.home.discovery.DiscoveryVM
  * @Date: Created in 23:05 2022/11/2
  */
 class SquareVM : BaseViewModel() {
-    fun squareList() = Pager(
+    val squareList = Pager(
         PagingConfig(DiscoveryVM.PAGE_SIZE, enablePlaceholders = false),
         pagingSourceFactory = { HomeRepository(ApiManager.service).squarePagingSource() }
     )

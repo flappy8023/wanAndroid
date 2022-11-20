@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.util
+package com.flappy.wanandroid.ext
 
 import android.content.Context
 import androidx.datastore.core.DataStore

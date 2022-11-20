@@ -9,19 +9,69 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_horizontal"
+            android:layout_marginTop="@dimen/content_margin_vertical"
+            android:textSize="@dimen/label_textSize"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="斤斤计较急急急急急急" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/content_margin_horizontal"
+            android:textSize="@dimen/label_textSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_author"
+            tools:text="2020-2-2" />
+
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_title"
-            android:layout_width="0dp"
             style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/content_margin_horizontal"
+            android:layout_marginTop="@dimen/label_content_margin"
             android:maxLines="2"
-            tools:text="111"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="18dp"
+            android:textSize="@dimen/text_title_h2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_author"
+            tools:text="111" />
+
+        <TextView
+            android:id="@+id/tv_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/line_space"
+            android:layout_marginBottom="@dimen/content_margin_vertical"
+            android:text="@string/top"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/label_textSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_author"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_horizontal"
+            android:textSize="@dimen/label_textSize"
+            app:layout_constraintBottom_toBottomOf="@id/tv_label"
+            app:layout_constraintStart_toEndOf="@id/tv_label"
+            app:layout_constraintTop_toTopOf="@id/tv_label"
+            app:layout_goneMarginStart="0dp"
+            app:layout_goneMarginTop="@dimen/content_margin_vertical"
+            tools:text="问答" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.data.model.WXOfficialAccount
 import com.flappy.wanandroid.databinding.WechatArtilcleListBinding
+import com.flappy.wanandroid.ext.goArticleDetail
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -43,7 +44,7 @@ class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding, WechatArti
 
     override fun initViewModel() {
         viewModel =
-            ViewModelProvider(this, WechatVMFactory(wechatId!!)).get(WechatArticleVM::class.java)
+            ViewModelProvider(this, WechatArticleVMFactory(wechatId!!))[WechatArticleVM::class.java]
     }
 
     override fun bindViewModel() {
@@ -55,8 +56,12 @@ class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding, WechatArti
     }
 
     override fun initView() {
-        binding.rvArticles.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+        binding.rvArticles.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvArticles.adapter = adapter
+        binding.swipeRefresh.setOnRefreshListener {
+            adapter.refresh()
+        }
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collect { loadStates ->
                 binding.swipeRefresh.isRefreshing =
@@ -69,6 +74,7 @@ class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding, WechatArti
                 .filter { it.refresh is LoadState.NotLoading }
                 .collect { binding.rvArticles.scrollToPosition(0) }
         }
+        adapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
 
     }
 

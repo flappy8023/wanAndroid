@@ -15,6 +15,7 @@ import com.flappy.wanandroid.util.safeApiCall
 abstract class BasePagingSource<T : Any> :
     PagingSource<Int, T>() {
     open var startPage = 0
+
     companion object {
         const val PAGE_SIZE = 30
     }
@@ -29,7 +30,7 @@ abstract class BasePagingSource<T : Any> :
         val result = safeApiCall {
             doRequest(page)
         }
-        val nextPage = if (page >= result.getOrNull()!!.pageCount - 1) null else page + 1
+        val nextPage = result.getOrNull()?.let { if (page >= it.pageCount - 1) null else page + 1 }
         if (result.isSuccess) {
             val list = result.getOrNull()?.datas
             if (null != list) {

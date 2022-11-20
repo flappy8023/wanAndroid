@@ -24,4 +24,5 @@
     <string name="todo_type_study">学习</string>
     <string name="todo_type_life">生活</string>
     <string name="to_do_not_login_tip">请登录后查看</string>
+    <string name="top">Top</string>
 </resources>

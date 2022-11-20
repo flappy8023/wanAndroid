@@ -20,7 +20,6 @@ class SystemFragment : BaseFragment<FragmentSystemBinding, SystemVM>() {
     override fun bindViewModel() {
         viewModel.trees.observe(this) {
             adapter.addAll(it)
-//            adapter.notifyItemRangeInserted(0,it.size)
             adapter.notifyDataSetChanged()
         }
     }

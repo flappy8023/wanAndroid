@@ -2,12 +2,12 @@
 <com.flappy.widget.AppBarView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
     app:layout_scrollFlags="scroll|enterAlways"
     app:navIcon="@drawable/ic_round_search_24"
     app:rightIcon="@drawable/icon_user_default"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@color/white"
-    android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar">
+    app:titleColor="@color/h1_text_color">
 
 </com.flappy.widget.AppBarView>

@@ -15,7 +15,7 @@ import com.flappy.wanandroid.ui.home.discovery.DiscoveryVM
  * @Date: Created in 23:04 2022/11/2
  */
 class HomeQAVM : BaseViewModel() {
-    fun getQAList() = Pager(
+    val qaList = Pager(
         PagingConfig(DiscoveryVM.PAGE_SIZE, enablePlaceholders = false),
         pagingSourceFactory = { HomeRepository(ApiManager.service).qaPagingSource() }
     )
