@@ -13,10 +13,12 @@ import com.google.android.material.tabs.TabLayoutMediator
  */
 class WechatFragment : BaseFragment<FragmentWechatBinding, WechatVM>() {
     override fun bindViewModel() {
-        viewModel.wechatAccounts.observe(this){
-            val adapter = WechatPageAdapter(this,it)
+        viewModel.wechatAccounts.observe(viewLifecycleOwner) {
+            val adapter = WechatPageAdapter(this, it)
             binding.vpWechat.adapter = adapter
-            TabLayoutMediator(binding.tabWechat, binding.vpWechat) { tab, position -> tab.text = it[position].name }.attach()
+            TabLayoutMediator(binding.tabWechat, binding.vpWechat) { tab, position ->
+                tab.text = it[position].name
+            }.attach()
 
         }
     }

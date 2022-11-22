@@ -10,4 +10,6 @@ import com.flappy.wanandroid.util.safeApiCall
  */
 object MineRepository {
     suspend fun getUserInfo() = safeApiCall { ApiManager.service.getUserInfo() }
+
+    suspend fun logout() = safeApiCall { ApiManager.service.logout() }
 }

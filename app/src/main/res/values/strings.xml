@@ -25,4 +25,7 @@
     <string name="todo_type_life">生活</string>
     <string name="to_do_not_login_tip">请登录后查看</string>
     <string name="top">Top</string>
+    <string name="settings">设置</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="logout">退出登录</string>
 </resources>

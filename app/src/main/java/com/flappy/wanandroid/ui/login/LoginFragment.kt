@@ -4,7 +4,6 @@ import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.LoginFragmentBinding
-import com.flappy.wanandroid.util.login.LoginIntercept
 import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.hideProgress
 import com.github.razir.progressbutton.showProgress
@@ -16,9 +15,8 @@ import com.github.razir.progressbutton.showProgress
  */
 class LoginFragment : BaseFragment<LoginFragmentBinding, LoginVM>() {
     override fun bindViewModel() {
-        viewModel.loginState.observe(this) {
+        viewModel.loginState.observe(viewLifecycleOwner) {
             if (it) {
-                LoginIntercept.get().loginFinish()
                 binding.btGoLogin.hideProgress(getString(R.string.login_success))
                 findNavController().popBackStack()
             }

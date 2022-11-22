@@ -1,6 +1,9 @@
 package com.flappy.wanandroid.data.api
 
 import com.flappy.wanandroid.MyApp
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,8 +27,9 @@ object ApiManager {
             .cache(Cache(cacheDir, HttpConfig.HTTP_CACHE_SIZE))
             .connectTimeout(10, TimeUnit.SECONDS)
             .callTimeout(10, TimeUnit.SECONDS)
-            .addNetworkInterceptor(CookieInterceptor())
-            .addInterceptor(CacheInterceptor())
+            .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(MyApp.app)))
+//            .addNetworkInterceptor(CookieInterceptor())
+            .addNetworkInterceptor(CacheInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
             .build()
     }

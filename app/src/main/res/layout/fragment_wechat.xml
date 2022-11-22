@@ -13,7 +13,9 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            app:elevation="0dp">
 
 
             <include layout="@layout/include_toolbar" />
@@ -22,6 +24,7 @@
                 android:id="@+id/tab_wechat"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@color/transparent"
                 app:layout_scrollFlags="noScroll"
                 app:tabGravity="center"
                 app:tabMode="scrollable" />

@@ -9,10 +9,12 @@ class ApiResponse<T>(var errorCode: Int, var errorMsg: String, var data: T?) {
     /**
      * 简化接口是否成功的判断
      */
-    val isSuccess = errorCode == 0
+    val isSuccess
+        get() = errorCode == 0
 
     /**
      * 未登录
      */
-    val notLoggedIn = errorCode == -1001
+    val notLoggedIn
+        get() = errorCode == -1001
 }

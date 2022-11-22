@@ -22,7 +22,7 @@ class HomeRepository(val api: ApiService, val db: MyDB? = null) {
      * 获取置顶内容
      * @return Result<List<Article>>
      */
-    suspend fun getTops(): Result<List<Article>> {
+    suspend fun getTops(): Result<List<Article>?> {
         return safeApiCall { api.getTopArticles() }
     }
 
@@ -30,7 +30,7 @@ class HomeRepository(val api: ApiService, val db: MyDB? = null) {
      * 获取轮播内容
      * @return Result<List<BannerItem>>
      */
-    suspend fun getBanners(): Result<List<BannerItem>> {
+    suspend fun getBanners(): Result<List<BannerItem>?> {
         return safeApiCall { api.getBanners() }
     }
 

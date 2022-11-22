@@ -26,11 +26,11 @@ class DiscoveryFragment : BaseFragment<HomeDiscoveryFragmentBinding, DiscoveryVM
     private val bannerAdapter: HomeBannerAdapter by lazy { HomeBannerAdapter() }
     private val topAdapter: HomeTopAdapter by lazy { HomeTopAdapter() }
     override fun bindViewModel() {
-        viewModel.banners.observe(this) {
+        viewModel.banners.observe(viewLifecycleOwner) {
             bannerAdapter.clear()
             bannerAdapter.addAll(it)
         }
-        viewModel.tops.observe(this) {
+        viewModel.tops.observe(viewLifecycleOwner) {
             topAdapter.clear()
             topAdapter.addAll(it)
         }

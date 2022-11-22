@@ -5,11 +5,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.flappy.wanandroid.MyApp
 import com.flappy.wanandroid.ext.dataStore
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -42,7 +39,7 @@ class CookieInterceptor : Interceptor {
                 val cookies = response.headers(SET_COOKIE_KEY)
                 val cookie = encodeCookie(cookies)
                 //dataStore存储cookie
-                CoroutineScope(Dispatchers.Main).launch {
+                runBlocking {
                     dataStore.edit {
                         it[stringPreferencesKey(host)] = cookie
                         it[stringPreferencesKey(url)] = cookie

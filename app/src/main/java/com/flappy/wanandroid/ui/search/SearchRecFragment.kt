@@ -12,7 +12,7 @@ import com.flappy.wanandroid.databinding.SearchRecFragmentBinding
  */
 class SearchRecFragment:BaseFragment<SearchRecFragmentBinding,SearchVM>() {
     override fun bindViewModel() {
-        viewModel.hotWords.observe(this, Observer {
+        viewModel.hotWords.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.labelLayoutHot.setLabels(it)
             }

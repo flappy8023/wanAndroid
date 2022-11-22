@@ -1,13 +1,13 @@
 package com.flappy.wanandroid.ui.mine
 
+import android.graphics.drawable.ColorDrawable
 import android.view.View
+import androidx.core.app.ActivityCompat
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.data.model.UserInfoData
 import com.flappy.wanandroid.databinding.FragmentMineBinding
-import com.flappy.wanandroid.util.UserManager
 import com.flappy.wanandroid.util.login.LoginHelper
-import com.flappy.wanandroid.util.login.LoginIntercept
 
 /**
  * @Author: luweiming
@@ -16,24 +16,40 @@ import com.flappy.wanandroid.util.login.LoginIntercept
  */
 class MineFragment : BaseFragment<FragmentMineBinding, MineVM>() {
     override fun bindViewModel() {
-        viewModel.userInfo.observe(this) {
-            showUserInfo(it)
+        viewModel.userInfo.observe(viewLifecycleOwner) {
+            it?.let {
+                showUserInfo(it)
+            } ?: showNotLogin()
         }
+
     }
 
+
     override fun initView() {
-        if (LoginHelper.isLogin()) {
-            binding.groupInfo.visibility = View.VISIBLE
-            //先取缓存
-            showUserInfo(UserManager.getCurUser())
-            //然后重新请求最新数据
-            viewModel.getUserInfo()
-        }
+        viewModel.getUserInfo()
         binding.btGoLogin.setOnClickListener {
-            LoginIntercept.get().checkLogin({ LoginHelper.goLogin(this) }) {
-                viewModel.getUserInfo()
-            }
+            LoginHelper.goLogin(this)
         }
+        binding.logout.setOnClickListener {
+            viewModel.logout()
+        }
+        initMenuList()
+        //监听登录、登出状态
+        LoginHelper.observerLogin(
+            viewLifecycleOwner,
+            { viewModel.getUserInfo(true) },
+            { showNotLogin() })
+    }
+
+    private fun initMenuList() {
+        val data =
+            listOf(
+                R.drawable.ic_round_collections_bookmark_24 to getString(R.string.my_collection),
+                R.drawable.ic_round_settings_24 to getString(R.string.settings)
+            )
+        val adapter = MineMenuAdapter()
+        adapter.addAll(data)
+        binding.rvMenus.adapter = adapter
     }
 
     private fun showUserInfo(userInfo: UserInfoData?) {
@@ -44,12 +60,39 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineVM>() {
             if (View.GONE != btGoLogin.visibility) {
                 btGoLogin.visibility = View.GONE
             }
-
+            ivAvatar.setImageDrawable(
+                ColorDrawable(
+                    ActivityCompat.getColor(
+                        requireContext(),
+                        R.color.purple_200
+                    )
+                )
+            )
+            ivAvatar.setLetter(userInfo?.userInfo?.nickname)
             tvName.text = userInfo?.userInfo?.nickname
             tvLevel.text = buildString {
                 append("Lv.")
                 append(userInfo?.coinInfo?.level)
             }
+            if (logout.visibility != View.VISIBLE) {
+                logout.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun showNotLogin() {
+        binding.apply {
+            if (View.GONE != groupInfo.visibility) {
+                groupInfo.visibility = View.GONE
+            }
+            if (View.VISIBLE != btGoLogin.visibility) {
+                btGoLogin.visibility = View.VISIBLE
+            }
+            if (View.GONE != logout.visibility) {
+                logout.visibility = View.GONE
+            }
+            ivAvatar.setImageResource(R.drawable.icon_user_default)
+            ivAvatar.setLetter(null)
         }
     }
 

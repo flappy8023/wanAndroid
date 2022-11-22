@@ -26,28 +26,38 @@ class TodoFragment : BaseFragment<FragmentTodoBinding, TodoVM>() {
 
     override fun initView() {
         if (LoginHelper.isLogin()) {
-            binding.swipeRefresh.visibility = View.VISIBLE
-            if (binding.notLogin.isInflated) {
-                binding.notLogin.viewStub?.visibility = View.GONE
-            }
-            initRecyclerView()
-            //确认登录状态后，请求todo列表
-            requestTodoList()
+            showTodoList()
         } else {
-            binding.swipeRefresh.visibility = View.GONE
-            if (binding.notLogin.isInflated) {
-                binding.notLogin.viewStub?.visibility = View.VISIBLE
-            } else {
-                binding.notLogin.viewStub?.setOnInflateListener { _, view ->
-                    notLoginBinding = LayoutNotLoginBinding.bind(view)
-                }
-                binding.notLogin.viewStub?.inflate()
-            }
+            showNeedLogin()
         }
         notLoginBinding?.btGoLogin?.setOnClickListener {
             goLogin()
         }
+        //监听登录、登出
+        LoginHelper.observerLogin(viewLifecycleOwner, { showTodoList() }, { showNeedLogin() })
 
+    }
+
+    private fun showNeedLogin() {
+        binding.swipeRefresh.visibility = View.GONE
+        if (binding.notLogin.isInflated) {
+            binding.notLogin.viewStub?.visibility = View.VISIBLE
+        } else {
+            binding.notLogin.viewStub?.setOnInflateListener { _, view ->
+                notLoginBinding = LayoutNotLoginBinding.bind(view)
+            }
+            binding.notLogin.viewStub?.inflate()
+        }
+    }
+
+    private fun showTodoList() {
+        binding.swipeRefresh.visibility = View.VISIBLE
+        if (binding.notLogin.isInflated) {
+            binding.notLogin.viewStub?.visibility = View.GONE
+        }
+        initRecyclerView()
+        //确认登录状态后，请求todo列表
+        requestTodoList()
     }
 
     private fun goLogin() {

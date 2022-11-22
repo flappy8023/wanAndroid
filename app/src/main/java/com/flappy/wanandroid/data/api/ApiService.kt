@@ -138,7 +138,7 @@ interface ApiService {
      * @return Response<Any>
      */
     @GET("user/logout/json")
-    suspend fun logout(): ApiResponse<Any>
+    suspend fun logout(): ApiResponse<Void>
 
     /**
      * 6.1 收藏文章列表

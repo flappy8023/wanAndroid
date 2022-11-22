@@ -38,10 +38,6 @@ abstract class BaseRecyclerViewAdapter<T, VB : ViewDataBinding> :
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        //为itemView设置通用点击监听
-        onItemClick?.let { onClick ->
-            holder.itemView.setOnClickListener { onClick.invoke(position, CLICK_TYPE_ITEM) }
-        }
         bindView(holder.viewBinding, list[position], holder)
     }
 
@@ -49,7 +45,19 @@ abstract class BaseRecyclerViewAdapter<T, VB : ViewDataBinding> :
         return list.size
     }
 
-    inner class Holder(val viewBinding: VB) : RecyclerView.ViewHolder(viewBinding.root)
+    inner class Holder(val viewBinding: VB) : RecyclerView.ViewHolder(viewBinding.root) {
+        init {
+//            为itemView设置通用点击监听
+            onItemClick?.let { onClick ->
+                viewBinding.root.setOnClickListener {
+                    onClick.invoke(
+                        layoutPosition,
+                        CLICK_TYPE_ITEM
+                    )
+                }
+            }
+        }
+    }
 
     abstract fun bindView(binding: VB, data: T, holder: Holder)
 

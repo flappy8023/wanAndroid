@@ -18,7 +18,7 @@ class SystemFragment : BaseFragment<FragmentSystemBinding, SystemVM>() {
 
     @SuppressLint("NotifyDataSetChanged")
     override fun bindViewModel() {
-        viewModel.trees.observe(this) {
+        viewModel.trees.observe(viewLifecycleOwner) {
             adapter.addAll(it)
             adapter.notifyDataSetChanged()
         }

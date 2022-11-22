@@ -72,8 +72,7 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     fun setLetter(text: String?) {
-        if (text.isNullOrEmpty()) return
-        letter = text.toCharArray()[0].toString().uppercase()
+        letter = text?.let { it.toCharArray()[0].toString().uppercase() }
         invalidate()
     }
 

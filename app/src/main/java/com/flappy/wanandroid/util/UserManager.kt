@@ -16,7 +16,6 @@ import kotlinx.coroutines.runBlocking
  */
 object UserManager {
     private const val KEY_CUR_USER = "cur_user"
-    const val KEY_LOGIN = "login"
     const val KEY_USER_INFO = "userInfo"
     private val dataStore by lazy { MyApp.app.dataStore }
 

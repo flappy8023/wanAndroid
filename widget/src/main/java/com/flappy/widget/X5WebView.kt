@@ -14,4 +14,11 @@ class X5WebView @JvmOverloads constructor(
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : WebView(context, attributeSet, defStyleAttr) {
+    init {
+        settings.apply {
+            //内容适应屏幕大小
+            useWideViewPort = true
+            loadWithOverviewMode = true
+        }
+    }
 }

@@ -6,11 +6,10 @@ import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.FragmentWebBinding
 
 class WebFragment : BaseFragment<FragmentWebBinding, WebVM>() {
-    private var title: String? = ""
     private var url: String? = ""
     val args by navArgs<WebFragmentArgs>()
     override fun handleArguments() {
-        title = args.title
+        setTitle(args.title)
         url = args.url
     }
 
