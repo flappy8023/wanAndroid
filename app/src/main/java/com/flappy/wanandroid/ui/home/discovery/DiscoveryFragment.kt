@@ -4,6 +4,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
@@ -50,7 +51,13 @@ class DiscoveryFragment : BaseFragment<HomeDiscoveryFragmentBinding, DiscoveryVM
             rvArticles.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             //为了解决分页请求一次性加载的问题，将首页所有的内容放到一个recyclerview进行展示，使用ConcatAdapter聚合轮播、置顶、文章列表的适配器
-            rvArticles.adapter = ConcatAdapter(bannerAdapter, topAdapter, articleAdapter)
+            val adapter = ConcatAdapter(bannerAdapter, topAdapter, articleAdapter)
+            rvArticles.adapter = adapter
+            //fragment重建后恢复recyclerview滚动位置
+            bannerAdapter.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            topAdapter.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            articleAdapter.setStateRestorationPolicy(StateRestorationPolicy.PREVENT_WHEN_EMPTY)
+
             swipeRefresh.setOnRefreshListener {
                 viewModel.getBanners()
                 viewModel.getTops()

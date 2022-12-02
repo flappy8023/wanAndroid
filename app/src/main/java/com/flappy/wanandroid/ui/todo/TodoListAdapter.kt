@@ -1,5 +1,7 @@
 package com.flappy.wanandroid.ui.todo
 
+import android.annotation.SuppressLint
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -20,13 +22,35 @@ class TodoListAdapter :
 
         override fun areContentsTheSame(oldItem: Todo, newItem: Todo) = oldItem.id == newItem.id
     }) {
-    class TodoViewHolder(val binding: TodoItemListBinding) : ViewHolder(binding.root) {
+    var clickListener: ItemClickListener? = null
+
+    interface ItemClickListener {
+        fun toggleState(todo: Todo, position: Int)
+        fun showDetail(todo: Todo, position: Int)
+        fun delete(todo: Todo, position: Int)
+    }
+
+    inner class TodoViewHolder(val binding: TodoItemListBinding) : ViewHolder(binding.root) {
+        @SuppressLint("ClickableViewAccessibility")
         fun bindView(data: Todo?, position: Int) {
-            binding.cbStatus.isChecked = data?.status == 1
-            binding.tvTitle.text = data?.title
-            binding.tvDate.text = data?.dateStr
-            binding.tvType.text = "类型"
-            binding.tvContent.text = data?.content
+            data?.let { todo ->
+                binding.cbStatus.isChecked = todo.status == 1
+                binding.tvTitle.text = todo.title
+                binding.tvDate.text = todo.dateStr
+                binding.tvContent.text = todo.content
+                binding.cbStatus.setOnTouchListener { v, event ->
+                    kotlin.run {
+                        if (event.action == KeyEvent.ACTION_UP) {
+                            clickListener?.toggleState(todo, bindingAdapterPosition)
+                        }
+                        true
+                    }
+                }
+                binding.root.setOnClickListener {
+                    clickListener?.showDetail(todo, bindingAdapterPosition)
+                }
+            }
+
         }
     }
 
@@ -35,6 +59,12 @@ class TodoListAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        return TodoViewHolder(TodoItemListBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return TodoViewHolder(
+            TodoItemListBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 }

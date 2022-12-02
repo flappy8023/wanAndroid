@@ -271,7 +271,7 @@ interface ApiService {
         @Field("date") date: String?,
         @Field("type") type: Int,
         @Field("priority") priority: Int
-    )
+    ): ApiResponse<Any>
 
     /**
      * 8.2 更新TODO
@@ -311,7 +311,10 @@ interface ApiService {
      */
     @POST("lg/todo/done/{id}/json")
     @FormUrlEncoded
-    suspend fun updateTODOStatus(@Path("id") id: Long, @Field("status") status: Int)
+    suspend fun updateTODOStatus(
+        @Path("id") id: Long,
+        @Field("status") status: Int
+    ): ApiResponse<Any>
 
     /**
      * 8.5 TODO列表
@@ -326,7 +329,7 @@ interface ApiService {
         @Path("pageNo") pageNo: Int,
         @Query("status") status: Int?,
         @Query("type") type: Int?,
-        @Query("priority") priority: Int?,
+        @Query("priority") priority: Int? = null,
         @Query("orderby") orderby: Int? = 4
     ):ApiResponse<PagedData<Todo>>
 

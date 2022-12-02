@@ -7,4 +7,7 @@
         <attr name="titleSize" format="integer" />
         <attr name="titleColor" format="color" />
     </declare-styleable>
+    <declare-styleable name="AnimationArrow">
+        <attr name="isExpand" format="boolean" />
+    </declare-styleable>
 </resources>

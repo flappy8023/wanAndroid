@@ -34,6 +34,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         handleArguments()
+        initViewModel()
     }
 
     /**
@@ -43,17 +44,21 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
 
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-        initViewModel()
-        bindViewModel()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initToolbar()
         initView()
-        return binding.root
+        bindViewModel()
     }
 
     private fun initToolbar() {
@@ -113,8 +118,13 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
         toolbar?.setTitle(title)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
     }
+
 
 }

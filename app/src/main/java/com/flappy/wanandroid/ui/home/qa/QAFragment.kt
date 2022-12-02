@@ -18,34 +18,40 @@ import kotlinx.coroutines.flow.filter
  * @Date: Created in 22:41 2022/11/2
  */
 class QAFragment : BaseFragment<HomeDiscoveryFragmentBinding, HomeQAVM>() {
-    private val articleAdapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
+    private var articleAdapter: HomeArticleAdapter? = null
 
     override fun bindViewModel() {
         lifecycleScope.launchWhenCreated {
             viewModel.qaList.collectLatest {
-                articleAdapter.submitData(it)
+                articleAdapter?.submitData(it)
             }
         }
     }
 
     override fun initView() {
+        articleAdapter = HomeArticleAdapter()
         binding.rvArticles.adapter = articleAdapter
-        articleAdapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
+        articleAdapter!!.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
         binding.swipeRefresh.setOnRefreshListener {
-            articleAdapter.refresh()
+            articleAdapter!!.refresh()
         }
         lifecycleScope.launchWhenCreated {
-            articleAdapter.loadStateFlow.collect { loadStates ->
+            articleAdapter!!.loadStateFlow.collect { loadStates ->
                 binding.swipeRefresh.isRefreshing =
                     loadStates.mediator?.refresh is LoadState.Loading
             }
         }
         lifecycleScope.launchWhenCreated {
-            articleAdapter.loadStateFlow.asMergedLoadStates()
+            articleAdapter!!.loadStateFlow.asMergedLoadStates()
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }
                 .collect { binding.rvArticles.scrollToPosition(0) }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        articleAdapter = null
     }
 
     override fun getLayoutId() = R.layout.home_discovery_fragment

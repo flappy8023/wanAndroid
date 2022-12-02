@@ -5,12 +5,11 @@
     android:layout_height="wrap_content"
     android:minHeight="48dp">
 
-    <CheckBox
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/cb_status"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="20dp"
-        android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/tv_date"
         app:layout_constraintEnd_toEndOf="@+id/tv_title"
         app:layout_constraintTop_toTopOf="@id/tv_date" />

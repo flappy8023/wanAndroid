@@ -19,13 +19,21 @@
     <string name="discovery">发现</string>
     <string name="qa">问答</string>
     <string name="square">广场</string>
-    <string name="todo_type_just_one">只用这一个</string>
+    <string name="todo_type_all">全部</string>
     <string name="todo_type_work">工作</string>
     <string name="todo_type_study">学习</string>
     <string name="todo_type_life">生活</string>
-    <string name="to_do_not_login_tip">请登录后查看</string>
+    <string name="todo_add_date_picker_title">选择日期</string>
+    <string name="todo_not_login_tip">请登录后查看</string>
+    <string name="todo_err_title_cant_be_empty">标题不可为空</string>
+    <string name="todo_err_content_cant_be_empty">内容不可为空</string>
     <string name="top">Top</string>
     <string name="settings">设置</string>
     <string name="my_collection">我的收藏</string>
     <string name="logout">退出登录</string>
+    <string name="todo_done">已完成</string>
+    <string name="create_todo">新建待办</string>
+    <string name="done">完成</string>
+    <string name="hint_title">标题</string>
+    <string name="hint_content">内容</string>
 </resources>

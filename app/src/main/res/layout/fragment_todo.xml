@@ -12,9 +12,9 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/transparent"
-            app:elevation="0dp"
-            android:layout_height="wrap_content">
+            app:elevation="0dp">
 
             <include layout="@layout/include_toolbar" />
 
@@ -27,46 +27,106 @@
             android:visibility="gone"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.chip.ChipGroup
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:chipSpacingHorizontal="20dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_just_one"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/cg_type"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/todo_type_just_one" />
+                        android:layout_marginStart="@dimen/content_margin_horizontal"
+                        app:chipSpacingHorizontal="@dimen/chip_spacing"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
 
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_all"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/todo_type_all" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_work"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/todo_type_work" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_study"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/todo_type_study" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_life"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/todo_type_life" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_todo"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/todo_type_work" />
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_done"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp">
+
+                        <com.flappy.widget.AnimationArrow
+                            android:id="@+id/animationArrow"
+                            android:layout_width="@dimen/small_icon_size"
+                            android:layout_height="@dimen/small_icon_size"
+                            android:layout_marginStart="@dimen/content_margin_horizontal"
+                            android:src="@drawable/ic_round_arrow_up_24"
+                            app:isExpand="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_done_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/content_margin_horizontal"
+                            android:text="@string/todo_done"
+                            app:layout_constraintBottom_toBottomOf="@id/animationArrow"
+                            app:layout_constraintStart_toEndOf="@id/animationArrow"
+                            app:layout_constraintTop_toTopOf="@id/animationArrow" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_done"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/todo_type_study" />
-
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/todo_type_life" />
-
-                </com.google.android.material.chip.ChipGroup>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_todo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="@dimen/content_margin_horizontal"
+            android:layout_marginBottom="@dimen/content_margin_vertical"
+            android:src="@drawable/ic_round_add_24" />
 
         <ViewStub
             android:id="@+id/not_login"

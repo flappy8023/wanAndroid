@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_round_close_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/content_margin_horizontal"
+            android:layout_marginTop="@dimen/layout_marginTop_normal"
+            android:drawableStart="@drawable/ic_round_calendar_24"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical|start"
+            android:textSize="@dimen/label_textSize"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_close" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayout_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/content_margin_horizontal"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_et_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_title"
+                android:imeOptions="actionNext" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayout_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_vertical"
+            app:layout_constraintEnd_toEndOf="@id/inputLayout_title"
+            app:layout_constraintStart_toStartOf="@id/inputLayout_title"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_content"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:gravity="start|top"
+                android:hint="@string/hint_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_done"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="@dimen/layout_marginBottom_large"
+            android:text="@string/done"
+            android:textSize="@dimen/label_textSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

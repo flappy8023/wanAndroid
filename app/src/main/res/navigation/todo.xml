@@ -7,5 +7,22 @@
     <fragment
         android:id="@+id/todoFragment"
         android:name="com.flappy.wanandroid.ui.todo.TodoFragment"
-        android:label="TodoFragment" />
+        android:label="TodoFragment">
+        <action
+            android:id="@+id/action_todoFragment_to_todoDetailDialog"
+            app:destination="@id/todoDetailDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/todoDetailDialog"
+        android:name="com.flappy.wanandroid.ui.todo.TodoDetailDialog"
+        android:label="TodoDetailDialog">
+        <argument
+            android:name="type"
+            app:argType="integer" />
+        <argument
+            android:name="todo"
+            android:defaultValue="@null"
+            app:argType="com.flappy.wanandroid.data.model.Todo"
+            app:nullable="true" />
+    </dialog>
 </navigation>

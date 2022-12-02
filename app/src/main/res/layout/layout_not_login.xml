@@ -8,7 +8,7 @@
         android:id="@+id/tv_not_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/to_do_not_login_tip"
+        android:text="@string/todo_not_login_tip"
         app:layout_constraintBottom_toTopOf="@id/bt_go_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -22,6 +22,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
 
 
     override fun initView() {
+
         pageAdapter = HomePageAdapter(childFragmentManager, lifecycle)
         binding.vpHome.adapter = pageAdapter
         TabLayoutMediator(binding.tabHome, binding.vpHome) { tab, position ->
@@ -33,5 +34,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
         }.attach()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.vpHome.adapter = null
+    }
 
 }

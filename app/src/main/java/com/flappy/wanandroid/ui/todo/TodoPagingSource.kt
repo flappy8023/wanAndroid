@@ -11,10 +11,10 @@ import com.flappy.wanandroid.data.model.Todo
  * @Description:待办清单分页请求数据
  * @Date: Created in 10:51 2022/11/10
  */
-class TodoPagingSource(val status: Int?, val type: Int?, val priority: Int?, val orderBy: Int?) :
+class TodoPagingSource(val status: Int?, val type: Int?) :
     BasePagingSource<Todo>() {
     override var startPage = 1
     override suspend fun doRequest(page: Int): ApiResponse<PagedData<Todo>> =
-        ApiManager.service.getTODOList(page, status, type, priority, orderBy)
+        ApiManager.service.getTODOList(page, status, type)
 
 }
