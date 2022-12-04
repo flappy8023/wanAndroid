@@ -293,15 +293,14 @@ interface ApiService {
         @Field("status") status: Int,
         @Field("type") type: Int,
         @Field("priority") priority: Int
-    )
+    ): ApiResponse<Any>
 
     /**
      * 8.3 删除TODO
      * @param id Long
      */
     @POST("lg/todo/delete/{id}/json")
-    @FormUrlEncoded
-    suspend fun deleteTODO(@Path("id") id: Long)
+    suspend fun deleteTODO(@Path("id") id: Long): ApiResponse<Any>
 
 
     /**

@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import com.flappy.wanandroid.MyApp
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseViewModel
+import com.flappy.wanandroid.data.model.Todo
 import com.flappy.wanandroid.data.repository.TodoRepository
 
 /**
@@ -22,7 +23,9 @@ class TodoVM : BaseViewModel() {
     private val _addState: MutableLiveData<TodoUIState> = MutableLiveData()
     val addState: LiveData<TodoUIState>
         get() = _addState
-
+    private val _editState: MutableLiveData<TodoUIState> = MutableLiveData()
+    val editState: LiveData<TodoUIState>
+        get() = _editState
 
     fun getTodoPageSource(type: Int? = null) =
         TodoRepository.todoListPager(0, type).flow.cachedIn(viewModelScope)
@@ -66,6 +69,26 @@ class TodoVM : BaseViewModel() {
     fun updateDoneStatus(id: Long, status: Int) {
         launch {
             val result = TodoRepository.updateTodoStatus(id, status)
+            if (result.isSuccess) {
+                _needRefresh.value = true
+            }
+        }
+    }
+
+    fun updateTodo(todo: Todo) {
+        launch {
+            val result = TodoRepository.updateTodo(todo)
+            if (result.isSuccess) {
+                _needRefresh.value = true
+                _editState.value = TodoUIState.Success
+            }
+        }
+    }
+
+    fun deleteTodo(id: Long) {
+        _editState.value = TodoUIState.Loading
+        launch {
+            val result = TodoRepository.deleteTodo(id)
             if (result.isSuccess) {
                 _needRefresh.value = true
             }

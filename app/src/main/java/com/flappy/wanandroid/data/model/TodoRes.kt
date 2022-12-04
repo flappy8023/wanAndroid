@@ -29,13 +29,13 @@ import com.flappy.wanandroid.R
 data class Todo(
     val completeDate: Long?,
     val completeDateStr: String?,
-    val content: String,
+    var content: String,
     val date: Long,
-    val dateStr: String,
+    var dateStr: String,
     val id: Long,
     val priority: Int,
     val status: Int,
-    val title: String,
+    var title: String,
     val type: Int,
     val userId: Long
 ) : Parcelable {

@@ -22,14 +22,18 @@ class TodoDetailDialog : BaseBottomSheetDialog<TodoDialogDetailBinding>() {
     private val todo by lazy { args.todo }
     private val viewModel: TodoVM by navGraphViewModels(R.id.todo)
 
+    /**
+     * 创建or编辑
+     */
+    private val isCreate: Boolean by lazy { todo == null }
     override fun getLayoutId() = R.layout.todo_dialog_detail
     override fun initView() {
 
-        todo?.let {
-            binding.tvDate.text = it.dateStr
-            binding.inputEtTitle.setText(it.title)
-            binding.inputContent.setText(it.content)
-        } ?: kotlin.run {
+        if (!isCreate) {
+            binding.tvDate.text = todo!!.dateStr
+            binding.inputEtTitle.setText(todo!!.title)
+            binding.inputContent.setText(todo!!.content)
+        } else {
             val today = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 LocalDate.now().toString()
             } else {
@@ -39,7 +43,6 @@ class TodoDetailDialog : BaseBottomSheetDialog<TodoDialogDetailBinding>() {
         }
         binding.tvDate.setOnClickListener {
             showDatePicker()
-
         }
         binding.ivClose.setOnClickListener {
             dismiss()
@@ -48,9 +51,14 @@ class TodoDetailDialog : BaseBottomSheetDialog<TodoDialogDetailBinding>() {
             val title = binding.inputEtTitle.text.toString()
             val content = binding.inputContent.text.toString()
             val date = binding.tvDate.text.toString()
-            if (null == todo)
+            if (isCreate)
                 viewModel.addTodo(title, content, date, type)
-            else dismiss()
+            else {
+                todo!!.dateStr = date
+                todo!!.title = title
+                todo!!.content = content
+                viewModel.updateTodo(todo!!)
+            }
         }
 
     }
@@ -63,6 +71,15 @@ class TodoDetailDialog : BaseBottomSheetDialog<TodoDialogDetailBinding>() {
                     dismiss()
                 }
                 is TodoUIState.Failure -> {}
+            }
+        }
+        viewModel.editState.observe(viewLifecycleOwner) {
+            when (it) {
+                is TodoUIState.Loading -> {}
+                is TodoUIState.Failure -> {}
+                is TodoUIState.Success -> {
+                    dismiss()
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.flappy.wanandroid.Const
 import com.flappy.wanandroid.data.api.ApiManager
+import com.flappy.wanandroid.data.model.Todo
 import com.flappy.wanandroid.ui.todo.TodoPagingSource
 import com.flappy.wanandroid.util.safeApiCall
 
@@ -28,4 +29,18 @@ object TodoRepository {
 
     suspend fun updateTodoStatus(id: Long, status: Int) =
         safeApiCall { ApiManager.service.updateTODOStatus(id, status) }
+
+    suspend fun updateTodo(todo: Todo) = safeApiCall {
+        ApiManager.service.updateTODO(
+            todo.id,
+            todo.title,
+            todo.content,
+            todo.dateStr,
+            todo.status,
+            todo.type,
+            todo.priority
+        )
+    }
+
+    suspend fun deleteTodo(id: Long) = safeApiCall { ApiManager.service.deleteTODO(id) }
 }

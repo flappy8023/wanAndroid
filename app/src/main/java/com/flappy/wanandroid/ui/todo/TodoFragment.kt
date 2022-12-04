@@ -38,6 +38,7 @@ class TodoFragment : BaseFragment<FragmentTodoBinding, TodoVM>() {
         }
 
         override fun delete(todo: Todo, position: Int) {
+            viewModel.deleteTodo(todo.id)
         }
     }
 
@@ -49,7 +50,7 @@ class TodoFragment : BaseFragment<FragmentTodoBinding, TodoVM>() {
     override fun bindViewModel() {
         findNavController()
         Log.d("fffff", hashCode().toString())
-        viewModel.needRefresh.observe(viewLifecycleOwner) {
+        viewModel.needRefresh.observe(this) {
             if (it) requestTodoList()
         }
     }

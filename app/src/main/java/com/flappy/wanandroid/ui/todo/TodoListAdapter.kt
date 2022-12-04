@@ -30,25 +30,40 @@ class TodoListAdapter :
         fun delete(todo: Todo, position: Int)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     inner class TodoViewHolder(val binding: TodoItemListBinding) : ViewHolder(binding.root) {
-        @SuppressLint("ClickableViewAccessibility")
+        init {
+            binding.cbStatus.setOnTouchListener { v, event ->
+                kotlin.run {
+                    if (event.action == KeyEvent.ACTION_UP) {
+                        clickListener?.toggleState(
+                            getItem(bindingAdapterPosition)!!,
+                            bindingAdapterPosition
+                        )
+                    }
+                    true
+                }
+            }
+            binding.root.setOnClickListener {
+                clickListener?.showDetail(getItem(bindingAdapterPosition)!!, bindingAdapterPosition)
+            }
+            binding.tvDelete.setOnClickListener {
+                clickListener?.delete(getItem(bindingAdapterPosition)!!, bindingAdapterPosition)
+            }
+        }
+
         fun bindView(data: Todo?, position: Int) {
             data?.let { todo ->
                 binding.cbStatus.isChecked = todo.status == 1
                 binding.tvTitle.text = todo.title
                 binding.tvDate.text = todo.dateStr
                 binding.tvContent.text = todo.content
-                binding.cbStatus.setOnTouchListener { v, event ->
-                    kotlin.run {
-                        if (event.action == KeyEvent.ACTION_UP) {
-                            clickListener?.toggleState(todo, bindingAdapterPosition)
-                        }
-                        true
-                    }
+                binding.root.post {
+                    val menuLayoutParam = binding.layoutMenu.layoutParams
+                    menuLayoutParam.height = binding.root.measuredHeight
+                    binding.layoutMenu.layoutParams = menuLayoutParam
                 }
-                binding.root.setOnClickListener {
-                    clickListener?.showDetail(todo, bindingAdapterPosition)
-                }
+
             }
 
         }
