@@ -23,7 +23,7 @@ abstract class BaseRecyclerViewAdapter<T, VB : ViewDataBinding> :
     /**
      * 点击回调,type用于区分点击区域
      */
-    private var onItemClick: ((position: Int, type: Int) -> Unit)? = null
+    var itemClick: ((position: Int, data: T) -> Unit)? = null
     abstract fun getLayoutId(): Int
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -48,11 +48,11 @@ abstract class BaseRecyclerViewAdapter<T, VB : ViewDataBinding> :
     inner class Holder(val viewBinding: VB) : RecyclerView.ViewHolder(viewBinding.root) {
         init {
 //            为itemView设置通用点击监听
-            onItemClick?.let { onClick ->
+            itemClick?.let { onClick ->
                 viewBinding.root.setOnClickListener {
                     onClick.invoke(
-                        layoutPosition,
-                        CLICK_TYPE_ITEM
+                        bindingAdapterPosition,
+                        list[bindingAdapterPosition]
                     )
                 }
             }
@@ -75,10 +75,10 @@ abstract class BaseRecyclerViewAdapter<T, VB : ViewDataBinding> :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun clear(){
+    fun clear() {
         list.clear()
         notifyDataSetChanged()
     }
 
-    fun getDataList():List<T> = list
+    fun getDataList(): List<T> = list
 }

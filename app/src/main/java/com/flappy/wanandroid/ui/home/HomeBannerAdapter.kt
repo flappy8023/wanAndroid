@@ -2,8 +2,8 @@ package com.flappy.wanandroid.ui.home
 
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseRecyclerViewAdapter
-import com.flappy.wanandroid.databinding.HomeItemBannerBinding
 import com.flappy.wanandroid.data.model.BannerItem
+import com.flappy.wanandroid.databinding.HomeItemBannerBinding
 import com.youth.banner.indicator.CircleIndicator
 
 /**
@@ -13,7 +13,6 @@ import com.youth.banner.indicator.CircleIndicator
  */
 class HomeBannerAdapter() :BaseRecyclerViewAdapter<BannerItem,HomeItemBannerBinding>(){
 
-    var itemClick: ((Int, BannerItem) -> Unit)? = null
     override fun getItemCount(): Int {
         //作为首页的一个item展示
         return if (getDataList().isEmpty()) 0 else 1

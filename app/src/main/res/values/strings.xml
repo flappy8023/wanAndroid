@@ -29,6 +29,8 @@
     <string name="todo_err_content_cant_be_empty">内容不可为空</string>
     <string name="top">Top</string>
     <string name="settings">设置</string>
+    <string name="github_url">项目源码</string>
+    <string name="read_history">阅读历史</string>
     <string name="my_collection">我的收藏</string>
     <string name="logout">退出登录</string>
     <string name="todo_done">已完成</string>
@@ -36,4 +38,10 @@
     <string name="done">完成</string>
     <string name="hint_title">标题</string>
     <string name="hint_content">内容</string>
+    <string name="settings_theme">主题</string>
+    <string name="settings_dark_mode">深色主题</string>
+    <string name="settings_dark_mode_summary">选择你喜欢的主题模式</string>
+    <string name="settings_dark_mode_night">使用深色主题</string>
+    <string name="settings_dark_mode_light">使用浅色主题</string>
+    <string name="settings_dark_mode_auto">跟随系统</string>
 </resources>

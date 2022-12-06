@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_dark">
+        <item>@string/settings_dark_mode_night</item>
+        <item>@string/settings_dark_mode_light</item>
+        <item>@string/settings_dark_mode_auto</item>
+    </string-array>
+    <string-array name="settings_dark_values">
+        <item>night</item>
+        <item>light</item>
+        <item>auto</item>
+    </string-array>
+</resources>

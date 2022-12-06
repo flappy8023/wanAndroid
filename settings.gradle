@@ -18,4 +18,3 @@ dependencyResolutionManagement {
 rootProject.name = "wanAndroid"
 include ':app'
 include ':widget'
-include ':statusManager'

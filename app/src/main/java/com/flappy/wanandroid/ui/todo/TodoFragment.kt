@@ -5,7 +5,9 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.data.model.*
@@ -16,6 +18,8 @@ import com.flappy.wanandroid.util.login.LoginHelper
 import com.flappy.wanandroid.util.login.LoginIntercept
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filter
 
 /**
  * @Author: luweiming
@@ -67,10 +71,15 @@ class TodoFragment : BaseFragment<FragmentTodoBinding, TodoVM>() {
 
         //设置单选模式
         binding.cgType.isSingleSelection = true
+
         initListener()
     }
 
     private fun initListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            todoAdapter?.refresh()
+            doneAdapter?.refresh()
+        }
         notLoginBinding?.btGoLogin?.setOnClickListener {
             goLogin()
         }
@@ -102,6 +111,7 @@ class TodoFragment : BaseFragment<FragmentTodoBinding, TodoVM>() {
 
     private fun showNeedLogin() {
         binding.swipeRefresh.visibility = View.GONE
+        binding.fabAddTodo.visibility = View.GONE
         if (binding.notLogin.isInflated) {
             binding.notLogin.viewStub?.visibility = View.VISIBLE
         } else {
@@ -114,12 +124,37 @@ class TodoFragment : BaseFragment<FragmentTodoBinding, TodoVM>() {
 
     private fun showTodoList() {
         binding.swipeRefresh.visibility = View.VISIBLE
+        binding.fabAddTodo.visibility = View.VISIBLE
         if (binding.notLogin.isInflated) {
             binding.notLogin.viewStub?.visibility = View.GONE
         }
         initRecyclerView()
         //确认登录状态后，请求todo列表
         requestTodoList()
+        lifecycleScope.launchWhenCreated {
+            todoAdapter!!.loadStateFlow.collect { loadStates ->
+                binding.swipeRefresh.isRefreshing =
+                    loadStates.mediator?.refresh is LoadState.Loading
+            }
+        }
+        lifecycleScope.launchWhenCreated {
+            todoAdapter!!.loadStateFlow.asMergedLoadStates()
+                .distinctUntilChangedBy { it.refresh }
+                .filter { it.refresh is LoadState.NotLoading }
+                .collect { binding.rvTodo.scrollToPosition(0) }
+        }
+        lifecycleScope.launchWhenCreated {
+            doneAdapter!!.loadStateFlow.collect { loadStates ->
+                binding.swipeRefresh.isRefreshing =
+                    loadStates.mediator?.refresh is LoadState.Loading
+            }
+        }
+        lifecycleScope.launchWhenCreated {
+            doneAdapter!!.loadStateFlow.asMergedLoadStates()
+                .distinctUntilChangedBy { it.refresh }
+                .filter { it.refresh is LoadState.NotLoading }
+                .collect { binding.rvDone.scrollToPosition(0) }
+        }
     }
 
     private fun goLogin() {

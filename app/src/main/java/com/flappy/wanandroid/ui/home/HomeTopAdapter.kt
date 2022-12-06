@@ -13,7 +13,6 @@ import com.flappy.wanandroid.databinding.HomeItemArticleBinding
  * @Date: Created in 21:11 2022/9/6
  */
 class HomeTopAdapter : BaseRecyclerViewAdapter<Article, HomeItemArticleBinding>() {
-    var itemClick: ((Int, Article) -> Unit)? = null
 
     override fun getLayoutId(): Int {
         return R.layout.home_item_article

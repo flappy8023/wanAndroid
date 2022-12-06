@@ -8,7 +8,13 @@
         android:id="@+id/mineFragment"
         android:name="com.flappy.wanandroid.ui.mine.MineFragment"
         android:label="MineFragment"
-        tools:layout="@layout/fragment_mine" >
-    </fragment>
+        tools:layout="@layout/fragment_mine"></fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.flappy.wanandroid.ui.setting.SettingsFragment"
+        android:label="SettingsFragment" />
+    <action
+        android:id="@+id/action_global_settingsFragment"
+        app:destination="@id/settingsFragment" />
 
 </navigation>

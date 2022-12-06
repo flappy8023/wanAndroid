@@ -121,4 +121,8 @@ dependencies {
 
     implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     implementation 'com.github.ljphawk:SwipeMenuLayout:1.05'
+
+    def preference_version = "1.2.0"
+    implementation("androidx.preference:preference-ktx:$preference_version")
+    implementation 'com.github.Kennyc1012:MultiStateView:2.2.0'
 }

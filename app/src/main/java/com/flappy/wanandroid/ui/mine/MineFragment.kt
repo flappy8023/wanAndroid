@@ -3,10 +3,13 @@ package com.flappy.wanandroid.ui.mine
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.data.model.MineMenu
 import com.flappy.wanandroid.data.model.UserInfoData
 import com.flappy.wanandroid.databinding.FragmentMineBinding
+import com.flappy.wanandroid.ext.goArticleDetail
 import com.flappy.wanandroid.util.login.LoginHelper
 
 /**
@@ -44,12 +47,27 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineVM>() {
     private fun initMenuList() {
         val data =
             listOf(
-                R.drawable.ic_round_collections_bookmark_24 to getString(R.string.my_collection),
-                R.drawable.ic_round_settings_24 to getString(R.string.settings)
+                MineMenu(
+                    R.drawable.ic_round_collections_bookmark_24,
+                    getString(R.string.my_collection)
+                ),
+                MineMenu(R.drawable.ic_round_history_24, getString(R.string.read_history)),
+                MineMenu(
+                    R.drawable.ic_round_code_24,
+                    getString(R.string.github_url),
+                    "https://github.com/flappy8023/wanAndroid"
+                ),
+                MineMenu(R.drawable.ic_round_settings_24, getString(R.string.settings))
             )
         val adapter = MineMenuAdapter()
         adapter.addAll(data)
         binding.rvMenus.adapter = adapter
+        adapter.itemClick = { position, data ->
+            when (position) {
+                2 -> goArticleDetail("", data.subTitle!!)
+                3 -> findNavController().navigate(MineFragmentDirections.actionGlobalSettingsFragment())
+            }
+        }
     }
 
     private fun showUserInfo(userInfo: UserInfoData?) {

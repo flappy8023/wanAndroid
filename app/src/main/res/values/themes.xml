@@ -13,11 +13,17 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- Customize your theme here. -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
+        <item name="preferenceTheme">@style/Theme.WanAndroid.PreferenceThemeOverlay</item>
     </style>
+
     <style name="Theme.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="windowSplashScreenAnimationDuration">200</item>
         <item name="postSplashScreenTheme">@style/Theme.WanAndroid</item>
+    </style>
+
+    <style name="Theme.WanAndroid.PreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
+        <item name="android:layout">@layout/fragment_settings</item>
     </style>
 </resources>
