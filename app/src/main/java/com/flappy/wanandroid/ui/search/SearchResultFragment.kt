@@ -5,10 +5,9 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.SearchResultFragmentBinding
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -19,7 +18,7 @@ import kotlinx.coroutines.launch
  * @Description:
  * @Date: Created in 2022/10/10
  */
-class SearchResultFragment : BaseFragment<SearchResultFragmentBinding, SearchVM>() {
+class SearchResultFragment : BaseVMFragment<SearchResultFragmentBinding, SearchVM>() {
 
 
     private val resultAdapter: HomeArticleAdapter by lazy {

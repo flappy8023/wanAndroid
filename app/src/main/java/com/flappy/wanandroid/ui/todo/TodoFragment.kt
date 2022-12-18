@@ -9,7 +9,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.data.model.*
 import com.flappy.wanandroid.databinding.FragmentTodoBinding
 import com.flappy.wanandroid.databinding.LayoutNotLoginBinding
@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.filter
  * @Description:一级页面待办
  * @Date: Created in 22:20 2022/11/8
  */
-class TodoFragment : BaseFragment<FragmentTodoBinding, TodoVM>() {
+class TodoFragment : BaseVMFragment<FragmentTodoBinding, TodoVM>() {
     private var todoAdapter: TodoListAdapter? = null
     private var doneAdapter: TodoListAdapter? = null
     private var notLoginBinding: LayoutNotLoginBinding? = null

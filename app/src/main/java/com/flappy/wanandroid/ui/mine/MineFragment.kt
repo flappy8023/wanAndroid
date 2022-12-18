@@ -5,21 +5,21 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.data.model.MineMenu
 import com.flappy.wanandroid.data.model.UserInfoData
 import com.flappy.wanandroid.databinding.FragmentMineBinding
-import com.flappy.wanandroid.ext.goArticleDetail
 import com.flappy.wanandroid.util.login.LoginHelper
+import com.flappy.wanandroid.util.login.LoginIntercept
 
 /**
  * @Author: luweiming
  * @Description:一级页面
  * @Date: Created in 21:30 2022/10/17
  */
-class MineFragment : BaseFragment<FragmentMineBinding, MineVM>() {
+class MineFragment : BaseVMFragment<FragmentMineBinding, MineVM>() {
     override fun bindViewModel() {
-        viewModel.userInfo.observe(viewLifecycleOwner) {
+        viewModel.userInfo.observe(this) {
             it?.let {
                 showUserInfo(it)
             } ?: showNotLogin()
@@ -29,7 +29,9 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineVM>() {
 
 
     override fun initView() {
-        viewModel.getUserInfo()
+        if (LoginHelper.isLogin())
+            viewModel.getUserInfo()
+        else showNotLogin()
         binding.btGoLogin.setOnClickListener {
             LoginHelper.goLogin(this)
         }
@@ -39,7 +41,7 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineVM>() {
         initMenuList()
         //监听登录、登出状态
         LoginHelper.observerLogin(
-            viewLifecycleOwner,
+            this,
             { viewModel.getUserInfo(true) },
             { showNotLogin() })
     }
@@ -53,9 +55,8 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineVM>() {
                 ),
                 MineMenu(R.drawable.ic_round_history_24, getString(R.string.read_history)),
                 MineMenu(
-                    R.drawable.ic_round_code_24,
-                    getString(R.string.github_url),
-                    "https://github.com/flappy8023/wanAndroid"
+                    R.drawable.ic_round_share_24,
+                    getString(R.string.mine_share)
                 ),
                 MineMenu(R.drawable.ic_round_settings_24, getString(R.string.settings))
             )
@@ -64,7 +65,10 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineVM>() {
         binding.rvMenus.adapter = adapter
         adapter.itemClick = { position, data ->
             when (position) {
-                2 -> goArticleDetail("", data.subTitle!!)
+                0 -> LoginIntercept.get().checkLogin({ LoginHelper.goLogin(this) },
+                    { findNavController().navigate(MineFragmentDirections.actionGoCollection()) })
+                1 -> findNavController().navigate(MineFragmentDirections.actionGoReadHistory())
+//                2 -> goArticleDetail("", data.subTitle!!)
                 3 -> findNavController().navigate(MineFragmentDirections.actionGlobalSettingsFragment())
             }
         }

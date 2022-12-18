@@ -1,6 +1,7 @@
 package com.flappy.wanandroid.ui.todo
 
 import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -54,8 +55,17 @@ class TodoListAdapter :
 
         fun bindView(data: Todo?, position: Int) {
             data?.let { todo ->
-                binding.cbStatus.isChecked = todo.status == 1
+                val done = todo.status == 1
+                binding.cbStatus.isChecked = done
                 binding.tvTitle.text = todo.title
+                //已完成设置删除线
+                binding.tvTitle.apply {
+                    paintFlags = if (done) {
+                        paintFlags.or(Paint.STRIKE_THRU_TEXT_FLAG)
+                    } else {
+                        paintFlags.and(Paint.STRIKE_THRU_TEXT_FLAG.inv())
+                    }
+                }
                 binding.tvDate.text = todo.dateStr
                 binding.tvContent.text = todo.content
                 binding.root.post {

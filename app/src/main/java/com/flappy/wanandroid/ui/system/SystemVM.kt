@@ -11,9 +11,15 @@ import com.flappy.wanandroid.util.safeApiCall
  * @Date: Created in 21:50 2022/10/17
  */
 class SystemVM : BaseViewModel() {
+    init {
+        launch {
+            getSystemTrees()
+        }
+    }
+
     val trees = MutableLiveData<List<TreeItem>>()
 
-    suspend fun getSystemTrees() {
+    private suspend fun getSystemTrees() {
         val result = safeApiCall {
             SystemRepository.getSystemTree()
         }

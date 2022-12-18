@@ -1,27 +1,36 @@
 package com.flappy.wanandroid.ui.search
 
-import androidx.lifecycle.Observer
+import android.view.LayoutInflater
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.SearchRecFragmentBinding
+import com.google.android.material.chip.Chip
 
 /**
  * @Author: luweiming
  * @Description:
  * @Date: Created in 22:09 2022/9/21
  */
-class SearchRecFragment:BaseFragment<SearchRecFragmentBinding,SearchVM>() {
+class SearchRecFragment : BaseVMFragment<SearchRecFragmentBinding, SearchVM>() {
     override fun bindViewModel() {
-        viewModel.hotWords.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                binding.labelLayoutHot.setLabels(it)
+        viewModel.hotWords.observe(viewLifecycleOwner) {
+            it?.let {
+                setLabels(it)
             }
-        })
+        }
     }
 
     override fun initView() {
-        viewModel.requestHotWords()
     }
 
-    override fun getLayoutId(): Int  = R.layout.search_rec_fragment
+    override fun getLayoutId(): Int = R.layout.search_rec_fragment
+
+    private fun setLabels(labels: List<String>) {
+        labels.forEach { it ->
+            val chip: Chip = LayoutInflater.from(requireContext())
+                .inflate(R.layout.search_item_rec_chip, binding.labelLayoutHot, false) as Chip
+            chip.text = it
+            binding.labelLayoutHot.addView(chip)
+        }
+    }
 }

@@ -7,14 +7,30 @@
     <fragment
         android:id="@+id/mineFragment"
         android:name="com.flappy.wanandroid.ui.mine.MineFragment"
-        android:label="MineFragment"
-        tools:layout="@layout/fragment_mine"></fragment>
+        tools:layout="@layout/fragment_mine" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.flappy.wanandroid.ui.setting.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.flappy.wanandroid.ui.mine.collection.CollectionsFragment"
+        android:label="@string/my_collection"
+        tools:layout="@layout/common_viewpager_with_tab_fragment" />
+
     <action
         android:id="@+id/action_global_settingsFragment"
         app:destination="@id/settingsFragment" />
+    <action
+        android:id="@+id/action_go_collection"
+        app:destination="@id/collectionFragment" />
+    <fragment
+        android:id="@+id/readHistoryFragment"
+        android:name="com.flappy.wanandroid.ui.mine.history.ReadHistoryFragment"
+        android:label="@string/read_history" />
+    <action
+        android:id="@+id/action_go_read_history"
+        app:destination="@id/readHistoryFragment" />
 
 </navigation>

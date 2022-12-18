@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
         android:key="theme"
-        android:title="@string/settings_theme">
+        android:title="@string/settings_category_theme">
         <ListPreference
             android:defaultValue="auto"
             android:entries="@array/settings_dark"
@@ -14,5 +14,28 @@
             app:title="@string/settings_dark_mode" />
 
 
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="common"
+        app:title="@string/settings_category_common">
+        <Preference
+            app:icon="@drawable/ic_round_cleaning_services_24"
+            app:key="clear_cache"
+            app:summary=""
+            app:title="@string/settings_clean_cache" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="other"
+        app:title="@string/settings_category_other">
+        <Preference
+            android:icon="@drawable/ic_round_code_24"
+            app:key="github_url"
+            app:summary="https://github.com/flappy8023/wanAndroid"
+            app:title="@string/settings_github_url" />
+        <Preference
+            android:icon="@drawable/ic_round_upgrade_24"
+            app:key="upgrade"
+            app:summary=""
+            app:title="@string/settings_upgrade" />
     </PreferenceCategory>
 </PreferenceScreen>

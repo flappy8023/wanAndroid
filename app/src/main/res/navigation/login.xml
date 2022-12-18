@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.flappy.wanandroid.ui.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="@string/login" />
     <action
         android:id="@+id/goLogin"
         app:destination="@id/loginFragment" />

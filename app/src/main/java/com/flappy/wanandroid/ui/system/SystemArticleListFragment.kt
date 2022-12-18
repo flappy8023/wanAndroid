@@ -5,7 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.SystemArticleListBinding
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import kotlinx.coroutines.flow.collectLatest
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.filter
  * @Description:体系二级目录下文章列表
  * @Date: Created in 22:02 2022/10/17
  */
-class SystemArticleListFragment : BaseFragment<SystemArticleListBinding, SystemArticleVM>() {
+class SystemArticleListFragment : BaseVMFragment<SystemArticleListBinding, SystemArticleVM>() {
     private val adapter = HomeArticleAdapter()
     private var cid: Long = -1L
     override fun handleArguments() {

@@ -8,17 +8,21 @@
     <string name="menu_mine">我的</string>
     <string name="menu_search">搜索</string>
     <string name="cancel">取消</string>
+    <!--搜索-->
     <string name="search_hot">热门搜索</string>
     <string name="search_history">历史搜索</string>
+    <!--登录注册-->
     <string name="username_hint">用户名</string>
     <string name="pwd_hint">密码</string>
     <string name="login">登录</string>
     <string name="go_login">去登录</string>
     <string name="logining">正在登录</string>
     <string name="login_success">登录成功</string>
+
     <string name="discovery">发现</string>
     <string name="qa">问答</string>
     <string name="square">广场</string>
+    <!--待办-->
     <string name="todo_type_all">全部</string>
     <string name="todo_type_work">工作</string>
     <string name="todo_type_study">学习</string>
@@ -27,21 +31,34 @@
     <string name="todo_not_login_tip">请登录后查看</string>
     <string name="todo_err_title_cant_be_empty">标题不可为空</string>
     <string name="todo_err_content_cant_be_empty">内容不可为空</string>
-    <string name="top">Top</string>
-    <string name="settings">设置</string>
-    <string name="github_url">项目源码</string>
-    <string name="read_history">阅读历史</string>
-    <string name="my_collection">我的收藏</string>
-    <string name="logout">退出登录</string>
     <string name="todo_done">已完成</string>
     <string name="create_todo">新建待办</string>
+
+    <string name="top">Top</string>
+    <!--我的-->
+    <string name="read_history">阅读历史</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="collected_article">文章</string>
+    <string name="collected_website">网址</string>
+    <string name="logout">退出登录</string>
+
     <string name="done">完成</string>
     <string name="hint_title">标题</string>
     <string name="hint_content">内容</string>
-    <string name="settings_theme">主题</string>
+    <!--分享-->
+    <string name="mine_share">我的分享</string>
+
+    <!--设置-->
+    <string name="settings">设置</string>
+    <string name="settings_category_common">通用</string>
+    <string name="settings_category_other">其他</string>
+    <string name="settings_github_url">项目源码</string>
+    <string name="settings_category_theme">主题</string>
     <string name="settings_dark_mode">深色主题</string>
     <string name="settings_dark_mode_summary">选择你喜欢的主题模式</string>
-    <string name="settings_dark_mode_night">使用深色主题</string>
-    <string name="settings_dark_mode_light">使用浅色主题</string>
+    <string name="settings_dark_mode_night">深色主题</string>
+    <string name="settings_dark_mode_light">浅色主题</string>
     <string name="settings_dark_mode_auto">跟随系统</string>
+    <string name="settings_upgrade">版本更新</string>
+    <string name="settings_clean_cache">清除缓存</string>
 </resources>

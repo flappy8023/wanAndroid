@@ -145,10 +145,10 @@ interface ApiService {
      * @param pageNo Int
      * @param pageSize Int
      */
-    @GET("lg/collect/list/{pageNo}/json?pageSize={pageSize}")
+    @GET("lg/collect/list/{pageNo}/json")
     suspend fun getCollectList(
         @Path("pageNo") pageNo: Int,
-        @Path("pageSize") pageSize: Int
+        @Query("pageSize") pageSize: Int
     ): ApiResponse<PagedData<Article>>
 
     /**

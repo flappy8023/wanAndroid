@@ -1,7 +1,7 @@
 package com.flappy.wanandroid.ui.home
 
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -10,7 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
  * @Description:一级页面首页
  * @Date: Created in 17:06 2022/8/30
  */
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeVM>() {
+class HomeFragment : BaseVMFragment<FragmentHomeBinding, HomeVM>() {
     private lateinit var pageAdapter: HomePageAdapter
     override fun getLayoutId(): Int {
         return R.layout.fragment_home

@@ -7,9 +7,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
+import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.repository.SearchRepository
 import com.flappy.wanandroid.ui.home.discovery.DiscoveryVM
-import com.flappy.wanandroid.data.model.Article
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -19,11 +19,14 @@ import kotlinx.coroutines.launch
  * @Date: Created in 22:41 2022/9/19
  */
 class SearchVM : BaseViewModel() {
+    init {
+        requestHotWords()
+    }
+
     /**
      * 热门搜索
      */
     val hotWords: MutableLiveData<List<String>?> = MutableLiveData()
-
 
 
     /**

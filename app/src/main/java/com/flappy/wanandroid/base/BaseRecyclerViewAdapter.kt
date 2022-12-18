@@ -62,7 +62,7 @@ abstract class BaseRecyclerViewAdapter<T, VB : ViewDataBinding> :
     abstract fun bindView(binding: VB, data: T, holder: Holder)
 
     fun addAll(data: List<T>) {
-        if (data.isNullOrEmpty()) return
+        if (data.isEmpty()) return
         val sPos = itemCount
         list.addAll(data)
         notifyItemRangeInserted(sPos, itemCount)

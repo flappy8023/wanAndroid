@@ -1,16 +1,17 @@
 package com.flappy.wanandroid.ui.setting
 
-import android.graphics.Color
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.flappy.wanandroid.R
+import com.flappy.wanandroid.util.AppUtil
+import com.flappy.wanandroid.util.CacheManager
 
 /**
  * @Author: luweiming
@@ -20,15 +21,9 @@ import com.flappy.wanandroid.R
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<Toolbar?>(R.id.toolbar).apply {
-            setBackgroundColor(Color.TRANSPARENT)
-        }
-        toolbar.title = getString(R.string.settings)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        //需要加上，左上角返回键才可以监听
-        setHasOptionsMenu(true)
+        val toolbar = view.findViewById<Toolbar?>(R.id.toolbar)
+        val navController = findNavController()
+        toolbar.setupWithNavController(navController)
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -48,13 +43,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
         }
+        findPreference<Preference>("clear_cache")?.apply {
+            summary = CacheManager.getTotalCacheSize(requireContext())
+            setOnPreferenceClickListener {
+                CacheManager.cleanApplicationCache(requireContext())
+                summary = CacheManager.getTotalCacheSize(requireContext())
+                true
+            }
+        }
+        findPreference<Preference>("upgrade")?.apply {
+            summary = AppUtil.getVersionName(requireContext())
+        }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            findNavController().popBackStack()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
+
 }

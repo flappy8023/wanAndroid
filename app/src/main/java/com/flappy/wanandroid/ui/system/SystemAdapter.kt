@@ -1,9 +1,11 @@
 package com.flappy.wanandroid.ui.system
 
+import android.view.LayoutInflater
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseRecyclerViewAdapter
-import com.flappy.wanandroid.databinding.SystemItemTreeBinding
 import com.flappy.wanandroid.data.model.TreeItem
+import com.flappy.wanandroid.databinding.SystemItemTreeBinding
+import com.google.android.material.chip.Chip
 
 /**
  * @Author: luweiming
@@ -16,9 +18,15 @@ class SystemAdapter : BaseRecyclerViewAdapter<TreeItem, SystemItemTreeBinding>()
 
     override fun bindView(binding: SystemItemTreeBinding, data: TreeItem, holder: Holder) {
         binding.tvTreeTitle.text = data.name
-        binding.layoutSubTitles.setLabels(data.children.map { it.name })
-        binding.layoutSubTitles.onItemClick =
-            { index -> itemClickCallback?.invoke(data.children[index]) }
+        data.children.map { it.name }.forEach {
+            val chip = LayoutInflater.from(binding.root.context)
+                .inflate(R.layout.search_item_rec_chip, binding.layoutSubTitles, false) as Chip
+            chip.text = it
+            chip.setOnClickListener {
+                itemClickCallback?.invoke(data.children[holder.bindingAdapterPosition])
+            }
+            binding.layoutSubTitles.addView(chip)
+        }
     }
 
 }

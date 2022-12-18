@@ -23,12 +23,15 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Android Studio" />
 
-        <com.flappy.widget.label.LabelLayout
+        <com.google.android.material.chip.ChipGroup
             android:id="@+id/layout_sub_titles"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
+            app:chipSpacingHorizontal="4dp"
+            app:chipSpacingVertical="4dp"
+            app:lineSpacing="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_tree_title" />

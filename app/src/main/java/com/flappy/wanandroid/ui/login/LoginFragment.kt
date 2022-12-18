@@ -2,7 +2,7 @@ package com.flappy.wanandroid.ui.login
 
 import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.LoginFragmentBinding
 import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.hideProgress
@@ -13,7 +13,7 @@ import com.github.razir.progressbutton.showProgress
  * @Description:登录页面
  * @Date: Created in 21:49 2022/10/27
  */
-class LoginFragment : BaseFragment<LoginFragmentBinding, LoginVM>() {
+class LoginFragment : BaseVMFragment<LoginFragmentBinding, LoginVM>() {
     override fun bindViewModel() {
         viewModel.loginState.observe(viewLifecycleOwner) {
             if (it) {

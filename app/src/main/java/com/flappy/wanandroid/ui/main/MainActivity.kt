@@ -1,16 +1,15 @@
 package com.flappy.wanandroid.ui.main
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.addListener
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.ext.switchStatusBarLightMode
+import com.flappy.webview.WebViewPool
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
@@ -23,34 +22,6 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "MainActivity"
     }
 
-    /**
-     * 底部导航栏进入动画
-     */
-    private val btmEnterAnim by lazy {
-        ObjectAnimator.ofFloat(
-            btmNavigationView,
-            "translationY",
-            btmNavigationView.height.toFloat(),
-            0f
-        )
-    }
-
-    /**
-     * 底部导航栏退出动画
-     */
-    private val btmExitAnim by lazy {
-        ObjectAnimator.ofFloat(
-            btmNavigationView,
-            "translationY",
-            0f,
-            btmNavigationView.height.toFloat()
-        ).apply {
-            addListener(onEnd = {
-                //推出后隐藏控件
-                btmNavigationView.visibility = View.GONE
-            })
-        }
-    }
     private lateinit var btmNavigationView: BottomNavigationView
 
     private lateinit var navController: NavController
@@ -74,13 +45,19 @@ class MainActivity : AppCompatActivity() {
         //监听页面跳转，离开首页几个页签后隐藏下方导航栏
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.homeFragment || destination.id == R.id.systemFragment || destination.id == R.id.wechatFragment || destination.id == R.id.todoFragment) {
-                if (btmNavigationView.visibility == View.GONE) {
-                    btmNavigationView.visibility = View.VISIBLE
-                    btmEnterAnim.start()
-                }
+                btmNavigationView.visibility = View.VISIBLE
             } else {
-                btmExitAnim.start()
+                btmNavigationView.visibility = View.GONE
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        WebViewPool.get().destroy()
     }
 }

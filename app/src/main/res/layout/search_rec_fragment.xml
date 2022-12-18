@@ -43,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/labellayout_history" />
 
-        <com.flappy.widget.label.LabelLayout
+        <com.google.android.material.chip.ChipGroup
             android:id="@+id/labelLayout_hot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,6 +52,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_hot">
 
 
-        </com.flappy.widget.label.LabelLayout>
+        </com.google.android.material.chip.ChipGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

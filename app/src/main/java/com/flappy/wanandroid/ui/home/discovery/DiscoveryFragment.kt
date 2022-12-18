@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
 import com.flappy.wanandroid.ext.goArticleDetail
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.filter
  * @Description:首页-第一个子页面
  * @Date: Created in 22:47 2022/11/2
  */
-class DiscoveryFragment : BaseFragment<HomeDiscoveryFragmentBinding, DiscoveryVM>() {
+class DiscoveryFragment : BaseVMFragment<HomeDiscoveryFragmentBinding, DiscoveryVM>() {
     private val articleAdapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
     private val bannerAdapter: HomeBannerAdapter by lazy { HomeBannerAdapter() }
     private val topAdapter: HomeTopAdapter by lazy { HomeTopAdapter() }

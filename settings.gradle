@@ -17,4 +17,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "wanAndroid"
 include ':app'
-include ':widget'
+include ':library-widget'
+include ':library-webview'

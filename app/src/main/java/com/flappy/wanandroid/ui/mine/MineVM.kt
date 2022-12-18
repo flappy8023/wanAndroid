@@ -18,21 +18,17 @@ class MineVM : BaseViewModel() {
     val userInfo: LiveData<UserInfoData?> = _userInfo
     fun getUserInfo(fromLogin: Boolean = false) {
         //已经登陆的话，先展示缓存，再请求用户信息
-        if (LoginHelper.isLogin()) {
-            _userInfo.value = UserManager.getCurUser()
-            //如果是登录触发的，就不需要重新请求了，刚请求过
-            if (!fromLogin) {
-                launch {
-                    val result = MineRepository.getUserInfo()
-                    if (result.isSuccess) {
-                        _userInfo.value = result.getOrNull()
-                        //缓存用户信息
-                        UserManager.saveUserInfo(result.getOrNull()!!)
-                    }
+        _userInfo.value = UserManager.getCurUser()
+        //如果是登录触发的，就不需要重新请求了，刚请求过
+        if (!fromLogin) {
+            launch {
+                val result = MineRepository.getUserInfo()
+                if (result.isSuccess) {
+                    _userInfo.value = result.getOrNull()
+                    //缓存用户信息
+                    UserManager.saveUserInfo(result.getOrNull()!!)
                 }
             }
-        } else {
-            _userInfo.value = null
         }
 
     }
