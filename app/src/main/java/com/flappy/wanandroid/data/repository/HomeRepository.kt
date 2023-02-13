@@ -1,7 +1,7 @@
 package com.flappy.wanandroid.data.repository
 
 import com.flappy.wanandroid.data.api.ApiService
-import com.flappy.wanandroid.data.db.MyDB
+import com.flappy.wanandroid.data.db.RoomDB
 import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.model.BannerItem
 import com.flappy.wanandroid.ui.home.ArticlePagingSource
@@ -14,7 +14,7 @@ import com.flappy.wanandroid.util.safeApiCall
  * @Description:
  * @Date: Created in 9:22 2022/9/1
  */
-class HomeRepository(val api: ApiService, val db: MyDB? = null) {
+class HomeRepository(val api: ApiService, val db: RoomDB? = null) {
 
     fun articlePagingSource() = ArticlePagingSource()
 

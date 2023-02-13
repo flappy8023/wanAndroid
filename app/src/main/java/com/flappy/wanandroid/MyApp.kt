@@ -3,6 +3,7 @@ package com.flappy.wanandroid
 import android.app.Application
 import android.content.Context
 import androidx.preference.PreferenceManager
+import com.flappy.wanandroid.data.db.WanDB
 import com.flappy.wanandroid.util.DarkModeUtil
 import com.flappy.webview.WebViewPool
 import com.tencent.bugly.crashreport.CrashReport
@@ -41,6 +42,7 @@ class MyApp : Application() {
             override fun onViewInitFinished(isX5: Boolean) {
             }
         })
+        WanDB.init(this)
         //webview池初始化
         WebViewPool.get().init(app)
         //初始化Bugly

@@ -32,7 +32,7 @@ object UserManager {
             dataStore.data.map { it[stringPreferencesKey(KEY_CUR_USER)] }.first()
         }
         curUser = userInfoString?.let {
-            JsonUtil.fromJsonString(it, UserInfoData::class.java)
+            com.flappy.util.JsonUtil.fromJsonString(it, UserInfoData::class.java)
         }
         return curUser
     }
@@ -42,7 +42,8 @@ object UserManager {
         if (null == userInfo) return
         runBlocking {
             dataStore.edit {
-                it[stringPreferencesKey(KEY_CUR_USER)] = JsonUtil.toJsonString(userInfo)
+                it[stringPreferencesKey(KEY_CUR_USER)] =
+                    com.flappy.util.JsonUtil.toJsonString(userInfo)
             }
         }
     }

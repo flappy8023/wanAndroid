@@ -1,8 +1,7 @@
 package com.flappy.wanandroid.data.api
 
-import android.util.Log
+import com.flappy.util.NetUtil
 import com.flappy.wanandroid.MyApp
-import com.flappy.wanandroid.util.NetUtil
 import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response

@@ -1,7 +1,7 @@
 package com.flappy.wanandroid.data.repository
 
 import com.flappy.wanandroid.data.api.ApiManager
-import com.flappy.wanandroid.util.safeApiCall
+import com.flappy.wanandroid.util.safeCall
 
 /**
  * @Author: luweiming
@@ -10,5 +10,5 @@ import com.flappy.wanandroid.util.safeApiCall
  */
 object LoginRepository {
     suspend fun login(name: String, pwd: String) =
-        safeApiCall { ApiManager.service.login(name, pwd) }
+        safeCall { ApiManager.service.login(name, pwd) }
 }

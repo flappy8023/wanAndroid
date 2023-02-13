@@ -4,12 +4,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
-import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
 import com.flappy.wanandroid.ext.goArticleDetail
+import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import com.flappy.wanandroid.ui.home.HomeBannerAdapter
 import com.flappy.wanandroid.ui.home.HomeTopAdapter
@@ -54,9 +53,9 @@ class DiscoveryFragment : BaseVMFragment<HomeDiscoveryFragmentBinding, Discovery
             val adapter = ConcatAdapter(bannerAdapter, topAdapter, articleAdapter)
             rvArticles.adapter = adapter
             //fragment重建后恢复recyclerview滚动位置
-            bannerAdapter.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            topAdapter.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            articleAdapter.setStateRestorationPolicy(StateRestorationPolicy.PREVENT_WHEN_EMPTY)
+//            bannerAdapter.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
+//            topAdapter.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
+//            articleAdapter.setStateRestorationPolicy(StateRestorationPolicy.PREVENT_WHEN_EMPTY)
 
             swipeRefresh.setOnRefreshListener {
                 viewModel.getBanners()

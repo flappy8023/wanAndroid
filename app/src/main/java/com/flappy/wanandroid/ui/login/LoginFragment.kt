@@ -1,5 +1,6 @@
 package com.flappy.wanandroid.ui.login
 
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseVMFragment
@@ -16,10 +17,14 @@ import com.github.razir.progressbutton.showProgress
 class LoginFragment : BaseVMFragment<LoginFragmentBinding, LoginVM>() {
     override fun bindViewModel() {
         viewModel.loginState.observe(viewLifecycleOwner) {
-            if (it) {
+            parseState(it, {
                 binding.btGoLogin.hideProgress(getString(R.string.login_success))
                 findNavController().popBackStack()
-            }
+            }, { msg ->
+                //登陆失败，提示
+                binding.btGoLogin.hideProgress("登录")
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+            })
         }
     }
 

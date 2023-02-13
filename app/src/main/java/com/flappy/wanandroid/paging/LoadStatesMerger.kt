@@ -1,10 +1,10 @@
-package com.android.example.paging.pagingwithnetwork.reddit.paging
+package com.flappy.wanandroid.paging
 
 import androidx.paging.*
 import androidx.paging.LoadState.Loading
 import androidx.paging.LoadState.NotLoading
 import androidx.paging.LoadType.REFRESH
-import com.android.example.paging.pagingwithnetwork.reddit.paging.MergedState.*
+import com.flappy.wanandroid.paging.MergedState.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.scan
 

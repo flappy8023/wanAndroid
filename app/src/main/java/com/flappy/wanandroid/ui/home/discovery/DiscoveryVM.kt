@@ -7,13 +7,13 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.flappy.wanandroid.MyApp
+import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.api.ApiManager
 import com.flappy.wanandroid.data.api.ApiService
-import com.flappy.wanandroid.base.BaseViewModel
-import com.flappy.wanandroid.data.db.MyDB
-import com.flappy.wanandroid.data.repository.HomeRepository
+import com.flappy.wanandroid.data.db.RoomDB
 import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.model.BannerItem
+import com.flappy.wanandroid.data.repository.HomeRepository
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -26,7 +26,7 @@ class DiscoveryVM : BaseViewModel() {
         const val PAGE_SIZE = 30
     }
 
-    private val db: MyDB by lazy { MyDB.buildDataBase(MyApp.app) }
+    private val db: RoomDB by lazy { RoomDB.buildDataBase(MyApp.app) }
     private val api: ApiService by lazy { ApiManager.service }
     private val repository: HomeRepository by lazy {
         HomeRepository(api, db)

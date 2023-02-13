@@ -4,6 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.flappy.wanandroid.base.BaseViewModel
+import com.flappy.wanandroid.data.api.ApiException
+import com.flappy.wanandroid.data.api.ApiResult
+import com.flappy.wanandroid.data.model.UserInfo
 import com.flappy.wanandroid.data.repository.LoginRepository
 import com.flappy.wanandroid.data.repository.MineRepository
 import com.flappy.wanandroid.util.UserManager
@@ -19,23 +22,23 @@ class LoginVM : BaseViewModel() {
         private const val TAG = "LoginVM"
     }
 
-    private val _loginState: MutableLiveData<Boolean> by lazy { MutableLiveData() }
-    val loginState: LiveData<Boolean>
+    private val _loginState: MutableLiveData<ApiResult<UserInfo?>> by lazy { MutableLiveData() }
+    val loginState: LiveData<ApiResult<UserInfo?>>
         get() = _loginState
 
     fun login(username: String, pwd: String) {
         if (username.isBlank() or pwd.isBlank()) {
-            _loginState.value = false
+            _loginState.value = ApiResult.Failure(ApiException(-1, "用户名、密码不能为空"))
             return
         }
         launch {
             val loginResult = LoginRepository.login(username, pwd)
             //登录成功后请求并缓存用户信息,然后再发送登陆成功的状态
-            if (loginResult.isSuccess) {
+            if (loginResult is ApiResult.Success<*>) {
                 getAndCacheUser()
-            } else {
-                _loginState.value = false
             }
+            _loginState.value = loginResult
+
         }
     }
 
@@ -51,7 +54,6 @@ class LoginVM : BaseViewModel() {
             //缓存登录状态
             LoginIntercept.get().loginFinish()
         }
-        _loginState.value = true
 
     }
 }

@@ -10,7 +10,6 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.util.AppUtil
 import com.flappy.wanandroid.util.CacheManager
 
 /**
@@ -52,7 +51,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
         findPreference<Preference>("upgrade")?.apply {
-            summary = AppUtil.getVersionName(requireContext())
+            summary = com.flappy.util.AppUtil.getVersionName(requireContext())
         }
     }
 

@@ -6,7 +6,6 @@ import androidx.navigation.navGraphViewModels
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseBottomSheetDialog
 import com.flappy.wanandroid.databinding.TodoDialogDetailBinding
-import com.flappy.wanandroid.util.DateUtil
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.time.LocalDate
 import java.util.*
@@ -37,7 +36,7 @@ class TodoDetailDialog : BaseBottomSheetDialog<TodoDialogDetailBinding>() {
             val today = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 LocalDate.now().toString()
             } else {
-                DateUtil.parseToString(Calendar.getInstance().timeInMillis)
+                com.flappy.util.DateUtil.parseToString(Calendar.getInstance().timeInMillis)
             }
             binding.tvDate.text = today
         }
@@ -89,7 +88,7 @@ class TodoDetailDialog : BaseBottomSheetDialog<TodoDialogDetailBinding>() {
             .setTitleText(getString(R.string.todo_add_date_picker_title))
             .build()
         datePicker.addOnPositiveButtonClickListener {
-            binding.tvDate.text = DateUtil.parseToString(it)
+            binding.tvDate.text = com.flappy.util.DateUtil.parseToString(it)
         }
         datePicker.show(childFragmentManager, "datePicker")
     }

@@ -18,15 +18,16 @@ class SystemAdapter : BaseRecyclerViewAdapter<TreeItem, SystemItemTreeBinding>()
 
     override fun bindView(binding: SystemItemTreeBinding, data: TreeItem, holder: Holder) {
         binding.tvTreeTitle.text = data.name
-        data.children.map { it.name }.forEach {
+        data.children.map { it.name }.forEachIndexed { index, s ->
             val chip = LayoutInflater.from(binding.root.context)
                 .inflate(R.layout.search_item_rec_chip, binding.layoutSubTitles, false) as Chip
-            chip.text = it
+            chip.text = s
             chip.setOnClickListener {
-                itemClickCallback?.invoke(data.children[holder.bindingAdapterPosition])
+                itemClickCallback?.invoke(getDataList()[holder.bindingAdapterPosition].children[index])
             }
             binding.layoutSubTitles.addView(chip)
         }
+
     }
 
 }

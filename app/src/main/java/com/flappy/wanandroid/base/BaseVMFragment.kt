@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.flappy.wanandroid.data.api.ApiResult
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -36,4 +37,14 @@ abstract class BaseVMFragment<VB : ViewDataBinding, VM : BaseViewModel> : BaseFr
     abstract fun bindViewModel()
 
 
+    fun <T> parseState(
+        apiResult: ApiResult<T>,
+        success: (T) -> Unit = {},
+        fail: (String) -> Unit = {}
+    ) {
+        when (apiResult) {
+            is ApiResult.Success -> success(apiResult.data)
+            is ApiResult.Failure -> fail(apiResult.exception.errMsg)
+        }
+    }
 }

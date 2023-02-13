@@ -44,8 +44,8 @@ class LoginIntercept private constructor() : CoroutineScope by MainScope(),
 
     fun loginFinish() {
         launch {
-            channel.send(true)
             LoginHelper.setLoginSuccess()
+            channel.send(true)
         }
     }
 

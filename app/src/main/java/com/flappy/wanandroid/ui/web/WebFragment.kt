@@ -4,21 +4,23 @@ import androidx.navigation.fragment.navArgs
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.FragmentWebBinding
-import com.flappy.webview.WebViewPool
+import com.flappy.wanandroid.util.web.WebHolder
 
 class WebFragment : BaseVMFragment<FragmentWebBinding, WebVM>() {
-    private var url: String? = ""
+    private var url: String = ""
     private val args by navArgs<WebFragmentArgs>()
-    private val iRecyclable by lazy { WebViewPool.get().obtain(requireContext()) }
-    private val webView by lazy { iRecyclable.asWebView() }
+    private lateinit var webHolder: WebHolder
     override fun handleArguments() {
         setTitle(args.title)
-        url = args.url
+        url = args.url ?: ""
     }
 
     override fun initView() {
-        binding.container.addView(webView)
-        webView.loadUrl(url)
+        webHolder = WebHolder(requireContext(), binding.container).setOnTitleCallback {
+            viewModel.addReadHistory(url, args.title)
+        }
+            .loadUrl(url)
+        lifecycle.addObserver(webHolder)
     }
 
     override fun getLayoutId() = R.layout.fragment_web
@@ -27,6 +29,5 @@ class WebFragment : BaseVMFragment<FragmentWebBinding, WebVM>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        WebViewPool.get().recycle(iRecyclable)
     }
 }

@@ -52,7 +52,12 @@ class HomeArticleAdapter :
                     } else {
                         tvLabel.visibility = View.GONE
                     }
-                    root.setOnClickListener { itemClick(bindingAdapterPosition, article!!) }
+                    root.setOnClickListener {
+                        itemClick(
+                            bindingAdapterPosition,
+                            getItem(bindingAdapterPosition)!!
+                        )
+                    }
 
                 }
             }

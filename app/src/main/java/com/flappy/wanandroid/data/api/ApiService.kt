@@ -117,7 +117,7 @@ interface ApiService {
     suspend fun login(
         @Field("username") name: String,
         @Field("password") pwd: String
-    ): ApiResponse<ApiResponse<UserInfo>>
+    ): ApiResponse<UserInfo>
 
     /**
      * 5.2 注册
@@ -330,7 +330,7 @@ interface ApiService {
         @Query("type") type: Int?,
         @Query("priority") priority: Int? = null,
         @Query("orderby") orderby: Int? = 4
-    ):ApiResponse<PagedData<Todo>>
+    ): ApiResponse<PagedData<Todo>>
 
     /**
      * 9.1 积分排行榜

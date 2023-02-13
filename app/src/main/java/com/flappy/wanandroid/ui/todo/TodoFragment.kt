@@ -7,13 +7,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.example.paging.pagingwithnetwork.reddit.paging.asMergedLoadStates
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.data.model.*
 import com.flappy.wanandroid.databinding.FragmentTodoBinding
 import com.flappy.wanandroid.databinding.LayoutNotLoginBinding
 import com.flappy.wanandroid.ext.px
+import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.util.login.LoginHelper
 import com.flappy.wanandroid.util.login.LoginIntercept
 import com.google.android.material.divider.MaterialDividerItemDecoration
