@@ -44,4 +44,6 @@ object ApiManager {
     val service: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }
+
+    fun createService() = retrofit.create(ApiService::class.java)
 }

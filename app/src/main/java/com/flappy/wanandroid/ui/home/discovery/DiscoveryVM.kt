@@ -6,31 +6,25 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.flappy.wanandroid.MyApp
 import com.flappy.wanandroid.base.BaseViewModel
-import com.flappy.wanandroid.data.api.ApiManager
-import com.flappy.wanandroid.data.api.ApiService
-import com.flappy.wanandroid.data.db.RoomDB
 import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.model.BannerItem
 import com.flappy.wanandroid.data.repository.HomeRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:首页对应viewmodel
  * @Date: Created in 17:07 2022/8/30
  */
-class DiscoveryVM : BaseViewModel() {
+@HiltViewModel
+class DiscoveryVM @Inject constructor(val repository: HomeRepository) : BaseViewModel() {
     companion object {
         const val PAGE_SIZE = 30
     }
 
-    private val db: RoomDB by lazy { RoomDB.buildDataBase(MyApp.app) }
-    private val api: ApiService by lazy { ApiManager.service }
-    private val repository: HomeRepository by lazy {
-        HomeRepository(api, db)
-    }
 
     /**
      * 轮播图文数据

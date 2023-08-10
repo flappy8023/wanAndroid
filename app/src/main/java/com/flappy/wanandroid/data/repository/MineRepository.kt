@@ -1,19 +1,23 @@
 package com.flappy.wanandroid.data.repository
 
-import com.flappy.wanandroid.data.api.ApiManager
-import com.flappy.wanandroid.data.db.WanDB
+import com.flappy.wanandroid.data.api.ApiService
+import com.flappy.wanandroid.data.db.RoomDB
 import com.flappy.wanandroid.util.safeApiCall
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:
  * @Date: Created in 17:00 2022/10/31
  */
-object MineRepository {
-    suspend fun getUserInfo() = safeApiCall { ApiManager.service.getUserInfo() }
+class MineRepository @Inject constructor(
+    private val apiService: ApiService,
+    private val roomDB: RoomDB
+) {
+    suspend fun getUserInfo() = safeApiCall { apiService.getUserInfo() }
 
-    suspend fun logout() = safeApiCall { ApiManager.service.logout() }
+    suspend fun logout() = safeApiCall { apiService.logout() }
 
     suspend fun getReadHistoryList(offset: Int, count: Int) =
-        WanDB.dataBase.readHistoryDao().getAll(offset, count)
+        roomDB.readHistoryDao().getAll(offset, count)
 }

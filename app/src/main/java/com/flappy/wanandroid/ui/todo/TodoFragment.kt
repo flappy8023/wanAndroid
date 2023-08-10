@@ -2,14 +2,18 @@ package com.flappy.wanandroid.ui.todo
 
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseVMFragment
-import com.flappy.wanandroid.data.model.*
+import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.data.model.TODO_TYPE_JUST_THIS
+import com.flappy.wanandroid.data.model.TODO_TYPE_LIFE
+import com.flappy.wanandroid.data.model.TODO_TYPE_STUDY
+import com.flappy.wanandroid.data.model.TODO_TYPE_WORK
+import com.flappy.wanandroid.data.model.Todo
 import com.flappy.wanandroid.databinding.FragmentTodoBinding
 import com.flappy.wanandroid.databinding.LayoutNotLoginBinding
 import com.flappy.wanandroid.ext.px
@@ -17,6 +21,7 @@ import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.util.login.LoginHelper
 import com.flappy.wanandroid.util.login.LoginIntercept
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -26,12 +31,13 @@ import kotlinx.coroutines.flow.filter
  * @Description:一级页面待办
  * @Date: Created in 22:20 2022/11/8
  */
-class TodoFragment : BaseVMFragment<FragmentTodoBinding, TodoVM>() {
+@AndroidEntryPoint
+class TodoFragment : BaseFragment<FragmentTodoBinding>() {
     private var todoAdapter: TodoListAdapter? = null
     private var doneAdapter: TodoListAdapter? = null
     private var notLoginBinding: LayoutNotLoginBinding? = null
     private var curType: Int = TODO_TYPE_JUST_THIS
-
+    val viewModel: TodoVM by viewModels()
     private val itemClickListener = object : TodoListAdapter.ItemClickListener {
         override fun toggleState(todo: Todo, position: Int) {
             toggleTodoStatus(todo, position)
@@ -46,12 +52,8 @@ class TodoFragment : BaseVMFragment<FragmentTodoBinding, TodoVM>() {
         }
     }
 
-    override fun initViewModel() {
-        val model by navGraphViewModels<TodoVM>(R.id.todo)
-        viewModel = model
-    }
 
-    override fun bindViewModel() {
+    fun bindViewModel() {
         findNavController()
         Log.d("fffff", hashCode().toString())
         viewModel.needRefresh.observe(this) {
@@ -60,7 +62,7 @@ class TodoFragment : BaseVMFragment<FragmentTodoBinding, TodoVM>() {
     }
 
     override fun initView() {
-
+        bindViewModel()
         if (LoginHelper.isLogin()) {
             showTodoList()
         } else {

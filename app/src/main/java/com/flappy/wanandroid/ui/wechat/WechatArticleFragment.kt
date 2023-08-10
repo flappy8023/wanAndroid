@@ -1,17 +1,18 @@
 package com.flappy.wanandroid.ui.wechat
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseVMFragment
+import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.data.model.WXOfficialAccount
 import com.flappy.wanandroid.databinding.WechatArtilcleListBinding
 import com.flappy.wanandroid.ext.goArticleDetail
 import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -21,9 +22,10 @@ import kotlinx.coroutines.flow.filter
  * @Description:微信公账号文章列表页面
  * @Date: Created in 12:53 2022/9/8
  */
-class WechatArticleFragment : BaseVMFragment<WechatArtilcleListBinding, WechatArticleVM>() {
+@AndroidEntryPoint
+class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding>() {
     private var wechatId: Long? = null
-
+    val viewModel: WechatArticleVM by viewModels()
     private val adapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
 
     companion object {
@@ -42,12 +44,8 @@ class WechatArticleFragment : BaseVMFragment<WechatArtilcleListBinding, WechatAr
         }
     }
 
-    override fun initViewModel() {
-        viewModel =
-            ViewModelProvider(this, WechatArticleVMFactory(wechatId!!))[WechatArticleVM::class.java]
-    }
 
-    override fun bindViewModel() {
+    fun bindViewModel() {
         lifecycleScope.launchWhenCreated {
             viewModel.wechatArticles.collectLatest {
                 adapter.submitData(it)

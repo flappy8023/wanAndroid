@@ -11,12 +11,14 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.util.CacheManager
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @Author: luweiming
  * @Description:
  * @Date: Created in 15:59 2022/12/5
  */
+@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

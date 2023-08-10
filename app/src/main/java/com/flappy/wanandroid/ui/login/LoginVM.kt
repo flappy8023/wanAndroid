@@ -11,13 +11,20 @@ import com.flappy.wanandroid.data.repository.LoginRepository
 import com.flappy.wanandroid.data.repository.MineRepository
 import com.flappy.wanandroid.util.UserManager
 import com.flappy.wanandroid.util.login.LoginIntercept
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:注册、登录
  * @Date: Created in 22:48 2022/10/27
  */
-class LoginVM : BaseViewModel() {
+@HiltViewModel
+class LoginVM @Inject constructor(
+    val loginRepository: LoginRepository,
+    val mineRepository: MineRepository
+) : BaseViewModel() {
+
     companion object {
         private const val TAG = "LoginVM"
     }
@@ -32,7 +39,7 @@ class LoginVM : BaseViewModel() {
             return
         }
         launch {
-            val loginResult = LoginRepository.login(username, pwd)
+            val loginResult = loginRepository.login(username, pwd)
             //登录成功后请求并缓存用户信息,然后再发送登陆成功的状态
             if (loginResult is ApiResult.Success<*>) {
                 getAndCacheUser()
@@ -43,7 +50,7 @@ class LoginVM : BaseViewModel() {
     }
 
     private suspend fun getAndCacheUser() {
-        val result = MineRepository.getUserInfo()
+        val result = mineRepository.getUserInfo()
         Log.d(
             TAG,
             "request userInfo:${result.isSuccess},${result.exceptionOrNull()?.localizedMessage}"

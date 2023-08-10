@@ -9,6 +9,7 @@ import com.flappy.webview.WebViewPool
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
+import dagger.hilt.android.HiltAndroidApp
 
 
 /**
@@ -16,6 +17,7 @@ import com.tencent.smtt.sdk.QbSdk
  * @Description:
  * @Date: Created in 15:58 2022/8/22
  */
+@HiltAndroidApp
 class MyApp : Application() {
     companion object {
         lateinit var app: MyApp

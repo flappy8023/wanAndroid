@@ -2,11 +2,16 @@ package com.flappy.wanandroid.ui.search
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.fragment.app.viewModels
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseVMFragment
+import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.FragmentSearchBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class SearchFragment : BaseVMFragment<FragmentSearchBinding, SearchVM>() {
+@AndroidEntryPoint
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
+
+    private val viewModel by viewModels<SearchVM>()
 
     /**
      * 搜索推荐+历史
@@ -59,6 +64,4 @@ class SearchFragment : BaseVMFragment<FragmentSearchBinding, SearchVM>() {
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_search
-    override fun bindViewModel() {
-    }
 }

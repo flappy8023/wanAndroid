@@ -3,14 +3,19 @@ package com.flappy.wanandroid.ui.system
 import androidx.lifecycle.MutableLiveData
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.model.TreeItem
+import com.flappy.wanandroid.data.repository.SystemRepository
 import com.flappy.wanandroid.util.safeApiCall
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:
  * @Date: Created in 21:50 2022/10/17
  */
-class SystemVM : BaseViewModel() {
+@HiltViewModel
+class SystemVM @Inject constructor(val systemRepository: SystemRepository) : BaseViewModel() {
+
     init {
         launch {
             getSystemTrees()
@@ -21,7 +26,7 @@ class SystemVM : BaseViewModel() {
 
     private suspend fun getSystemTrees() {
         val result = safeApiCall {
-            SystemRepository.getSystemTree()
+            systemRepository.getSystemTree()
         }
         if (result.isSuccess) {
             trees.postValue(result.getOrNull())

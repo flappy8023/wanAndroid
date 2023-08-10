@@ -1,13 +1,15 @@
 package com.flappy.wanandroid.ui.home.square
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseVMFragment
+import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
 import com.flappy.wanandroid.ext.goArticleDetail
 import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -17,9 +19,11 @@ import kotlinx.coroutines.flow.filter
  * @Description:首页-广场页面
  * @Date: Created in 22:47 2022/11/2
  */
-class SquareFragment : BaseVMFragment<HomeDiscoveryFragmentBinding, SquareVM>() {
+@AndroidEntryPoint
+class SquareFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
+    private val viewModel by viewModels<SquareVM>()
     private val adapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
-    override fun bindViewModel() {
+    fun bindViewModel() {
         lifecycleScope.launchWhenCreated {
             viewModel.squareList.collectLatest {
                 adapter.submitData(it)
@@ -28,6 +32,7 @@ class SquareFragment : BaseVMFragment<HomeDiscoveryFragmentBinding, SquareVM>() 
     }
 
     override fun initView() {
+        bindViewModel()
         binding.rvArticles.adapter = adapter
         binding.swipeRefresh.setOnRefreshListener {
             adapter.refresh()

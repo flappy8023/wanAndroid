@@ -1,21 +1,25 @@
 package com.flappy.wanandroid.ui.login
 
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseVMFragment
+import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.LoginFragmentBinding
 import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.hideProgress
 import com.github.razir.progressbutton.showProgress
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @Author: luweiming
  * @Description:登录页面
  * @Date: Created in 21:49 2022/10/27
  */
-class LoginFragment : BaseVMFragment<LoginFragmentBinding, LoginVM>() {
-    override fun bindViewModel() {
+@AndroidEntryPoint
+class LoginFragment : BaseFragment<LoginFragmentBinding>() {
+    private val viewModel by viewModels<LoginVM>()
+    fun bindViewModel() {
         viewModel.loginState.observe(viewLifecycleOwner) {
             parseState(it, {
                 binding.btGoLogin.hideProgress(getString(R.string.login_success))
@@ -29,6 +33,7 @@ class LoginFragment : BaseVMFragment<LoginFragmentBinding, LoginVM>() {
     }
 
     override fun initView() {
+        bindViewModel()
         bindProgressButton(binding.btGoLogin)
         binding.btGoLogin.setOnClickListener {
             binding.btGoLogin.showProgress {

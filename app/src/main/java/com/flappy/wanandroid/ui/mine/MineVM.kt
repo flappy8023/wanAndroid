@@ -7,13 +7,16 @@ import com.flappy.wanandroid.data.model.UserInfoData
 import com.flappy.wanandroid.data.repository.MineRepository
 import com.flappy.wanandroid.util.UserManager
 import com.flappy.wanandroid.util.login.LoginHelper
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:我的页面对应ViewModel
  * @Date: Created in 22:19 2022/10/17
  */
-class MineVM : BaseViewModel() {
+@HiltViewModel
+class MineVM @Inject constructor(val mineRepository: MineRepository) : BaseViewModel() {
     private val _userInfo: MutableLiveData<UserInfoData?> = MutableLiveData()
     val userInfo: LiveData<UserInfoData?> = _userInfo
     fun getUserInfo(fromLogin: Boolean = false) {
@@ -22,7 +25,7 @@ class MineVM : BaseViewModel() {
         //如果是登录触发的，就不需要重新请求了，刚请求过
         if (!fromLogin) {
             launch {
-                val result = MineRepository.getUserInfo()
+                val result = mineRepository.getUserInfo()
                 if (result.isSuccess) {
                     _userInfo.value = result.getOrNull()
                     //缓存用户信息
@@ -35,7 +38,7 @@ class MineVM : BaseViewModel() {
 
     fun logout() {
         launch {
-            val result = MineRepository.logout()
+            val result = mineRepository.logout()
             if (result.isSuccess) {
                 LoginHelper.logout()
             }

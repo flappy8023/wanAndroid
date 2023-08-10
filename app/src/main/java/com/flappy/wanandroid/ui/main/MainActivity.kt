@@ -11,12 +11,14 @@ import com.flappy.wanandroid.R
 import com.flappy.wanandroid.ext.switchStatusBarLightMode
 import com.flappy.webview.WebViewPool
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @Author: luweiming
  * @Description: activity容器
  * @Date: Created in 15:11 2022/8/25
  */
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "MainActivity"

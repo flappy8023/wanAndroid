@@ -3,22 +3,26 @@ package com.flappy.wanandroid.ui.mine
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseVMFragment
+import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.data.model.MineMenu
 import com.flappy.wanandroid.data.model.UserInfoData
 import com.flappy.wanandroid.databinding.FragmentMineBinding
 import com.flappy.wanandroid.util.login.LoginHelper
 import com.flappy.wanandroid.util.login.LoginIntercept
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @Author: luweiming
  * @Description:一级页面
  * @Date: Created in 21:30 2022/10/17
  */
-class MineFragment : BaseVMFragment<FragmentMineBinding, MineVM>() {
-    override fun bindViewModel() {
+@AndroidEntryPoint
+class MineFragment : BaseFragment<FragmentMineBinding>() {
+    private val viewModel by viewModels<MineVM>()
+    fun bindViewModel() {
         viewModel.userInfo.observe(this) {
             it?.let {
                 showUserInfo(it)
@@ -29,6 +33,7 @@ class MineFragment : BaseVMFragment<FragmentMineBinding, MineVM>() {
 
 
     override fun initView() {
+        bindViewModel()
         if (LoginHelper.isLogin())
             viewModel.getUserInfo()
         else showNotLogin()

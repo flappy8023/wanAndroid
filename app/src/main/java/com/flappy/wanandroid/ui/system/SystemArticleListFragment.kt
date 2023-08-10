@@ -1,13 +1,14 @@
 package com.flappy.wanandroid.ui.system
 
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseVMFragment
+import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.SystemArticleListBinding
 import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -17,21 +18,20 @@ import kotlinx.coroutines.flow.filter
  * @Description:体系二级目录下文章列表
  * @Date: Created in 22:02 2022/10/17
  */
-class SystemArticleListFragment : BaseVMFragment<SystemArticleListBinding, SystemArticleVM>() {
+@AndroidEntryPoint
+class SystemArticleListFragment : BaseFragment<SystemArticleListBinding>() {
     private val adapter = HomeArticleAdapter()
     private var cid: Long = -1L
+    val viewModel: SystemArticleVM by viewModels()
     override fun handleArguments() {
         arguments?.let {
             cid = it.getLong("cid", -1)
         }
     }
 
-    override fun initViewModel() {
-        viewModel =
-            ViewModelProvider(this, SystemArticleVMFactory(cid))[SystemArticleVM::class.java]
-    }
 
     override fun initView() {
+        bindViewModel()
         binding.rvArticles.adapter = adapter
         binding.swipeRefresh.setOnRefreshListener {
             adapter.refresh()
@@ -53,7 +53,7 @@ class SystemArticleListFragment : BaseVMFragment<SystemArticleListBinding, Syste
     override fun getLayoutId(): Int = R.layout.system_article_list
 
 
-    override fun bindViewModel() {
+    fun bindViewModel() {
         lifecycleScope.launchWhenCreated {
             if (cid != -1L) {
                 viewModel.systemArticles.collectLatest {

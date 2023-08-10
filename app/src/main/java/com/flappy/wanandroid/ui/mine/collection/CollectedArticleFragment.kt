@@ -6,6 +6,7 @@ import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.CommonListFragmentBinding
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 /**
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.collectLatest
  * @Description:
  * @Date: Created in 15:28 2022/12/7
  */
+@AndroidEntryPoint
 class CollectedArticleFragment : BaseFragment<CommonListFragmentBinding>() {
     private val viewModel: CollectionVM by viewModels(ownerProducer = { requireParentFragment() })
     private var adapter: HomeArticleAdapter? = null

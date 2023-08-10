@@ -2,17 +2,19 @@ package com.flappy.wanandroid.ui.wechat
 
 import androidx.lifecycle.MutableLiveData
 import com.flappy.wanandroid.base.BaseViewModel
-import com.flappy.wanandroid.data.repository.WechatArticleRepository
 import com.flappy.wanandroid.data.model.WXOfficialAccount
+import com.flappy.wanandroid.data.repository.WechatArticleRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:
  * @Date: Created in 22:37 2022/9/9
  */
-class WechatVM : BaseViewModel() {
+@HiltViewModel
+class WechatVM @Inject constructor(val repository: WechatArticleRepository) : BaseViewModel() {
 
-    private val repository = WechatArticleRepository()
     val wechatAccounts: MutableLiveData<List<WXOfficialAccount>> by lazy {
         MutableLiveData()
     }

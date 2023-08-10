@@ -1,20 +1,20 @@
 package com.flappy.wanandroid.data.repository
 
 import com.flappy.wanandroid.data.api.ApiService
-import com.flappy.wanandroid.data.db.RoomDB
 import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.model.BannerItem
 import com.flappy.wanandroid.ui.home.ArticlePagingSource
 import com.flappy.wanandroid.ui.home.qa.QAPagingSource
 import com.flappy.wanandroid.ui.home.square.SquarePagingSource
 import com.flappy.wanandroid.util.safeApiCall
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:
  * @Date: Created in 9:22 2022/9/1
  */
-class HomeRepository(val api: ApiService, val db: RoomDB? = null) {
+class HomeRepository @Inject constructor(val api: ApiService) {
 
     fun articlePagingSource() = ArticlePagingSource()
 
@@ -37,10 +37,10 @@ class HomeRepository(val api: ApiService, val db: RoomDB? = null) {
     /**
      * 获取问答列表
      */
-    fun qaPagingSource() = QAPagingSource()
+    fun qaPagingSource() = QAPagingSource(api)
 
     /**
      * 广场分页数据
      */
-    fun squarePagingSource() = SquarePagingSource()
+    fun squarePagingSource() = SquarePagingSource(api)
 }

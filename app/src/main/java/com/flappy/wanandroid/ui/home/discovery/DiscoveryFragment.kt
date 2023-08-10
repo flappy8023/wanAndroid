@@ -1,17 +1,19 @@
 package com.flappy.wanandroid.ui.home.discovery
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseVMFragment
+import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
 import com.flappy.wanandroid.ext.goArticleDetail
 import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import com.flappy.wanandroid.ui.home.HomeBannerAdapter
 import com.flappy.wanandroid.ui.home.HomeTopAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -21,11 +23,13 @@ import kotlinx.coroutines.flow.filter
  * @Description:首页-第一个子页面
  * @Date: Created in 22:47 2022/11/2
  */
-class DiscoveryFragment : BaseVMFragment<HomeDiscoveryFragmentBinding, DiscoveryVM>() {
+@AndroidEntryPoint
+class DiscoveryFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
+    private val viewModel by viewModels<DiscoveryVM>()
     private val articleAdapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
     private val bannerAdapter: HomeBannerAdapter by lazy { HomeBannerAdapter() }
     private val topAdapter: HomeTopAdapter by lazy { HomeTopAdapter() }
-    override fun bindViewModel() {
+    fun bindViewModel() {
         viewModel.banners.observe(viewLifecycleOwner) {
             bannerAdapter.clear()
             bannerAdapter.addAll(it)
@@ -45,6 +49,7 @@ class DiscoveryFragment : BaseVMFragment<HomeDiscoveryFragmentBinding, Discovery
     }
 
     override fun initView() {
+        bindViewModel()
         initListener()
         binding.apply {
             rvArticles.layoutManager =

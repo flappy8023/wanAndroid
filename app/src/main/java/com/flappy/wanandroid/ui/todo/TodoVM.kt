@@ -9,13 +9,16 @@ import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.model.Todo
 import com.flappy.wanandroid.data.repository.TodoRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:
  * @Date: Created in 22:21 2022/11/8
  */
-class TodoVM : BaseViewModel() {
+@HiltViewModel
+class TodoVM @Inject constructor(private val todoRepository: TodoRepository) : BaseViewModel() {
 
     private val _needRefresh = MutableLiveData<Boolean>()
     val needRefresh: LiveData<Boolean>
@@ -28,10 +31,10 @@ class TodoVM : BaseViewModel() {
         get() = _editState
 
     fun getTodoPageSource(type: Int? = null) =
-        TodoRepository.todoListPager(0, type).flow.cachedIn(viewModelScope)
+        todoRepository.todoListPager(0, type).flow.cachedIn(viewModelScope)
 
     fun getDonePageSource(type: Int? = null) =
-        TodoRepository.todoListPager(1, type).flow.cachedIn(viewModelScope)
+        todoRepository.todoListPager(1, type).flow.cachedIn(viewModelScope)
 
     /**
      * 添加一个TODO
@@ -55,7 +58,7 @@ class TodoVM : BaseViewModel() {
         }
         _addState.value = TodoUIState.Loading
         launch {
-            val result = TodoRepository.addTodo(title, content, date, type, priority)
+            val result = todoRepository.addTodo(title, content, date, type, priority)
             if (result.isSuccess) {
                 _addState.value = TodoUIState.Success
                 //新增成功需要刷新列表
@@ -68,7 +71,7 @@ class TodoVM : BaseViewModel() {
 
     fun updateDoneStatus(id: Long, status: Int) {
         launch {
-            val result = TodoRepository.updateTodoStatus(id, status)
+            val result = todoRepository.updateTodoStatus(id, status)
             if (result.isSuccess) {
                 _needRefresh.value = true
             }
@@ -77,7 +80,7 @@ class TodoVM : BaseViewModel() {
 
     fun updateTodo(todo: Todo) {
         launch {
-            val result = TodoRepository.updateTodo(todo)
+            val result = todoRepository.updateTodo(todo)
             if (result.isSuccess) {
                 _needRefresh.value = true
                 _editState.value = TodoUIState.Success
@@ -88,7 +91,7 @@ class TodoVM : BaseViewModel() {
     fun deleteTodo(id: Long) {
         _editState.value = TodoUIState.Loading
         launch {
-            val result = TodoRepository.deleteTodo(id)
+            val result = todoRepository.deleteTodo(id)
             if (result.isSuccess) {
                 _needRefresh.value = true
             }

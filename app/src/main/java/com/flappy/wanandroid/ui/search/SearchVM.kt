@@ -10,15 +10,18 @@ import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.repository.SearchRepository
 import com.flappy.wanandroid.ui.home.discovery.DiscoveryVM
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:
  * @Date: Created in 22:41 2022/9/19
  */
-class SearchVM : BaseViewModel() {
+@HiltViewModel
+class SearchVM @Inject constructor(val searchRepository: SearchRepository) : BaseViewModel() {
     init {
         requestHotWords()
     }
@@ -35,13 +38,13 @@ class SearchVM : BaseViewModel() {
     fun searchArticles(keyWord: String): Flow<PagingData<Article>> =
         Pager(
             PagingConfig(DiscoveryVM.PAGE_SIZE, enablePlaceholders = false),
-            pagingSourceFactory = { SearchRepository.searchArticlePagingSource(keyWord) }
+            pagingSourceFactory = { searchRepository.searchArticlePagingSource(keyWord) }
         ).flow.cachedIn(viewModelScope)
 
 
     fun requestHotWords() {
         viewModelScope.launch {
-            val result = SearchRepository.requestHotWords()
+            val result = searchRepository.requestHotWords()
             if (result.isSuccess) {
                 val list = result.getOrNull()?.map { it.name }
                 hotWords.postValue(list)

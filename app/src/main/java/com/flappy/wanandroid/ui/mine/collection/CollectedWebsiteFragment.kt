@@ -9,12 +9,14 @@ import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.CommonListFragmentBinding
 import com.flappy.wanandroid.ext.goArticleDetail
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @Author: luweiming
  * @Description: 我的-我的收藏-网址
  * @Date: Created in 15:28 2022/12/7
  */
+@AndroidEntryPoint
 class CollectedWebsiteFragment : BaseFragment<CommonListFragmentBinding>() {
     private var adapter: CollectedWebsiteAdapter? = null
 

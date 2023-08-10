@@ -5,7 +5,9 @@ import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.FragmentWebBinding
 import com.flappy.wanandroid.util.web.WebHolder
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WebFragment : BaseVMFragment<FragmentWebBinding, WebVM>() {
     private var url: String = ""
     private val args by navArgs<WebFragmentArgs>()

@@ -2,6 +2,7 @@ package com.flappy.wanandroid.ui.search
 
 import com.flappy.wanandroid.base.BasePagingSource
 import com.flappy.wanandroid.data.api.ApiManager
+import com.flappy.wanandroid.data.api.ApiService
 import com.flappy.wanandroid.data.model.Article
 
 /**
@@ -9,7 +10,8 @@ import com.flappy.wanandroid.data.model.Article
  * @Description:搜索结果分页数据
  * @Date: Created in 13:13 2022/9/6
  */
-class SearchResultPagingSource(private val keyWord: String) : BasePagingSource<Article>() {
+class SearchResultPagingSource(private val apiService: ApiService, private val keyWord: String) :
+    BasePagingSource<Article>() {
     override suspend fun doRequest(page: Int) =
         ApiManager.service.searchArticle(page, PAGE_SIZE, keyWord)
 }

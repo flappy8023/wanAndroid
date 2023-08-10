@@ -1,13 +1,15 @@
 package com.flappy.wanandroid.ui.search
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseVMFragment
+import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.databinding.SearchResultFragmentBinding
 import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -18,9 +20,10 @@ import kotlinx.coroutines.launch
  * @Description:
  * @Date: Created in 2022/10/10
  */
-class SearchResultFragment : BaseVMFragment<SearchResultFragmentBinding, SearchVM>() {
+@AndroidEntryPoint
+class SearchResultFragment : BaseFragment<SearchResultFragmentBinding>() {
 
-
+    private val viewModel by viewModels<SearchVM>()
     private val resultAdapter: HomeArticleAdapter by lazy {
         HomeArticleAdapter()
     }
@@ -31,8 +34,6 @@ class SearchResultFragment : BaseVMFragment<SearchResultFragmentBinding, SearchV
         }
     }
 
-    override fun bindViewModel() {
-    }
 
     fun doSearch(keyWords: String) {
         lifecycleScope.launch {

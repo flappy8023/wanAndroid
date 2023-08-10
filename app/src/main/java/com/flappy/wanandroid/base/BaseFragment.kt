@@ -16,6 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.flappy.wanandroid.NavMainDirections
 import com.flappy.wanandroid.R
+import com.flappy.wanandroid.data.api.ApiResult
 import com.flappy.wanandroid.data.model.UserInfo
 import com.flappy.wanandroid.util.UserManager
 import com.flappy.wanandroid.util.login.LoginHelper
@@ -138,5 +139,15 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
         super.onDestroy()
     }
 
+    fun <T> parseState(
+        apiResult: ApiResult<T>,
+        success: (T) -> Unit = {},
+        fail: (String) -> Unit = {}
+    ) {
+        when (apiResult) {
+            is ApiResult.Success -> success(apiResult.data)
+            is ApiResult.Failure -> fail(apiResult.exception.errMsg)
+        }
+    }
 
 }

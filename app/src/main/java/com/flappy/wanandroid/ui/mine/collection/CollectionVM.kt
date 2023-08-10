@@ -10,13 +10,17 @@ import com.flappy.wanandroid.Const
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.model.WebSiteBean
 import com.flappy.wanandroid.data.repository.CollectionRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * @Author: luweiming
  * @Description:
  * @Date: Created in 15:27 2022/12/7
  */
-class CollectionVM : BaseViewModel() {
+@HiltViewModel
+class CollectionVM @Inject constructor(val collectionRepository: CollectionRepository) :
+    BaseViewModel() {
     init {
         getCollectedWebsites()
     }
@@ -27,12 +31,12 @@ class CollectionVM : BaseViewModel() {
 
     fun getCollectedArticles() = Pager(
         config = PagingConfig(Const.PAGE_SIZE),
-        pagingSourceFactory = { CollectionRepository.getCollectedArticlesPagingSource() }
+        pagingSourceFactory = { collectionRepository.getCollectedArticlesPagingSource() }
     ).flow.cachedIn(viewModelScope)
 
     fun getCollectedWebsites() {
         launch {
-            val result = CollectionRepository.getCollectedWebsites()
+            val result = collectionRepository.getCollectedWebsites()
             if (result.isSuccess) {
                 _websites.value = result.getOrNull()
             }
