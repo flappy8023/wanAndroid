@@ -2,7 +2,7 @@ package com.flappy.wanandroid.ui.home
 
 import androidx.fragment.app.viewModels
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseToolbarFragment
 import com.flappy.wanandroid.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * @Date: Created in 17:06 2022/8/30
  */
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseToolbarFragment<FragmentHomeBinding>() {
     private val viewModel by viewModels<HomeVM>()
     private lateinit var pageAdapter: HomePageAdapter
     override fun getLayoutId(): Int {

@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.filter
 class SystemArticleListFragment : BaseFragment<SystemArticleListBinding>() {
     private val adapter = HomeArticleAdapter()
     private var cid: Long = -1L
-    val viewModel: SystemArticleVM by viewModels()
+    val viewModel: SystemVM by viewModels()
     override fun handleArguments() {
         arguments?.let {
             cid = it.getLong("cid", -1)
@@ -56,7 +56,7 @@ class SystemArticleListFragment : BaseFragment<SystemArticleListBinding>() {
     fun bindViewModel() {
         lifecycleScope.launchWhenCreated {
             if (cid != -1L) {
-                viewModel.systemArticles.collectLatest {
+                viewModel.systemArticles(cid).collectLatest {
                     adapter.submitData(it)
                 }
             }

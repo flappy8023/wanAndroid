@@ -1,6 +1,7 @@
 package com.flappy.wanandroid.ui.todo
 
 import android.os.Build
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.flappy.wanandroid.R
@@ -19,7 +20,7 @@ class TodoDetailDialog : BaseBottomSheetDialog<TodoDialogDetailBinding>() {
     private val args: TodoDetailDialogArgs by navArgs()
     private val type by lazy { args.type }
     private val todo by lazy { args.todo }
-    private val viewModel: TodoVM by navGraphViewModels(R.id.todo)
+    private val viewModel: TodoVM by hiltNavGraphViewModels(R.id.todo)
 
     /**
      * 创建or编辑

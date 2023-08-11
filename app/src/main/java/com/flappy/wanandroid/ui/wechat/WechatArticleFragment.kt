@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 /**
  * @Author: luweiming
@@ -25,7 +26,7 @@ import kotlinx.coroutines.flow.filter
 @AndroidEntryPoint
 class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding>() {
     private var wechatId: Long? = null
-    val viewModel: WechatArticleVM by viewModels()
+    val viewModel: WechatVM by viewModels()
     private val adapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
 
     companion object {
@@ -46,8 +47,8 @@ class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding>() {
 
 
     fun bindViewModel() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.wechatArticles.collectLatest {
+        lifecycleScope.launch {
+            viewModel.wechatArticles(wechatId!!).collectLatest {
                 adapter.submitData(it)
             }
         }
@@ -60,20 +61,20 @@ class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding>() {
         binding.swipeRefresh.setOnRefreshListener {
             adapter.refresh()
         }
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             adapter.loadStateFlow.collect { loadStates ->
                 binding.swipeRefresh.isRefreshing =
                     loadStates.mediator?.refresh is LoadState.Loading
             }
         }
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             adapter.loadStateFlow.asMergedLoadStates()
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }
                 .collect { binding.rvArticles.scrollToPosition(0) }
         }
         adapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
-
+        bindViewModel()
     }
 
     override fun getLayoutId(): Int = R.layout.wechat_artilcle_list

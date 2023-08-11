@@ -9,10 +9,12 @@ import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
 import com.flappy.wanandroid.ext.goArticleDetail
 import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
+import com.flappy.wanandroid.ui.home.HomeVM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 /**
  * @Author: luweiming
@@ -21,10 +23,10 @@ import kotlinx.coroutines.flow.filter
  */
 @AndroidEntryPoint
 class SquareFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
-    private val viewModel by viewModels<SquareVM>()
+    private val viewModel by viewModels<HomeVM>()
     private val adapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
     fun bindViewModel() {
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             viewModel.squareList.collectLatest {
                 adapter.submitData(it)
             }

@@ -9,7 +9,6 @@ import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.repository.SearchRepository
-import com.flappy.wanandroid.ui.home.discovery.DiscoveryVM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -21,7 +20,7 @@ import javax.inject.Inject
  * @Date: Created in 22:41 2022/9/19
  */
 @HiltViewModel
-class SearchVM @Inject constructor(val searchRepository: SearchRepository) : BaseViewModel() {
+class SearchVM @Inject constructor(private val searchRepository: SearchRepository) : BaseViewModel() {
     init {
         requestHotWords()
     }
@@ -37,7 +36,7 @@ class SearchVM @Inject constructor(val searchRepository: SearchRepository) : Bas
      */
     fun searchArticles(keyWord: String): Flow<PagingData<Article>> =
         Pager(
-            PagingConfig(DiscoveryVM.PAGE_SIZE, enablePlaceholders = false),
+            PagingConfig(30, enablePlaceholders = false),
             pagingSourceFactory = { searchRepository.searchArticlePagingSource(keyWord) }
         ).flow.cachedIn(viewModelScope)
 

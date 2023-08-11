@@ -1,6 +1,10 @@
 package com.flappy.wanandroid.ui.wechat
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.flappy.wanandroid.base.BaseViewModel
 import com.flappy.wanandroid.data.model.WXOfficialAccount
 import com.flappy.wanandroid.data.repository.WechatArticleRepository
@@ -28,6 +32,10 @@ class WechatVM @Inject constructor(val repository: WechatArticleRepository) : Ba
             wechatAccounts.postValue(result.getOrNull())
         }
     }
+
+    fun wechatArticles(wechatId:Long) =  Pager(config = PagingConfig(30)) {
+        repository.getWxArticleList(wechatId)
+    }.flow.cachedIn(viewModelScope)
 
 
 }

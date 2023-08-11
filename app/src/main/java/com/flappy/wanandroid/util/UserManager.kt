@@ -2,6 +2,7 @@ package com.flappy.wanandroid.util
 
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.flappy.util.JsonUtil
 import com.flappy.wanandroid.MyApp
 import com.flappy.wanandroid.data.model.UserInfoData
 import com.flappy.wanandroid.ext.dataStore
@@ -29,10 +30,12 @@ object UserManager {
         if (null != curUser)
             return curUser
         val userInfoString = runBlocking {
+
             dataStore.data.map { it[stringPreferencesKey(KEY_CUR_USER)] }.first()
         }
+
         curUser = userInfoString?.let {
-            com.flappy.util.JsonUtil.fromJsonString(it, UserInfoData::class.java)
+            JsonUtil.fromJsonString(it, UserInfoData::class.java)
         }
         return curUser
     }
@@ -41,9 +44,10 @@ object UserManager {
         curUser = userInfo
         if (null == userInfo) return
         runBlocking {
+
             dataStore.edit {
                 it[stringPreferencesKey(KEY_CUR_USER)] =
-                    com.flappy.util.JsonUtil.toJsonString(userInfo)
+                    JsonUtil.toJsonString(userInfo)
             }
         }
     }
@@ -55,7 +59,7 @@ object UserManager {
                 it[stringPreferencesKey(KEY_CUR_USER)] = ""
             }
         }
+
     }
 
-    fun isLogin() = null != getCurUser()
 }

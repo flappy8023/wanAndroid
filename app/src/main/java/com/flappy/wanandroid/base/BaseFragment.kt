@@ -29,7 +29,6 @@ import com.flappy.widget.AppBarView
  */
 abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
     lateinit var binding: VB
-    private var toolbar: Toolbar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         handleArguments()
@@ -54,81 +53,17 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolbar()
         initView()
     }
 
-    private fun initToolbar() {
-        toolbar = binding.root.findViewById(R.id.toolbar)
-        val navController = findNavController()
-        //主页四个页签不需要展示返回箭头
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeFragment,
-                R.id.systemFragment,
-                R.id.wechatFragment,
-                R.id.todoFragment
-            ), fallbackOnNavigateUpListener = { findNavController().navigateUp() })
-        toolbar?.setupWithNavController(navController, appBarConfiguration)
-        toolbar?.let {
-            (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-            if (it is AppBarView) {
 
-                it.setTitle(getString(R.string.app_name))
-                //展示用户头像
-                if (null != UserManager.getCurUser()?.userInfo) {
-                    showUserAvatar(UserManager.getCurUser()?.userInfo!!)
-                }
-                it.setRightClickListener {
-                    findNavController().navigate(NavMainDirections.actionGlobalMine())
-                }
-                it.setLeftClickListener {
-                    findNavController().navigate(NavMainDirections.goSearch())
-                }
-                //登录后显示头像
-                LoginHelper.observerLogin(viewLifecycleOwner,
-                    { showUserAvatar(UserManager.getCurUser()?.userInfo) })
-            }
-        }
-    }
-
-    private fun showUserAvatar(userInfo: UserInfo?) {
-        toolbar?.let { bar ->
-            if (bar is AppBarView) {
-                userInfo?.let {
-                    bar.setRightIconLetter(
-                        ColorDrawable(
-                            ActivityCompat.getColor(
-                                requireContext(),
-                                R.color.purple_200
-                            )
-                        ), it.nickname
-                    )
-                } ?: bar.setRightIconLetter(
-                    ActivityCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.icon_user_default
-                    )!!, null
-                )
-            }
-        }
-
-    }
 
 
     abstract fun initView()
 
     abstract fun getLayoutId(): Int
 
-    protected fun setTitle(title: String) {
-        toolbar?.let {
-            if (it is AppBarView) {
-                it.setTitle(title)
-            } else {
-                it.title = title
-            }
-        }
-    }
+
 
 
     override fun onDestroyView() {

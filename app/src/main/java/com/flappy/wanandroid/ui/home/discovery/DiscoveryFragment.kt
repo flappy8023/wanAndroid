@@ -13,6 +13,7 @@ import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import com.flappy.wanandroid.ui.home.HomeBannerAdapter
 import com.flappy.wanandroid.ui.home.HomeTopAdapter
+import com.flappy.wanandroid.ui.home.HomeVM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -25,7 +26,7 @@ import kotlinx.coroutines.flow.filter
  */
 @AndroidEntryPoint
 class DiscoveryFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
-    private val viewModel by viewModels<DiscoveryVM>()
+    private val viewModel by viewModels<HomeVM>()
     private val articleAdapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
     private val bannerAdapter: HomeBannerAdapter by lazy { HomeBannerAdapter() }
     private val topAdapter: HomeTopAdapter by lazy { HomeTopAdapter() }

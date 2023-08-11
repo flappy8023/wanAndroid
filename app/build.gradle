@@ -115,6 +115,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
+    //使用hilt和navigation
+    implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
+
     implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
     implementation 'io.github.jeremyliao:live-event-bus-x:1.8.0'
     //bugly

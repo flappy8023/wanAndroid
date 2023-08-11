@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseToolbarFragment
 import com.flappy.wanandroid.databinding.FragmentSystemBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * @Date: Created in 21:29 2022/10/17
  */
 @AndroidEntryPoint
-class SystemFragment : BaseFragment<FragmentSystemBinding>() {
+class SystemFragment : BaseToolbarFragment<FragmentSystemBinding>() {
 
     private val adapter by lazy { SystemAdapter() }
 

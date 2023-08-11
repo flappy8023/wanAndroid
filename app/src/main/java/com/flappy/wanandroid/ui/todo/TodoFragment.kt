@@ -3,12 +3,14 @@ package com.flappy.wanandroid.ui.todo
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flappy.wanandroid.R
 import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseToolbarFragment
 import com.flappy.wanandroid.data.model.TODO_TYPE_JUST_THIS
 import com.flappy.wanandroid.data.model.TODO_TYPE_LIFE
 import com.flappy.wanandroid.data.model.TODO_TYPE_STUDY
@@ -32,12 +34,12 @@ import kotlinx.coroutines.flow.filter
  * @Date: Created in 22:20 2022/11/8
  */
 @AndroidEntryPoint
-class TodoFragment : BaseFragment<FragmentTodoBinding>() {
+class TodoFragment : BaseToolbarFragment<FragmentTodoBinding>() {
     private var todoAdapter: TodoListAdapter? = null
     private var doneAdapter: TodoListAdapter? = null
     private var notLoginBinding: LayoutNotLoginBinding? = null
     private var curType: Int = TODO_TYPE_JUST_THIS
-    val viewModel: TodoVM by viewModels()
+    val viewModel: TodoVM by hiltNavGraphViewModels(R.id.todo)
     private val itemClickListener = object : TodoListAdapter.ItemClickListener {
         override fun toggleState(todo: Todo, position: Int) {
             toggleTodoStatus(todo, position)
