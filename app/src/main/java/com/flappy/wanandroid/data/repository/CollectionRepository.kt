@@ -1,7 +1,7 @@
 package com.flappy.wanandroid.data.repository
 
+import com.flappy.wanandroid.base.BasePagingSource
 import com.flappy.wanandroid.data.api.ApiService
-import com.flappy.wanandroid.ui.mine.collection.CollectedArticlePagingSource
 import com.flappy.wanandroid.util.safeApiCall
 import javax.inject.Inject
 
@@ -16,7 +16,9 @@ class CollectionRepository @Inject constructor(private val apiService: ApiServic
      *
      * @return
      */
-    fun getCollectedArticlesPagingSource() = CollectedArticlePagingSource(apiService)
+    fun getCollectedArticlesPagingSource() = BasePagingSource {
+        apiService.getCollectList(it)
+    }
 
     /**
      * 获取收藏的网址

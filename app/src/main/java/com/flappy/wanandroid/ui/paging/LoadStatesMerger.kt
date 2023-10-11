@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.paging
+package com.flappy.wanandroid.ui.paging
 
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
@@ -10,11 +10,11 @@ import androidx.paging.LoadType.REFRESH
 import androidx.paging.PagingDataAdapter
 import androidx.paging.PagingSource
 import androidx.paging.RemoteMediator
-import com.flappy.wanandroid.paging.MergedState.NOT_LOADING
-import com.flappy.wanandroid.paging.MergedState.REMOTE_ERROR
-import com.flappy.wanandroid.paging.MergedState.REMOTE_STARTED
-import com.flappy.wanandroid.paging.MergedState.SOURCE_ERROR
-import com.flappy.wanandroid.paging.MergedState.SOURCE_LOADING
+import com.flappy.wanandroid.ui.paging.MergedState.NOT_LOADING
+import com.flappy.wanandroid.ui.paging.MergedState.REMOTE_ERROR
+import com.flappy.wanandroid.ui.paging.MergedState.REMOTE_STARTED
+import com.flappy.wanandroid.ui.paging.MergedState.SOURCE_ERROR
+import com.flappy.wanandroid.ui.paging.MergedState.SOURCE_LOADING
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.scan
 

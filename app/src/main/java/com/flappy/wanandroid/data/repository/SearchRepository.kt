@@ -1,7 +1,7 @@
 package com.flappy.wanandroid.data.repository
 
+import com.flappy.wanandroid.base.BasePagingSource
 import com.flappy.wanandroid.data.api.ApiService
-import com.flappy.wanandroid.ui.search.SearchResultPagingSource
 import com.flappy.wanandroid.util.safeApiCall
 import javax.inject.Inject
 
@@ -15,6 +15,8 @@ class SearchRepository @Inject constructor(private val apiService: ApiService) {
         apiService.getHotKey()
     }
 
-    fun searchArticlePagingSource(keyWords: String) = SearchResultPagingSource(apiService, keyWords)
+    fun searchArticlePagingSource(keyWords: String) = BasePagingSource {
+        apiService.searchArticle(it, keyWords)
+    }
 
 }

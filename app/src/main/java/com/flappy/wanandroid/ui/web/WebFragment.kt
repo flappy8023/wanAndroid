@@ -13,11 +13,12 @@ class WebFragment : BaseToolbarFragment<FragmentWebBinding>() {
     private var url: String = ""
     private val args by navArgs<WebFragmentArgs>()
     private lateinit var webHolder: WebHolder
-    val viewModel by viewModels<WebVM>()
+    private val viewModel by viewModels<WebVM>()
     override fun handleArguments() {
         setTitle(args.title)
         url = args.url ?: ""
     }
+
 
     override fun initView() {
         webHolder = WebHolder(requireContext(), binding.container).setOnTitleCallback {

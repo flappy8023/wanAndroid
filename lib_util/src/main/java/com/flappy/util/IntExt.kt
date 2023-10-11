@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.ext
+package com.flappy.util
 
 import android.content.res.Resources
 

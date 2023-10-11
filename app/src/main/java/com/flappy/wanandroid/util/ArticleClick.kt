@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.ext
+package com.flappy.wanandroid.util
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController

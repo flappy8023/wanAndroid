@@ -1,7 +1,7 @@
 package com.flappy.wanandroid.data.repository
 
+import com.flappy.wanandroid.base.BasePagingSource
 import com.flappy.wanandroid.data.api.ApiService
-import com.flappy.wanandroid.ui.wechat.WechatArticlePagingSource
 import com.flappy.wanandroid.util.safeApiCall
 import javax.inject.Inject
 
@@ -14,6 +14,8 @@ class WechatArticleRepository @Inject constructor(private val apiService: ApiSer
 
     suspend fun getWxAccountList() = safeApiCall { apiService.getWechatAccountList() }
 
-    fun getWxArticleList(id: Long) = WechatArticlePagingSource(apiService, id)
+    fun getWxArticleList(id: Long) = BasePagingSource {
+        apiService.getWechatHistoryArticles(id, it)
+    }
 
 }

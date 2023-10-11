@@ -22,7 +22,7 @@ abstract class BaseVMFragment<VB : ViewDataBinding, VM : BaseViewModel> : BaseFr
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindViewModel()
+        observe()
     }
 
 
@@ -33,7 +33,7 @@ abstract class BaseVMFragment<VB : ViewDataBinding, VM : BaseViewModel> : BaseFr
         viewModel = ViewModelProvider(this).get(model)
     }
 
-    abstract fun bindViewModel()
+    abstract fun observe()
 
 
 }

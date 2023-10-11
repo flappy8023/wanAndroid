@@ -1,19 +1,15 @@
 package com.flappy.wanandroid.ui.home.square
 
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
-import com.flappy.wanandroid.ext.goArticleDetail
-import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import com.flappy.wanandroid.ui.home.HomeVM
+import com.flappy.wanandroid.util.goArticleDetail
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 /**
@@ -22,10 +18,9 @@ import kotlinx.coroutines.launch
  * @Date: Created in 22:47 2022/11/2
  */
 @AndroidEntryPoint
-class SquareFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
-    private val viewModel by viewModels<HomeVM>()
+class SquareFragment : BaseVMFragment<HomeDiscoveryFragmentBinding, HomeVM>() {
     private val adapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
-    fun bindViewModel() {
+    override fun observe() {
         lifecycleScope.launch {
             viewModel.squareList.collectLatest {
                 adapter.submitData(it)
@@ -34,23 +29,16 @@ class SquareFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
     }
 
     override fun initView() {
-        bindViewModel()
         binding.rvArticles.adapter = adapter
         binding.swipeRefresh.setOnRefreshListener {
             adapter.refresh()
         }
         adapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             adapter.loadStateFlow.collect { loadStates ->
                 binding.swipeRefresh.isRefreshing =
                     loadStates.mediator?.refresh is LoadState.Loading
             }
-        }
-        lifecycleScope.launchWhenCreated {
-            adapter.loadStateFlow.asMergedLoadStates()
-                .distinctUntilChangedBy { it.refresh }
-                .filter { it.refresh is LoadState.NotLoading }
-                .collect { binding.rvArticles.scrollToPosition(0) }
         }
     }
 

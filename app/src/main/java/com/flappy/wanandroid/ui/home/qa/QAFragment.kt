@@ -1,19 +1,16 @@
 package com.flappy.wanandroid.ui.home.qa
 
-import androidx.fragment.app.viewModels
+import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
-import com.flappy.wanandroid.ext.goArticleDetail
-import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import com.flappy.wanandroid.ui.home.HomeVM
+import com.flappy.wanandroid.util.goArticleDetail
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 /**
@@ -22,45 +19,37 @@ import kotlinx.coroutines.launch
  * @Date: Created in 22:41 2022/11/2
  */
 @AndroidEntryPoint
-class QAFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
-    private var articleAdapter: HomeArticleAdapter? = null
-    private val viewModel by viewModels<HomeVM>()
-    fun bindViewModel() {
+class QAFragment : BaseVMFragment<HomeDiscoveryFragmentBinding, HomeVM>() {
+    private var articleAdapter: HomeArticleAdapter = HomeArticleAdapter()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun observe() {
 
         lifecycleScope.launch {
             viewModel.qaList.collectLatest {
-                articleAdapter?.submitData(it)
+                articleAdapter.submitData(it)
             }
 
         }
     }
 
     override fun initView() {
-        articleAdapter = HomeArticleAdapter()
         binding.rvArticles.adapter = articleAdapter
-        articleAdapter!!.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
+        articleAdapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
         binding.swipeRefresh.setOnRefreshListener {
-            articleAdapter!!.refresh()
+            articleAdapter.refresh()
         }
         lifecycleScope.launch {
-            articleAdapter!!.loadStateFlow.collect { loadStates ->
+            articleAdapter.loadStateFlow.collect { loadStates ->
                 binding.swipeRefresh.isRefreshing =
                     loadStates.mediator?.refresh is LoadState.Loading
             }
         }
-        lifecycleScope.launch {
-            articleAdapter!!.loadStateFlow.asMergedLoadStates()
-                .distinctUntilChangedBy { it.refresh }.filter { it.refresh is LoadState.NotLoading }
-                .collect { binding.rvArticles.scrollToPosition(0) }
-        }
-        bindViewModel()
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        articleAdapter = null
-    }
 
     override fun getLayoutId() = R.layout.home_discovery_fragment
 }

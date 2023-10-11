@@ -18,10 +18,10 @@ class SystemFragment : BaseToolbarFragment<FragmentSystemBinding>() {
 
     private val adapter by lazy { SystemAdapter() }
 
-    val viewModel: SystemVM by viewModels()
+    private val viewModel by viewModels<SystemVM>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun bindViewModel() {
+    private fun observe() {
         viewModel.trees.observe(viewLifecycleOwner) {
             adapter.addAll(it)
             adapter.notifyDataSetChanged()
@@ -29,10 +29,10 @@ class SystemFragment : BaseToolbarFragment<FragmentSystemBinding>() {
     }
 
     override fun initView() {
-        bindViewModel()
         adapter.itemClickCallback =
             { tree -> findNavController().navigate(SystemFragmentDirections.toSystemList(tree.id)) }
         binding.rvTree.adapter = adapter
+        observe()
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_system

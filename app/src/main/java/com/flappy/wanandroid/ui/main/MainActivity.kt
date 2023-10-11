@@ -7,8 +7,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.flappy.util.switchStatusBarLightMode
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.ext.switchStatusBarLightMode
 import com.flappy.webview.WebViewPool
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint

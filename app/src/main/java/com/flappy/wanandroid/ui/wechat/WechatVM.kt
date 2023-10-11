@@ -26,14 +26,17 @@ class WechatVM @Inject constructor(val repository: WechatArticleRepository) : Ba
     /**
      * 获取公众号列表
      */
-    suspend fun getWechatAccountList() {
-        val result = repository.getWxAccountList()
-        if (result.isSuccess) {
-            wechatAccounts.postValue(result.getOrNull())
+    fun getWechatAccountList() {
+        launch {
+            val result = repository.getWxAccountList()
+            if (result.isSuccess) {
+                wechatAccounts.postValue(result.getOrNull())
+            }
         }
+
     }
 
-    fun wechatArticles(wechatId:Long) =  Pager(config = PagingConfig(30)) {
+    fun wechatArticles(wechatId: Long) = Pager(config = PagingConfig(30)) {
         repository.getWxArticleList(wechatId)
     }.flow.cachedIn(viewModelScope)
 

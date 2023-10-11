@@ -1,14 +1,13 @@
 package com.flappy.wanandroid.ui.search
 
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.SearchResultFragmentBinding
-import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
+import com.flappy.wanandroid.ui.paging.asMergedLoadStates
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -21,17 +20,17 @@ import kotlinx.coroutines.launch
  * @Date: Created in 2022/10/10
  */
 @AndroidEntryPoint
-class SearchResultFragment : BaseFragment<SearchResultFragmentBinding>() {
+class SearchResultFragment : BaseVMFragment<SearchResultFragmentBinding, SearchVM>() {
 
-    private val viewModel by viewModels<SearchVM>()
     private val resultAdapter: HomeArticleAdapter by lazy {
         HomeArticleAdapter()
     }
 
     override fun handleArguments() {
-        val keyword = arguments?.let {
-            it.getString("keyWord", "")
-        }
+        val keyword = arguments?.getString("keyWord", "")
+    }
+
+    override fun observe() {
     }
 
 
@@ -50,13 +49,13 @@ class SearchResultFragment : BaseFragment<SearchResultFragmentBinding>() {
         binding.rvResult.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvResult.adapter = resultAdapter
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             resultAdapter.loadStateFlow.collect { loadStates ->
                 binding.swipeRefresh.isRefreshing =
                     loadStates.mediator?.refresh is LoadState.Loading
             }
         }
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             resultAdapter.loadStateFlow.asMergedLoadStates()
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }

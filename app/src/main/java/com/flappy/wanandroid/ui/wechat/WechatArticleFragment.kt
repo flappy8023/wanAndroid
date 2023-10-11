@@ -1,21 +1,16 @@
 package com.flappy.wanandroid.ui.wechat
 
 import android.os.Bundle
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.data.model.WXOfficialAccount
 import com.flappy.wanandroid.databinding.WechatArtilcleListBinding
-import com.flappy.wanandroid.ext.goArticleDetail
-import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
+import com.flappy.wanandroid.util.goArticleDetail
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 /**
@@ -24,9 +19,8 @@ import kotlinx.coroutines.launch
  * @Date: Created in 12:53 2022/9/8
  */
 @AndroidEntryPoint
-class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding>() {
+class WechatArticleFragment : BaseVMFragment<WechatArtilcleListBinding, WechatVM>() {
     private var wechatId: Long? = null
-    val viewModel: WechatVM by viewModels()
     private val adapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
 
     companion object {
@@ -46,7 +40,7 @@ class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding>() {
     }
 
 
-    fun bindViewModel() {
+    override fun observe() {
         lifecycleScope.launch {
             viewModel.wechatArticles(wechatId!!).collectLatest {
                 adapter.submitData(it)
@@ -61,20 +55,7 @@ class WechatArticleFragment : BaseFragment<WechatArtilcleListBinding>() {
         binding.swipeRefresh.setOnRefreshListener {
             adapter.refresh()
         }
-        lifecycleScope.launch {
-            adapter.loadStateFlow.collect { loadStates ->
-                binding.swipeRefresh.isRefreshing =
-                    loadStates.mediator?.refresh is LoadState.Loading
-            }
-        }
-        lifecycleScope.launch {
-            adapter.loadStateFlow.asMergedLoadStates()
-                .distinctUntilChangedBy { it.refresh }
-                .filter { it.refresh is LoadState.NotLoading }
-                .collect { binding.rvArticles.scrollToPosition(0) }
-        }
         adapter.itemClick = { _, article -> goArticleDetail(article.title, article.link) }
-        bindViewModel()
     }
 
     override fun getLayoutId(): Int = R.layout.wechat_artilcle_list

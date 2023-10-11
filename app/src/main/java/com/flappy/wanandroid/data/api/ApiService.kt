@@ -1,6 +1,7 @@
 package com.flappy.wanandroid.data.api
 
 import com.flappy.wanandroid.data.model.*
+import com.flappy.wanandroid.util.Config
 import retrofit2.http.*
 
 /**
@@ -21,7 +22,7 @@ interface ApiService {
     @GET("article/list/{pageNo}/json")
     suspend fun getHomeArticleList(
         @Path("pageNo") pageNo: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("pageSize") pageSize: Int = Config.PAGE_SIZE
     ): ApiResponse<PagedData<Article>>
 
 
@@ -69,7 +70,7 @@ interface ApiService {
     suspend fun getArticlesOfTree(
         @Path("page") page: Int,
         @Query("cid") cid: Long,
-        @Query("pageSize") pageSize: Int
+        @Query("pageSize") pageSize: Int = Config.PAGE_SIZE
     ): ApiResponse<PagedData<Article>>
 
     /**
@@ -148,7 +149,7 @@ interface ApiService {
     @GET("lg/collect/list/{pageNo}/json")
     suspend fun getCollectList(
         @Path("pageNo") pageNo: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("pageSize") pageSize: Int = Config.PAGE_SIZE
     ): ApiResponse<PagedData<Article>>
 
     /**
@@ -251,8 +252,8 @@ interface ApiService {
     @POST("article/query/{pageNo}/json")
     suspend fun searchArticle(
         @Path("pageNo") pageNo: Int,
-        @Query("pageSize") pageSize: Int,
-        @Field("k") keyword: String
+        @Field("k") keyword: String,
+        @Query("pageSize") pageSize: Int = Config.PAGE_SIZE
     ): ApiResponse<PagedData<Article>>
 
     /**
@@ -362,7 +363,7 @@ interface ApiService {
     @GET("user_article/list/{pageNo}/json")
     suspend fun getSquareArticleList(
         @Path("pageNo") pageNo: Int,
-        @Query("page_size") pageSize: Int
+        @Query("page_size") pageSize: Int = Config.PAGE_SIZE
     ): ApiResponse<PagedData<Article>>
 
 
@@ -414,7 +415,7 @@ interface ApiService {
     @GET("wenda/list/{pageNo}/json")
     suspend fun getQAList(
         @Path("pageNo") pageNo: Int,
-        @Query("page_size") pageSize: Int = 30
+        @Query("page_size") pageSize: Int = Config.PAGE_SIZE
     ): ApiResponse<PagedData<Article>>
 
 
@@ -447,7 +448,7 @@ interface ApiService {
     @GET("message/lg/readed_list/{pageNo}/json")
     suspend fun getReadedMsgList(
         @Path("pageNo") pageNo: Int,
-        @Query("page_size") pageSize: Int
+        @Query("page_size") pageSize: Int = Config.PAGE_SIZE
     ): ApiResponse<PagedData<Message>>
 
     /**
@@ -459,7 +460,7 @@ interface ApiService {
     @GET("message/lg/unread_list/{pageNo}/json")
     suspend fun getUnreadMsgList(
         @Path("pageNo") pageNo: Int,
-        @Query("page_size") pageSize: Int
+        @Query("page_size") pageSize: Int = Config.PAGE_SIZE
     ): ApiResponse<PagedData<Message>>
 
 
@@ -479,7 +480,7 @@ interface ApiService {
     suspend fun getWechatHistoryArticles(
         @Path("id") id: Long,
         @Path("pageNo") pageNo: Int,
-        @Query("page_size") pageSize: Int
+        @Query("page_size") pageSize: Int = Config.PAGE_SIZE
     ): ApiResponse<PagedData<Article>>
 
     /**
@@ -519,7 +520,7 @@ interface ApiService {
     @GET("article/list/{pageNo}/json")
     suspend fun getTutorialArticleList(
         @Path("pageNo") pageNo: Int,
-        @Query("page_size") pageSize: Int,
+        @Query("page_size") pageSize: Int = Config.PAGE_SIZE,
         @Query("cid") cid: Long
     ): ApiResponse<PagedData<Article>>
 

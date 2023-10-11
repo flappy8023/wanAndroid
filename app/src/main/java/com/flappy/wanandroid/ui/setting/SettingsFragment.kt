@@ -1,5 +1,7 @@
 package com.flappy.wanandroid.ui.setting
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
@@ -41,6 +43,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     "night" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 }
+                true
+            }
+        }
+        findPreference<Preference>("github_url")?.apply {
+            //浏览器打开github仓库
+            setOnPreferenceClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(summary.toString()))
+                requireContext().startActivity(intent)
                 true
             }
         }

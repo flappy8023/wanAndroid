@@ -7,8 +7,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.MyApp
 import com.flappy.wanandroid.NavMainDirections
-import com.flappy.wanandroid.ext.dataStore
 import com.flappy.wanandroid.util.UserManager
+import com.flappy.wanandroid.util.dataStore
 import com.jeremyliao.liveeventbus.LiveEventBus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first

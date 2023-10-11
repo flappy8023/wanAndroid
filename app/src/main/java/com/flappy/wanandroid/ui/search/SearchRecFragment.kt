@@ -1,9 +1,8 @@
 package com.flappy.wanandroid.ui.search
 
 import android.view.LayoutInflater
-import androidx.fragment.app.viewModels
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.SearchRecFragmentBinding
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,9 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * @Date: Created in 22:09 2022/9/21
  */
 @AndroidEntryPoint
-class SearchRecFragment : BaseFragment<SearchRecFragmentBinding>() {
-    val viewModel by viewModels<SearchVM>()
-    fun bindViewModel() {
+class SearchRecFragment : BaseVMFragment<SearchRecFragmentBinding, SearchVM>() {
+    override fun observe() {
         viewModel.hotWords.observe(viewLifecycleOwner) {
             it?.let {
                 setLabels(it)
@@ -25,7 +23,6 @@ class SearchRecFragment : BaseFragment<SearchRecFragmentBinding>() {
     }
 
     override fun initView() {
-        bindViewModel()
     }
 
     override fun getLayoutId(): Int = R.layout.search_rec_fragment

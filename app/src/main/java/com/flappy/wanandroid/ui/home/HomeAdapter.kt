@@ -17,9 +17,6 @@ import com.flappy.wanandroid.data.model.Article
 import com.flappy.wanandroid.data.model.BannerItem
 import com.flappy.wanandroid.databinding.HomeItemArticleBinding
 import com.flappy.wanandroid.databinding.HomeItemBannerBinding
-import com.flappy.wanandroid.ui.home.discovery.DiscoveryFragment
-import com.flappy.wanandroid.ui.home.qa.QAFragment
-import com.flappy.wanandroid.ui.home.square.SquareFragment
 import com.youth.banner.indicator.CircleIndicator
 
 /**
@@ -87,7 +84,7 @@ class HomeArticleAdapter :
     }
 }
 
-class HomeBannerAdapter() : BaseRecyclerViewAdapter<BannerItem, HomeItemBannerBinding>(){
+class HomeBannerAdapter() : BaseRecyclerViewAdapter<BannerItem, HomeItemBannerBinding>() {
 
     override fun getItemCount(): Int {
         //作为首页的一个item展示
@@ -117,16 +114,12 @@ class HomeBannerAdapter() : BaseRecyclerViewAdapter<BannerItem, HomeItemBannerBi
 }
 
 
-class HomePageAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
+class HomePageAdapter(val fragments: List<Fragment>, fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
-    override fun getItemCount() = 3
+    override fun getItemCount() = fragments.size
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> DiscoveryFragment()
-            1 -> QAFragment()
-            else -> SquareFragment()
-        }
+        return fragments[position]
     }
 
 

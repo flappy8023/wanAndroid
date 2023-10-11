@@ -7,6 +7,7 @@ import com.flappy.wanandroid.base.BaseToolbarFragment
 import com.flappy.wanandroid.databinding.FragmentWechatBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 /**
  * @Author: luweiming
@@ -15,23 +16,25 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class WechatFragment : BaseToolbarFragment<FragmentWechatBinding>() {
-    val viewModel by viewModels<WechatVM>()
-    fun bindViewModel() {
-        viewModel.wechatAccounts.observe(viewLifecycleOwner) {
-            val adapter = WechatPageAdapter(this, it)
-            binding.vpWechat.adapter = adapter
-            TabLayoutMediator(binding.tabWechat, binding.vpWechat) { tab, position ->
-                tab.text = it[position].name
-            }.attach()
+    private val viewModel by viewModels<WechatVM>()
+    private lateinit var adapter: WechatPageAdapter
 
+
+    private fun bindViewModel() {
+        viewModel.wechatAccounts.observe(viewLifecycleOwner) {
+            adapter.replaceData(it)
         }
     }
 
     override fun initView() {
-        bindViewModel()
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             viewModel.getWechatAccountList()
         }
+        adapter = WechatPageAdapter(this, viewLifecycleOwner.lifecycle, mutableListOf())
+        binding.vpWechat.adapter = adapter
+        TabLayoutMediator(binding.tabWechat, binding.vpWechat) { tab, position ->
+            tab.text = adapter.wxAccounts[position].name
+        }.attach()
         bindViewModel()
     }
 

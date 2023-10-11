@@ -2,12 +2,11 @@ package com.flappy.wanandroid.ui.mine.collection
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.CommonListFragmentBinding
-import com.flappy.wanandroid.ext.goArticleDetail
+import com.flappy.wanandroid.util.goArticleDetail
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,21 +16,20 @@ import dagger.hilt.android.AndroidEntryPoint
  * @Date: Created in 15:28 2022/12/7
  */
 @AndroidEntryPoint
-class CollectedWebsiteFragment : BaseFragment<CommonListFragmentBinding>() {
-    private var adapter: CollectedWebsiteAdapter? = null
+class CollectedWebsiteFragment : BaseVMFragment<CommonListFragmentBinding, CollectionVM>() {
+    private val adapter: CollectedWebsiteAdapter by lazy { CollectedWebsiteAdapter() }
 
-    //同级页面共用viewModel
-    private val viewModel by viewModels<CollectionVM>(ownerProducer = { requireParentFragment() })
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.websites.observe(viewLifecycleOwner) {
-            adapter?.clear()
-            adapter?.addAll(it)
+            adapter.addAll(it)
         }
     }
 
+    override fun observe() {
+    }
+
     override fun initView() {
-        adapter = CollectedWebsiteAdapter()
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(
             MaterialDividerItemDecoration(
@@ -39,7 +37,7 @@ class CollectedWebsiteFragment : BaseFragment<CommonListFragmentBinding>() {
                 LinearLayoutManager.VERTICAL
             )
         )
-        adapter?.itemClick = { _, data -> goArticleDetail(data.name, data.link) }
+        adapter.itemClick = { _, data -> goArticleDetail(data.name, data.link) }
 
     }
 

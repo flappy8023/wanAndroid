@@ -6,7 +6,6 @@ import androidx.preference.PreferenceManager
 import com.flappy.wanandroid.data.db.WanDB
 import com.flappy.wanandroid.util.DarkModeUtil
 import com.flappy.webview.WebViewPool
-import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
 import dagger.hilt.android.HiltAndroidApp
@@ -47,8 +46,6 @@ class MyApp : Application() {
         WanDB.init(this)
         //webview池初始化
         WebViewPool.get().init(app)
-        //初始化Bugly
-        CrashReport.initCrashReport(this, BuildConfig.BUGLY_APPID, BuildConfig.DEBUG)
         val darkModeValue =
             PreferenceManager.getDefaultSharedPreferences(app).getString("dark_mode", "auto")
         DarkModeUtil.initDarkMode(darkModeValue)

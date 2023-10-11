@@ -1,23 +1,21 @@
 package com.flappy.wanandroid.ui.home.discovery
 
-import androidx.fragment.app.viewModels
+import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.HomeDiscoveryFragmentBinding
-import com.flappy.wanandroid.ext.goArticleDetail
-import com.flappy.wanandroid.paging.asMergedLoadStates
 import com.flappy.wanandroid.ui.home.HomeArticleAdapter
 import com.flappy.wanandroid.ui.home.HomeBannerAdapter
 import com.flappy.wanandroid.ui.home.HomeTopAdapter
 import com.flappy.wanandroid.ui.home.HomeVM
+import com.flappy.wanandroid.util.goArticleDetail
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 /**
  * @Author: luweiming
@@ -25,24 +23,27 @@ import kotlinx.coroutines.flow.filter
  * @Date: Created in 22:47 2022/11/2
  */
 @AndroidEntryPoint
-class DiscoveryFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
-    private val viewModel by viewModels<HomeVM>()
-    private val articleAdapter: HomeArticleAdapter by lazy { HomeArticleAdapter() }
-    private val bannerAdapter: HomeBannerAdapter by lazy { HomeBannerAdapter() }
-    private val topAdapter: HomeTopAdapter by lazy { HomeTopAdapter() }
-    fun bindViewModel() {
+class DiscoveryFragment : BaseVMFragment<HomeDiscoveryFragmentBinding, HomeVM>() {
+    private lateinit var articleAdapter: HomeArticleAdapter
+    private lateinit var bannerAdapter: HomeBannerAdapter
+    private lateinit var topAdapter: HomeTopAdapter
+    private lateinit var concatAdapter: ConcatAdapter
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //页面创建后，请求轮播数据、置顶内容、文章列表
+        viewModel.getBanners()
+        viewModel.getTops()
+    }
+
+    override fun observe() {
         viewModel.banners.observe(viewLifecycleOwner) {
-            bannerAdapter.clear()
             bannerAdapter.addAll(it)
         }
         viewModel.tops.observe(viewLifecycleOwner) {
-            topAdapter.clear()
             topAdapter.addAll(it)
         }
-        //页面创建后，请求轮播数据、置顶内容、文章列表
-        lifecycleScope.launchWhenCreated {
-            viewModel.getBanners()
-            viewModel.getTops()
+        lifecycleScope.launch {
+
             viewModel.articles.collectLatest {
                 articleAdapter.submitData(it)
             }
@@ -50,18 +51,16 @@ class DiscoveryFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
     }
 
     override fun initView() {
-        bindViewModel()
+        topAdapter = HomeTopAdapter()
+        bannerAdapter = HomeBannerAdapter()
+        articleAdapter = HomeArticleAdapter()
+        concatAdapter = ConcatAdapter(bannerAdapter, topAdapter, articleAdapter)
         initListener()
         binding.apply {
             rvArticles.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             //为了解决分页请求一次性加载的问题，将首页所有的内容放到一个recyclerview进行展示，使用ConcatAdapter聚合轮播、置顶、文章列表的适配器
-            val adapter = ConcatAdapter(bannerAdapter, topAdapter, articleAdapter)
-            rvArticles.adapter = adapter
-            //fragment重建后恢复recyclerview滚动位置
-//            bannerAdapter.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
-//            topAdapter.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
-//            articleAdapter.setStateRestorationPolicy(StateRestorationPolicy.PREVENT_WHEN_EMPTY)
+            rvArticles.adapter = concatAdapter
 
             swipeRefresh.setOnRefreshListener {
                 viewModel.getBanners()
@@ -69,17 +68,12 @@ class DiscoveryFragment : BaseFragment<HomeDiscoveryFragmentBinding>() {
                 articleAdapter.refresh()
             }
         }
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             articleAdapter.loadStateFlow.collect { loadStates ->
                 binding.swipeRefresh.isRefreshing =
                     loadStates.mediator?.refresh is LoadState.Loading
             }
-        }
-        lifecycleScope.launchWhenCreated {
-            articleAdapter.loadStateFlow.asMergedLoadStates()
-                .distinctUntilChangedBy { it.refresh }
-                .filter { it.refresh is LoadState.NotLoading }
-                .collect { binding.rvArticles.scrollToPosition(0) }
+
         }
 
     }

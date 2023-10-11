@@ -1,7 +1,7 @@
 package com.flappy.wanandroid.data.repository
 
+import com.flappy.wanandroid.base.BasePagingSource
 import com.flappy.wanandroid.data.api.ApiService
-import com.flappy.wanandroid.ui.system.TreeArticlesPagingSource
 import javax.inject.Inject
 
 /**
@@ -12,5 +12,7 @@ import javax.inject.Inject
 class SystemRepository @Inject constructor(val apiService: ApiService) {
     suspend fun getSystemTree() = apiService.getTrees()
 
-    fun getArticlesOfTree(cid: Long) = TreeArticlesPagingSource(apiService, cid)
+    fun getArticlesOfTree(cid: Long) = BasePagingSource {
+        apiService.getArticlesOfTree(it, cid)
+    }
 }

@@ -23,6 +23,7 @@ class WebViewPool private constructor() : IWebViewPool {
     private val webViewCache: MutableList<IRecyclable> = ArrayList(1)
     override fun init(context: Context) {
         if (webViewCache.isEmpty()) {
+            //主线程空闲时初始化webview
             Looper.myQueue().addIdleHandler {
                 webViewCache.add(create(MutableContextWrapper(context)))
                 false

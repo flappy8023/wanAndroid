@@ -3,23 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarLayout"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/transparent"
-            app:elevation="0dp"
-            android:layout_height="wrap_content">
+            app:elevation="0dp">
 
             <include layout="@layout/include_toolbar" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_home"
-                android:background="@color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/transparent"
                 app:layout_scrollFlags="noScroll" />
         </com.google.android.material.appbar.AppBarLayout>
 

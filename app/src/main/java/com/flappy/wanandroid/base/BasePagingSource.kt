@@ -12,9 +12,11 @@ import com.flappy.wanandroid.util.safeApiCall
  * @Description:抽离获取分页数据的公共逻辑，子类实现具体的请求函数执行分页请求
  * @Date: Created in 9:30 2022/11/4
  */
-abstract class BasePagingSource<T : Any> :
+class BasePagingSource<T : Any>(
+    val startPage: Int = 0,
+    val block: suspend (Int) -> ApiResponse<PagedData<T>>
+) :
     PagingSource<Int, T>() {
-    open var startPage = 0
 
     companion object {
         const val PAGE_SIZE = 30
@@ -28,7 +30,7 @@ abstract class BasePagingSource<T : Any> :
         //第一次加载params.key为空
         val page = params.key ?: startPage
         val result = safeApiCall {
-            doRequest(page)
+            block(page)
         }
         val nextPage = result.getOrNull()?.let { if (page >= it.pageCount - 1) null else page + 1 }
         if (result.isSuccess) {
@@ -47,6 +49,5 @@ abstract class BasePagingSource<T : Any> :
         }
     }
 
-    abstract suspend fun doRequest(page: Int): ApiResponse<PagedData<T>>
 
 }

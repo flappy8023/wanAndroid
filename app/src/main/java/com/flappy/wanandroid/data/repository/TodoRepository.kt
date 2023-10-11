@@ -3,9 +3,9 @@ package com.flappy.wanandroid.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.flappy.wanandroid.Const
+import com.flappy.wanandroid.base.BasePagingSource
 import com.flappy.wanandroid.data.api.ApiService
 import com.flappy.wanandroid.data.model.Todo
-import com.flappy.wanandroid.ui.todo.TodoPagingSource
 import com.flappy.wanandroid.util.safeApiCall
 import javax.inject.Inject
 
@@ -19,11 +19,9 @@ class TodoRepository @Inject constructor(private val apiService: ApiService) {
         Pager(
             config = PagingConfig(Const.PAGE_SIZE),
             pagingSourceFactory = {
-                TodoPagingSource(
-                    apiService,
-                    status,
-                    type
-                )
+                BasePagingSource(1) {
+                    apiService.getTODOList(it, status, type)
+                }
             })
 
     suspend fun addTodo(title: String, content: String, date: String?, type: Int, priority: Int) =

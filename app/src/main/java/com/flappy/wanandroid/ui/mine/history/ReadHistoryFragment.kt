@@ -1,10 +1,9 @@
 package com.flappy.wanandroid.ui.mine.history
 
-import androidx.fragment.app.viewModels
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.databinding.CommonListFragmentBinding
-import com.flappy.wanandroid.ext.goArticleDetail
+import com.flappy.wanandroid.util.goArticleDetail
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -13,17 +12,15 @@ import dagger.hilt.android.AndroidEntryPoint
  * @Date: Created in 17:41 2022/12/7
  */
 @AndroidEntryPoint
-class ReadHistoryFragment : BaseFragment<CommonListFragmentBinding>() {
+class ReadHistoryFragment : BaseVMFragment<CommonListFragmentBinding, ReadHistoryVM>() {
     private val adapter: ReadHistoryAdapter by lazy { ReadHistoryAdapter() }
-    private val viewModel by viewModels<ReadHistoryVM>()
     override fun initView() {
-        bindViewModel()
         binding.recyclerView.adapter = adapter
         adapter.itemClick = { p, data -> goArticleDetail(data.title, data.link) }
     }
 
     override fun getLayoutId(): Int = R.layout.common_list_fragment
-    fun bindViewModel() {
+    override fun observe() {
         viewModel.histories.observe(this) {
             adapter.addAll(it)
         }

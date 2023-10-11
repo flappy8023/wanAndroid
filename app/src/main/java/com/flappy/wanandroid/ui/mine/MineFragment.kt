@@ -3,10 +3,9 @@ package com.flappy.wanandroid.ui.mine
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
+import com.flappy.wanandroid.base.BaseVMFragment
 import com.flappy.wanandroid.data.model.MineMenu
 import com.flappy.wanandroid.data.model.UserInfoData
 import com.flappy.wanandroid.databinding.FragmentMineBinding
@@ -20,9 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * @Date: Created in 21:30 2022/10/17
  */
 @AndroidEntryPoint
-class MineFragment : BaseFragment<FragmentMineBinding>() {
-    private val viewModel by viewModels<MineVM>()
-    fun bindViewModel() {
+class MineFragment : BaseVMFragment<FragmentMineBinding, MineVM>() {
+    override fun observe() {
         viewModel.userInfo.observe(this) {
             it?.let {
                 showUserInfo(it)
@@ -33,7 +31,6 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
 
 
     override fun initView() {
-        bindViewModel()
         if (LoginHelper.isLogin())
             viewModel.getUserInfo()
         else showNotLogin()
@@ -59,10 +56,10 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
                     getString(R.string.my_collection)
                 ),
                 MineMenu(R.drawable.ic_round_history_24, getString(R.string.read_history)),
-                MineMenu(
-                    R.drawable.ic_round_share_24,
-                    getString(R.string.mine_share)
-                ),
+//                MineMenu(
+//                    R.drawable.ic_round_share_24,
+//                    getString(R.string.mine_share)
+//                ),
                 MineMenu(R.drawable.ic_round_settings_24, getString(R.string.settings))
             )
         val adapter = MineMenuAdapter()
@@ -74,7 +71,7 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
                     { findNavController().navigate(MineFragmentDirections.actionGoCollection()) })
                 1 -> findNavController().navigate(MineFragmentDirections.actionGoReadHistory())
 //                2 -> goArticleDetail("", data.subTitle!!)
-                3 -> findNavController().navigate(MineFragmentDirections.actionGlobalSettingsFragment())
+                2 -> findNavController().navigate(MineFragmentDirections.actionGlobalSettingsFragment())
             }
         }
     }

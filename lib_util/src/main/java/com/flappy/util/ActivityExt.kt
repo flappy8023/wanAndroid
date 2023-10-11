@@ -1,4 +1,4 @@
-package com.flappy.wanandroid.ext
+package com.flappy.util
 
 import android.app.Activity
 import android.os.Build

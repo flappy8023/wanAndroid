@@ -2,14 +2,13 @@ package com.flappy.wanandroid.ui.todo
 
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.flappy.util.px
 import com.flappy.wanandroid.R
-import com.flappy.wanandroid.base.BaseFragment
 import com.flappy.wanandroid.base.BaseToolbarFragment
 import com.flappy.wanandroid.data.model.TODO_TYPE_JUST_THIS
 import com.flappy.wanandroid.data.model.TODO_TYPE_LIFE
@@ -18,8 +17,7 @@ import com.flappy.wanandroid.data.model.TODO_TYPE_WORK
 import com.flappy.wanandroid.data.model.Todo
 import com.flappy.wanandroid.databinding.FragmentTodoBinding
 import com.flappy.wanandroid.databinding.LayoutNotLoginBinding
-import com.flappy.wanandroid.ext.px
-import com.flappy.wanandroid.paging.asMergedLoadStates
+import com.flappy.wanandroid.ui.paging.asMergedLoadStates
 import com.flappy.wanandroid.util.login.LoginHelper
 import com.flappy.wanandroid.util.login.LoginIntercept
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -27,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 /**
  * @Author: luweiming
@@ -35,11 +34,16 @@ import kotlinx.coroutines.flow.filter
  */
 @AndroidEntryPoint
 class TodoFragment : BaseToolbarFragment<FragmentTodoBinding>() {
-    private var todoAdapter: TodoListAdapter? = null
-    private var doneAdapter: TodoListAdapter? = null
+    private val todoAdapter: TodoListAdapter by lazy { TodoListAdapter() }
+    private val doneAdapter: TodoListAdapter by lazy { TodoListAdapter() }
     private var notLoginBinding: LayoutNotLoginBinding? = null
     private var curType: Int = TODO_TYPE_JUST_THIS
-    val viewModel: TodoVM by hiltNavGraphViewModels(R.id.todo)
+    private val decoration by lazy {
+        MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL).apply {
+            dividerInsetStart = 68.px
+        }
+    }
+    private val viewModel: TodoVM by hiltNavGraphViewModels(R.id.todo)
     private val itemClickListener = object : TodoListAdapter.ItemClickListener {
         override fun toggleState(todo: Todo, position: Int) {
             toggleTodoStatus(todo, position)
@@ -56,7 +60,6 @@ class TodoFragment : BaseToolbarFragment<FragmentTodoBinding>() {
 
 
     fun bindViewModel() {
-        findNavController()
         Log.d("fffff", hashCode().toString())
         viewModel.needRefresh.observe(this) {
             if (it) requestTodoList()
@@ -64,7 +67,6 @@ class TodoFragment : BaseToolbarFragment<FragmentTodoBinding>() {
     }
 
     override fun initView() {
-        bindViewModel()
         if (LoginHelper.isLogin()) {
             showTodoList()
         } else {
@@ -77,12 +79,13 @@ class TodoFragment : BaseToolbarFragment<FragmentTodoBinding>() {
         binding.cgType.isSingleSelection = true
 
         initListener()
+        bindViewModel()
     }
 
     private fun initListener() {
         binding.swipeRefresh.setOnRefreshListener {
-            todoAdapter?.refresh()
-            doneAdapter?.refresh()
+            todoAdapter.refresh()
+            doneAdapter.refresh()
         }
         notLoginBinding?.btGoLogin?.setOnClickListener {
             goLogin()
@@ -135,26 +138,23 @@ class TodoFragment : BaseToolbarFragment<FragmentTodoBinding>() {
         initRecyclerView()
         //确认登录状态后，请求todo列表
         requestTodoList()
-        lifecycleScope.launchWhenCreated {
-            todoAdapter!!.loadStateFlow.collect { loadStates ->
+        lifecycleScope.launch {
+            todoAdapter.loadStateFlow.collect { loadStates ->
                 binding.swipeRefresh.isRefreshing =
                     loadStates.mediator?.refresh is LoadState.Loading
             }
-        }
-        lifecycleScope.launchWhenCreated {
-            todoAdapter!!.loadStateFlow.asMergedLoadStates()
+
+            todoAdapter.loadStateFlow.asMergedLoadStates()
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }
                 .collect { binding.rvTodo.scrollToPosition(0) }
-        }
-        lifecycleScope.launchWhenCreated {
-            doneAdapter!!.loadStateFlow.collect { loadStates ->
+
+            doneAdapter.loadStateFlow.collect { loadStates ->
                 binding.swipeRefresh.isRefreshing =
                     loadStates.mediator?.refresh is LoadState.Loading
             }
-        }
-        lifecycleScope.launchWhenCreated {
-            doneAdapter!!.loadStateFlow.asMergedLoadStates()
+
+            doneAdapter.loadStateFlow.asMergedLoadStates()
                 .distinctUntilChangedBy { it.refresh }
                 .filter { it.refresh is LoadState.NotLoading }
                 .collect { binding.rvDone.scrollToPosition(0) }
@@ -172,32 +172,36 @@ class TodoFragment : BaseToolbarFragment<FragmentTodoBinding>() {
 
     private fun requestTodoList() {
 
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             //请求未完成todo
             viewModel.getTodoPageSource(curType).collectLatest {
-                todoAdapter?.submitData(it)
+                todoAdapter.submitData(it)
             }
         }
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             viewModel.getDonePageSource(curType).collectLatest {
-                doneAdapter?.submitData(it)
+                doneAdapter.submitData(it)
             }
         }
     }
 
     private fun initRecyclerView() {
-        doneAdapter = TodoListAdapter()
-        doneAdapter!!.clickListener = itemClickListener
-        todoAdapter = TodoListAdapter()
-        todoAdapter!!.clickListener = itemClickListener
-        val decoration =
-            MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-        decoration.dividerInsetStart = 68.px
-        binding.rvTodo.addItemDecoration(decoration)
-        binding.rvTodo.adapter = todoAdapter
+        doneAdapter.clickListener = itemClickListener
+        todoAdapter.clickListener = itemClickListener
 
-        binding.rvDone.addItemDecoration(decoration)
-        binding.rvDone.adapter = doneAdapter
+        binding.rvTodo.apply {
+            if (itemDecorationCount == 0) {
+                addItemDecoration(decoration)
+            }
+            adapter = todoAdapter
+        }
+
+        binding.rvDone.apply {
+            if (itemDecorationCount == 0) {
+                addItemDecoration(decoration)
+            }
+            adapter = doneAdapter
+        }
     }
 
     override fun getLayoutId() = R.layout.fragment_todo
