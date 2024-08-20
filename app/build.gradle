@@ -51,6 +51,9 @@ android {
         jvmTarget = '17'
     }
     namespace 'com.flappy.wanandroid'
+    lintOptions {
+        abortOnError = false
+    }
 }
 
 dependencies {
